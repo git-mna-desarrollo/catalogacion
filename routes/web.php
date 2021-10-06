@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
     return view('home');
 });*/
 
-Route::get('/', 'SocialController@inicio');
+// Route::get('/', 'SocialController@inicio');
+Route::get('/', 'UserController@listado');
 // Route::get('/', 'home');
 
 Auth::routes();
@@ -28,6 +29,9 @@ Auth::routes();
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
 Route::get('Panel/inicio', 'PanelController@inicio');
+
+// PATRIMONIO
+Route::get('patrimonio/formulario', 'PatrimonioController@formulario');
 
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
