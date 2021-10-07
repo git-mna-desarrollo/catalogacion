@@ -16,7 +16,8 @@ class PatrimonioController extends Controller
         $localidades = Localidad::all();
         $provincias = Provincia::all();
         $tecnicas = Tecnicamaterial::all();
-        dd($tecnicas);
-        return view('patrimonio.formulario');
+        $ubicaciones = Ubicacion::all();
+        // dd($tecnicas);
+        return view('patrimonio.formulario')->with(compact('departamentos', 'localidades', 'provincias', 'tecnicas', 'ubicaciones'));
     }
 }

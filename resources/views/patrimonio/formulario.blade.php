@@ -24,34 +24,52 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-md-5">
+                        
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Nombre
-                                    <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required />
+                                <label for="exampleInputPassword1">Localidad
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                    @forelse ($localidades as $l)
+                                        <option value="{{ $l->id }}">{{ $l->nombre }}</option>
+                                    @empty
+
+                                    @endforelse
+                                </select>                                
                             </div>
                         </div>
-                        <div class="col-md-2">
+
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Carnet
-                                    <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="ci" name="ci" required />
+                                <label for="exampleInputPassword1">Ciudad
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                    @forelse ($departamentos as $d)
+                                    <option value="{{ $d->id }}">{{ $d->nombre }}</option>
+                                    @empty
+                        
+                                    @endforelse
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Email
-                                    <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" name="email" required />
+                                <label for="exampleInputPassword1">Provincia
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                    @forelse ($provincias as $p)
+                                    <option value="{{ $p->id }}">{{ $p->nombre }}</option>
+                                    @empty
+                        
+                                    @endforelse
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Fecha Nacimiento
-                                    <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="row">
