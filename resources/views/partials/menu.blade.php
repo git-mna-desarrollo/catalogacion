@@ -3,20 +3,16 @@
 	<div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
 		<!--begin::Menu Nav-->
 		<ul class="menu-nav">
-			<li class="menu-item" aria-haspopup="true">
+			{{-- <li class="menu-item" aria-haspopup="true">
 				<a href="index.html" class="menu-link">
-					<span class="svg-icon menu-icon">
-						<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
-						
-						<!--end::Svg Icon-->
-					</span>
-					<span class="menu-text">Dashboard</span>
+					<span class="menu-icon"><i class="far fa-images"></i></span>
+					<span class="menu-text">Panel</span>
 				</a>
 			</li>
 			<li class="menu-section">
 				<h4 class="menu-text">Administracion</h4>
 				<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-			</li>
+			</li> --}}
 		
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 				<a href="javascript:;" class="menu-link menu-toggle">
