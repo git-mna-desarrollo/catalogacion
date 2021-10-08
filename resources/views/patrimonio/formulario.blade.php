@@ -20,7 +20,7 @@
                 
             </div>
             <!--begin::Form-->
-            <form action="{{ url('User/guarda') }}" method="POST" id="formularioPersona">
+            <form action="{{ url('patrimonio/guarda') }}" method="POST" id="formularioPersona">
                 @csrf
                 <div class="card-body">
 
@@ -88,7 +88,7 @@
                                             <label for="exampleInputPassword1">DEPARTAMENTO
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                            <select class="form-control" id="departamento_id" name="departamento_id" style="width: 100%">
                                                 @forelse ($departamentos as $d)
                                                 <option value="{{ $d->id }}">{{ $d->nombre }}</option>
                                                 @empty
@@ -103,7 +103,7 @@
                                             <label for="exampleInputPassword1">PROVINCIA
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                            <select class="form-control" id="provincia_id" name="provincia_id" style="width: 100%">
                                                 @forelse ($provincias as $p)
                                                 <option value="{{ $p->id }}">{{ $p->nombre }}</option>
                                                 @empty
@@ -118,7 +118,7 @@
                                             <label for="exampleInputPassword1">UBICACION
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                            <select class="form-control" id="ubicacion_id" name="ubicacion_id" style="width: 100%">
                                                 @forelse ($ubicaciones as $u)
                                                 <option value="{{ $u->id }}">{{ $u->nombre }}</option>
                                                 @empty
@@ -136,7 +136,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DIRECCION
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" required />
+                                            <input type="text" class="form-control" id="direccion" name="direccion" />
                                         </div>
                                     </div>
                                 
@@ -144,7 +144,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">RESPONSABLE
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="ci" name="ci" required />
+                                            <input type="number" class="form-control" id="responsable" name="responsable" readonly />
                                         </div>
                                     </div>
                                 
@@ -169,21 +169,21 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">ESPECIALIDAD
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="ci" name="ci" required />
+                                            <input type="text" class="form-control" id="especialidad" name="especialidad" />
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Estilo
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="email" name="email" required />
+                                            <input type="text" class="form-control" id="estilo" name="estilo" required />
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Escuela
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
+                                            <input type="text" class="form-control" id="escuela" name="escuela" />
                                         </div>
                                     </div>
                                 
@@ -195,21 +195,21 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Epoca y/o Fecha
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" required />
+                                            <input type="text" class="form-control" id="epoca" name="epoca" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Autor/Atribucion
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="ci" name="ci" required />
+                                            <input type="text" class="form-control" id="autor" name="autor" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Tecnica y Material
                                                 <span class="text-danger">*</span></label>
-                                            <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                            <select class="form-control" id="tecnicamaterial_id" name="tecnicamaterial_id" style="width: 100%">
                                                 @forelse ($tecnicas as $t)
                                                 <option value="{{ $t->id }}">{{ $t->nombre }}</option>
                                                 @empty
@@ -227,7 +227,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> No de Inventario
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="direccion" name="direccion" required />
+                                            <input type="text" class="form-control" id="inventario" name="inventario" required />
                                         </div>
                                     </div>
                                 
@@ -235,7 +235,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Codigo
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="celulares" name="celulares" required />
+                                            <input type="text" class="form-control" id="codigo" name="codigo" required />
                                         </div>
                                     </div>
                                 
@@ -243,7 +243,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> No de Inventario Anterior
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="celulares" name="celulares" required />
+                                            <input type="text" class="form-control" id="inventario_anterior" name="inventario_anterior" />
                                         </div>
                                     </div>
                                 
@@ -255,7 +255,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Origen
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="direccion" name="direccion" required />
+                                            <input type="text" class="form-control" id="origen" name="origen" />
                                         </div>
                                     </div>
                                 
@@ -263,7 +263,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Obtencion
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="celulares" name="celulares" required />
+                                            <input type="text" class="form-control" id="obtencion" name="obtencion" />
                                         </div>
                                     </div>
                                 
@@ -271,7 +271,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Fecha Adquisision
                                                 <span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" id="celulares" name="celulares" required />
+                                            <input type="date" class="form-control" id="fecha_adquisicion" name="fecha_adquisicion" />
                                         </div>
                                     </div>
                                 
@@ -283,7 +283,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Marcas/Inscripciones
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="marcas"></textarea>
                                         </div>
                                     </div>
                                 
@@ -291,7 +291,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Dimensiones (Cms.)
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="dimensiones"></textarea>
                                         </div>
                                     </div>
                                 
@@ -303,7 +303,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Descripcion
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="descripcion"></textarea>
                                         </div>
                                     </div>
                                 
@@ -311,7 +311,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Archvo Fotografico
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="archivo"></textarea>
                                         </div>
                                     </div>
                                 
@@ -406,7 +406,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> ESPECIFICACIONES SOBRE EL ESTADO DE CONSERVACION
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="estado_conservacion"></textarea>
                                         </div>
                                     </div>
                                 
@@ -414,27 +414,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> INTERVENCIONES REALIZADAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                
-                                </div>
-                                
-                                <div class="row">
-                                
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1"> ESPECIFICACIONES SOBRE EL ESTADO DE CONSERVACION
-                                                <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1"> INTERVENCIONES REALIZADAS
-                                                <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="intervenciones_realizadas"></textarea>
                                         </div>
                                     </div>
                                 
@@ -446,7 +426,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> CARACTERISTICAS TECNICAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="caracteristicas_tecnicas"></textarea>
                                         </div>
                                     </div>
                                 
@@ -458,7 +438,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> CARACTERISTICAS ICONOGRAFICAS/ORNAMENTALES
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="caracteristicas_iconograficas"></textarea>
                                         </div>
                                     </div>
                                 
@@ -470,7 +450,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> DATOS HISTORICOS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="datos_historicos"></textarea>
                                         </div>
                                     </div>
                                 
@@ -482,7 +462,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> REFERENCIAS BIBLIOGRAFICAS/ARCHIVISTAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="referencias_bibliograficas"></textarea>
                                         </div>
                                     </div>
                                 
@@ -494,7 +474,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> OBSERVACIONES
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="observaciones"></textarea>
                                         </div>
                                     </div>
                                 
@@ -504,7 +484,7 @@
 
                             <div class="tab-pane fade" id="archivos" role="tabpanel" aria-labelledby="profile-tab-1">
                                 <div class="row">
-                                    <div class="col-md-12 text-center">
+                                    <div class="col-md-12">
                                         <div id="drag-drop-area"></div>
                                     </div>
                                 </div>
@@ -566,7 +546,7 @@
             if ($("#formularioPersona")[0].checkValidity()) {
 
                 $("#formularioPersona").submit();
-                Swal.fire("Excelente!", "Se guardo el distrito!", "success");
+                Swal.fire("Excelente!", "Se guardo el patrimonio!", "success");
 
             }else{
                 $("#formularioPersona")[0].reportValidity();

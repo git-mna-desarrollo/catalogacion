@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patrimonio extends Model
 {
@@ -26,7 +27,7 @@ class Patrimonio extends Model
         'autor', 
         'inventario', 
         'codigo', 
-        'inventario_anterior', 
+        'inventario_anterior',
         'origen', 
         'obtencion', 
         'fecha_adquisicion', 
