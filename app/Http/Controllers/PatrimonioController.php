@@ -23,4 +23,9 @@ class PatrimonioController extends Controller
         // dd($ubicaciones);
         return view('patrimonio.formulario')->with(compact('departamentos', 'localidades', 'provincias', 'tecnicas', 'ubicaciones'));
     }
+
+    public function guarda()
+    {
+        
+    }
 }

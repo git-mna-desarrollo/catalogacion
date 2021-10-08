@@ -5,7 +5,8 @@
 @endsection
 
 @section('css')
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('assets/plugins/custom/uppy/uppy.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -51,6 +52,15 @@
                                     <span class="nav-text">ANALISIS</span>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab-1" data-toggle="tab" href="#archivos" aria-controls="contact">
+                                    <span class="nav-icon">
+                                        <i class="fas fa-file-image"></i>
+                                    </span>
+                                    <span class="nav-text">ARCHIVOS</span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content mt-5" id="myTabContent1">
                             <div class="tab-pane fade show active" id="ubicacion" role="tabpanel" aria-labelledby="home-tab-1">
@@ -60,10 +70,10 @@
                                 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Localidad
+                                            <label for="exampleInputPassword1">LOCALIDAD
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
+                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
                                                 @forelse ($localidades as $l)
                                                 <option value="{{ $l->id }}">{{ $l->nombre }}</option>
                                                 @empty
@@ -75,7 +85,7 @@
                                 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Ciudad
+                                            <label for="exampleInputPassword1">DEPARTAMENTO
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
@@ -90,7 +100,7 @@
                                 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Provincia
+                                            <label for="exampleInputPassword1">PROVINCIA
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
@@ -105,7 +115,7 @@
                                 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Ubicacion
+                                            <label for="exampleInputPassword1">UBICACION
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" id="propietario_id" name="propietario_id" style="width: 100%">
@@ -115,7 +125,7 @@
                                 
                                                 @endforelse
                                             </select>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 
                                 </div>
@@ -124,7 +134,7 @@
                                 
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Direccion
+                                            <label for="exampleInputPassword1">DIRECCION
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="nombre" name="nombre" required />
                                         </div>
@@ -132,7 +142,7 @@
                                 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Responsable
+                                            <label for="exampleInputPassword1">RESPONSABLE
                                                 <span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" id="ci" name="ci" required />
                                         </div>
@@ -150,14 +160,14 @@
                                 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Designacion/Nombre
+                                            <label for="exampleInputPassword1">DESIGNACION/NOMBRE
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="nombre" name="nombre" required />
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Especialidad
+                                            <label for="exampleInputPassword1">ESPECIALIDAD
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="ci" name="ci" required />
                                         </div>
@@ -387,6 +397,7 @@
                                 {{-- FIN IDENTIFICACION --}}
 
                             </div>
+
                             <div class="tab-pane fade" id="analisis" role="tabpanel" aria-labelledby="contact-tab-1">
                                 {{-- ANALISIS --}}
                                 <div class="row">
@@ -490,6 +501,14 @@
                                 </div>
                                 {{-- FIN ANALISIS --}}
                             </div>
+
+                            <div class="tab-pane fade" id="archivos" role="tabpanel" aria-labelledby="profile-tab-1">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <div id="drag-drop-area"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>            
 
@@ -515,7 +534,26 @@
 @stop
 
 @section('js')
+
+    <script src="{{ url('assets/plugins/custom/uppy/uppy.bundle.js') }}"></script>
+    <script src="{{ url('assets/js/pages/crud/file-upload/uppy.js') }}"></script>
+    <script src="https://releases.transloadit.com/uppy/locales/v2.0.2/es_ES.min.js"></script>
+
     <script type="text/javascript">
+
+        
+            var uppy = new Uppy.Core()
+                .use(Uppy.Dashboard, {
+                  inline: true,
+                  locale: Uppy.locales.es_ES,
+                  target: '#drag-drop-area'
+                })
+                .use(Uppy.Tus, {endpoint: 'https://tusd.tusdemo.net/files/'})
+        
+              uppy.on('complete', (result) => {
+                console.log('Upload complete! We’ve uploaded these files:', result.successful)
+              })
+
         $.ajaxSetup({
             // definimos cabecera donde estarra el token y poder hacer nuestras operaciones de put,post...
             headers: {
