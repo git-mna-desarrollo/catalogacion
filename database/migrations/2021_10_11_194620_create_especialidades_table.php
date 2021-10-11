@@ -24,6 +24,7 @@ class CreateEspecialidadesTable extends Migration
             $table->string('nombre', 150)->nullable();
             $table->string('descripcion', 200)->nullable();
             $table->string('estado')->nullable();
+            $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ class CreateDimensionesTable extends Migration
             $table->unsignedBigInteger('eliminador_id')->nullable();
             $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('patrimonio_id')->nullable();
-            $table->foreign('patrimonio_id')->references('id')->on('patrimonios');
+            $table->foreign('patrimonio_id')->references('id')->on('users');
             $table->decimal('alto', 15, 2)->nullable();
             $table->decimal('ancho', 15, 2)->nullable();
             $table->decimal('largo', 15, 2)->nullable();
@@ -31,6 +31,7 @@ class CreateDimensionesTable extends Migration
             $table->decimal('peso', 15, 2)->nullable();
             $table->decimal('circunferencia', 15, 2)->nullable();
             $table->string('estado')->nullable();
+            $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });
     }
