@@ -136,7 +136,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('Titulo/elimina') }}/"+id;
+                    window.location.href = "{{ url('patrimonio/elimina') }}/"+id;
 
                     Swal.fire(
                         "Borrado!",

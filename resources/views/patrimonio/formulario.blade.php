@@ -20,7 +20,7 @@
                 
             </div>
             <!--begin::Form-->
-            <form action="{{ url('patrimonio/guarda') }}" method="POST" id="formularioPersona">
+            <form action="{{ url('patrimonio/guarda') }}" method="POST" id="formularioPersona" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -176,7 +176,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Estilo
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="estilo" name="estilo" required />
+                                            <input type="text" class="form-control" id="estilo" name="estilo" />
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -195,14 +195,14 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Epoca y/o Fecha
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="epoca" name="epoca" required />
+                                            <input type="text" class="form-control" id="epoca" name="epoca" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Autor/Atribucion
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="autor" name="autor" required />
+                                            <input type="text" class="form-control" id="autor" name="autor" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -227,7 +227,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> No de Inventario
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="inventario" name="inventario" required />
+                                            <input type="text" class="form-control" id="inventario" name="inventario" />
                                         </div>
                                     </div>
                                 
@@ -235,7 +235,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Codigo
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="codigo" name="codigo" required />
+                                            <input type="text" class="form-control" id="codigo" name="codigo" />
                                         </div>
                                     </div>
                                 
