@@ -9,8 +9,10 @@ use App\Patrimonio;
 use App\Departamento;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
+use App\Imports\PatrimoniosImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PatrimonioController extends Controller
 {
@@ -84,7 +86,8 @@ class PatrimonioController extends Controller
 
     public function migracion()
     {
-        
+        $archivo = public_path("consolidado.xlsx");
+        Excel::import(new PatrimoniosImport, $archivo);
     }
 
 }

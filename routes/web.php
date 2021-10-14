@@ -35,6 +35,7 @@ Route::get('patrimonio/formulario', 'PatrimonioController@formulario');
 Route::post('patrimonio/guarda', 'PatrimonioController@guarda');
 Route::get('patrimonio/listado', 'PatrimonioController@listado');
 Route::get('patrimonio/elimina/{id}', 'PatrimonioController@elimina');
+Route::get('patrimonio/migracion', 'PatrimonioController@migracion');
 
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
