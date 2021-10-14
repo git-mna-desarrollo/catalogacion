@@ -6,7 +6,7 @@
 
 @section('css')
     {{-- <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"> --}}
-    <link href="{{ asset('assets/plugins/custom/uppy/uppy.bundle.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('assets/plugins/custom/uppy/uppy.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
 @endsection
 
 @section('content')
@@ -58,9 +58,19 @@
                                     <span class="nav-icon">
                                         <i class="fas fa-file-image"></i>
                                     </span>
-                                    <span class="nav-text">ARCHIVOS</span>
+                                    <span class="nav-text">IMAGENES</span>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab-1" data-toggle="tab" href="#documentos" aria-controls="contact">
+                                    <span class="nav-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </span>
+                                    <span class="nav-text">DOCUMENTOS</span>
+                                </a>
+                            </li>
+
                         </ul>
                         <div class="tab-content mt-5" id="myTabContent1">
                             <div class="tab-pane fade show active" id="ubicacion" role="tabpanel" aria-labelledby="home-tab-1">
@@ -473,7 +483,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> OBSERVACIONES
-                                                <span class="text-danger">*</span></label>
+                                                <span class="text-danger">*</span>
+                                            </label>
                                             <textarea class="form-control" name="observaciones"></textarea>
                                         </div>
                                     </div>
@@ -484,11 +495,70 @@
 
                             <div class="tab-pane fade" id="archivos" role="tabpanel" aria-labelledby="profile-tab-1">
                                 <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 1)" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
+                                        </div>
+                                        {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
+                                        <img id="thumbnil_1" class="img-fluid" style="margin-top: 10px;" />
+                                        <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1" style="display:none;" onclick="quitarImagen(1)">Quitar Imagen</button>
+                                        
+                                        {{-- <div id="drag-drop-area"></div> --}}
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" onchange="loadFile_2(event)" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
+                                        </div>
+                                        {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
+                                        <img id="output_2" class="img-fluid" />
+                                        <script>
+                                            var loadFile_2 = function(event) {
+                                            var reader = new FileReader();
+                                            reader.onload = function(){
+                                              var output = document.getElementById('output_2');
+                                              output.src = reader.result;
+                                            };
+                                            reader.readAsDataURL(event.target.files[0]);
+                                          };
+                                        </script>
+                                        {{-- <div id="drag-drop-area"></div> --}}
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" onchange="loadFile_3(event)" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
+                                        </div>
+                                        {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
+                                        <img id="output_3" class="img-fluid" />
+                                        <script>
+                                            var loadFile_3 = function(event) {
+                                            var reader = new FileReader();
+                                            reader.onload = function(){
+                                              var output = document.getElementById('output_3');
+                                              output.src = reader.result;
+                                            };
+                                            reader.readAsDataURL(event.target.files[0]);
+                                          };
+                                        </script>
+                                        {{-- <div id="drag-drop-area"></div> --}}
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab-1">
+                                <div class="row">
                                     <div class="col-md-12">
-                                        <div id="drag-drop-area"></div>
+                                        Aqui los documentos
+                                        {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>            
 
@@ -515,24 +585,7 @@
 
 @section('js')
 
-    <script src="{{ url('assets/plugins/custom/uppy/uppy.bundle.js') }}"></script>
-    <script src="{{ url('assets/js/pages/crud/file-upload/uppy.js') }}"></script>
-    <script src="https://releases.transloadit.com/uppy/locales/v2.0.2/es_ES.min.js"></script>
-
     <script type="text/javascript">
-
-        
-            var uppy = new Uppy.Core()
-                .use(Uppy.Dashboard, {
-                  inline: true,
-                  locale: Uppy.locales.es_ES,
-                  target: '#drag-drop-area'
-                })
-                .use(Uppy.Tus, {endpoint: 'https://tusd.tusdemo.net/files/'})
-        
-              uppy.on('complete', (result) => {
-                console.log('Upload complete! We’ve uploaded these files:', result.successful)
-              })
 
         $.ajaxSetup({
             // definimos cabecera donde estarra el token y poder hacer nuestras operaciones de put,post...
@@ -567,6 +620,33 @@
                 }
             });
 
+        }
+
+        function showMyImage(fileInput, numero) {
+
+            var files = fileInput.files;
+            $("#btnRimg_"+numero).show();
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /image.*/;
+                if (!file.type.match(imageType)) {
+                    continue;
+                }
+                var img = document.getElementById("thumbnil_"+numero);
+                img.file = file;
+                var reader = new FileReader();
+                reader.onload = (function (aImg) {
+                    return function (e) {
+                        aImg.src = e.target.result;
+                    };
+                })(img);
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function quitarImagen(numero)
+        {
+            $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");    
         }
 
     </script>

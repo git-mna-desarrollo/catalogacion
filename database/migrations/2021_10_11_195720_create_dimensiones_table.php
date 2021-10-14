@@ -30,7 +30,7 @@ class CreateDimensionesTable extends Migration
             $table->decimal('diametro', 15, 2)->nullable();
             $table->decimal('peso', 15, 2)->nullable();
             $table->decimal('circunferencia', 15, 2)->nullable();
-            $table->string('estado')->nullable();
+            $table->string('estado', 15)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });

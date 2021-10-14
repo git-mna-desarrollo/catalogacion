@@ -23,7 +23,7 @@ class CreateUbicacionesTable extends Migration
             $table->foreign('eliminador_id')->references('id')->on('users');
             $table->string('nombre', 150)->nullable();
             $table->string('descripcion', 200)->nullable();
-            $table->string('estado')->nullable();
+            $table->string('estado', 15)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });

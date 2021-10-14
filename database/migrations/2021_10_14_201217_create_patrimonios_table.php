@@ -15,6 +15,7 @@ class CreatePatrimoniosTable extends Migration
     {
         Schema::create('patrimonios', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('creador_id')->nullable();
             $table->foreign('creador_id')->references('id')->on('users');
             $table->unsignedBigInteger('modificador_id')->nullable();
@@ -22,26 +23,29 @@ class CreatePatrimoniosTable extends Migration
             $table->unsignedBigInteger('eliminador_id')->nullable();
             $table->foreign('eliminador_id')->references('id')->on('users');
             
-            $table->unsignedBigInteger('localidad_id')->nullable();
-            $table->foreign('localidad_id')->references('id')->on('users');
-
-            $table->unsignedBigInteger('departamento_id')->nullable();
-            $table->foreign('departamento_id')->references('id')->on('users');
-
-            $table->unsignedBigInteger('provincia_id')->nullable();
-            $table->foreign('provincia_id')->references('id')->on('users');
-
             $table->unsignedBigInteger('ubicacion_id')->nullable();
             $table->foreign('ubicacion_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('responsable_id')->nullable();
+            $table->foreign('responsable_id')->references('id')->on('users');
+            
+            $table->unsignedBigInteger('especialidad_id')->nullable();
+            $table->foreign('especialidad_id')->references('id')->on('especialidades');
+
+            $table->unsignedBigInteger('estilo_id')->nullable();
+            $table->foreign('estilo_id')->references('id')->on('estilos');
 
             $table->unsignedBigInteger('tecnicamaterial_id')->nullable();
             $table->foreign('tecnicamaterial_id')->references('id')->on('tecnicamaterial');
 
-            $table->string('direccion', 500)->nullable();
-            $table->string('nombre', 150)->nullable();
-            $table->string('especialidad', 200)->nullable();
-            $table->string('estilo', 250)->nullable();
-            $table->string('escuela', 150)->nullable();
+            $table->string('localidad', 50)->nullable();
+            $table->string('provincia', 50)->nullable();
+            $table->string('departamento', 15)->nullable();
+            $table->string('inmueble', 120)->nullable();
+            $table->string('calle', 500)->nullable();
+
+            $table->string('nombre', 500)->nullable();
+            $table->string('escuela', 200)->nullable();
             $table->string('epoca', 150)->nullable();
             $table->string('autor', 150)->nullable();
 
@@ -65,7 +69,7 @@ class CreatePatrimoniosTable extends Migration
 
             $table->string('estado',15)->nullable();
             $table->softDeletes('deleted_at', 0);
-            
+
             $table->timestamps();
         });
     }

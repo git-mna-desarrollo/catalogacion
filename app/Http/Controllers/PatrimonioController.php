@@ -82,4 +82,9 @@ class PatrimonioController extends Controller
         return redirect("patrimonio/listado");
     }
 
+    public function migracion()
+    {
+        
+    }
+
 }
