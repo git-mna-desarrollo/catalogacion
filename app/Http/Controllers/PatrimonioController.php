@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Estilo;
 use App\Localidad;
 use App\Provincia;
 use App\Ubicacion;
 use App\Patrimonio;
 use App\Departamento;
+use App\Especialidad;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
 use App\Imports\PatrimoniosImport;
@@ -20,9 +22,11 @@ class PatrimonioController extends Controller
     {
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
+        $especialidades = Especialidad::all();
+        $estilos = Estilo::all();
 
         // dd($ubicaciones);
-        return view('patrimonio.formulario')->with(compact('tecnicas', 'ubicaciones'));
+        return view('patrimonio.formulario')->with(compact('tecnicas', 'ubicaciones', 'especialidades', 'estilos'));
     }
 
     public function guarda(Request $request)

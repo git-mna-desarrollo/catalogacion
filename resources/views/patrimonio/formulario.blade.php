@@ -77,84 +77,34 @@
 
                                 {{-- ubicacion --}}
                                 <div class="row">
-                                
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">LOCALIDAD
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
-                                                @forelse ($localidades as $l)
-                                                <option value="{{ $l->id }}">{{ $l->nombre }}</option>
-                                                @empty
-                                
-                                                @endforelse
-                                            </select>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">DEPARTAMENTO
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <select class="form-control" id="departamento_id" name="departamento_id" style="width: 100%">
-                                                @forelse ($departamentos as $d)
-                                                <option value="{{ $d->id }}">{{ $d->nombre }}</option>
-                                                @empty
-                                
-                                                @endforelse
-                                            </select>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">PROVINCIA
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <select class="form-control" id="provincia_id" name="provincia_id" style="width: 100%">
-                                                @forelse ($provincias as $p)
-                                                <option value="{{ $p->id }}">{{ $p->nombre }}</option>
-                                                @empty
-                                
-                                                @endforelse
-                                            </select>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-3">
+                                    
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">UBICACION
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="ubicacion_id" name="ubicacion_id" style="width: 100%">
+                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
                                                 @forelse ($ubicaciones as $u)
                                                 <option value="{{ $u->id }}">{{ $u->nombre }}</option>
                                                 @empty
-                                
+                                    
                                                 @endforelse
                                             </select>
-                                        </div>                                        
-                                    </div>
-                                
-                                </div>
-
-                                <div class="row">
-                                
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">DIRECCION
-                                                <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="direccion" name="direccion" />
                                         </div>
                                     </div>
-                                
-                                    <div class="col-md-4">
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">RESPONSABLE
-                                                <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="responsable" name="responsable" readonly />
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
+                                                @forelse ($ubicaciones as $u)
+                                                <option value="{{ $u->id }}">{{ $u->nombre }}</option>
+                                                @empty
+                                    
+                                                @endforelse
+                                            </select>
                                         </div>
                                     </div>
                                 
@@ -175,20 +125,37 @@
                                             <input type="text" class="form-control" id="nombre" name="nombre" required />
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">ESPECIALIDAD
-                                                <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="especialidad" name="especialidad" />
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
+                                                @forelse ($especialidades as $e)
+                                                <option value="{{ $e->id }}">{{ $e->nombre }}</option>
+                                                @empty
+                                    
+                                                @endforelse
+                                            </select>
                                         </div>
                                     </div>
+
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Estilo
-                                                <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="estilo" name="estilo" />
+                                            <label for="exampleInputPassword1">ESTILO
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
+                                                @forelse ($estilos as $es)
+                                                <option value="{{ $es->id }}">{{ $es->nombre }}</option>
+                                                @empty
+                                    
+                                                @endforelse
+                                            </select>
                                         </div>
                                     </div>
+
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Escuela
