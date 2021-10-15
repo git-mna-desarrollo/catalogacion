@@ -28,7 +28,7 @@ Auth::routes();
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
-Route::get('Panel/inicio', 'PanelController@inicio');
+Route::get('panel/inicio', 'panelController@inicio');
 
 // PATRIMONIO
 Route::get('patrimonio/formulario', 'PatrimonioController@formulario');
@@ -36,10 +36,6 @@ Route::post('patrimonio/guarda', 'PatrimonioController@guarda');
 Route::get('patrimonio/listado', 'PatrimonioController@listado');
 Route::get('patrimonio/elimina/{id}', 'PatrimonioController@elimina');
 Route::get('patrimonio/migracion', 'PatrimonioController@migracion');
-
-// RED SOCIAL
-Route::get('Social/inicio', 'SocialController@inicio');
-Route::post('User/ajaxDistrito', 'UserController@ajaxDistrito');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');

@@ -15,5 +15,19 @@ class PatrimoniosImport implements ToModel
     public function model(array $row)
     {
         echo "Ciudad ".$row[0]." - Nombre ".$row[7]."<br />";
+
+        $buscaUbicacion = Ubicacion::where('nombre', 'like', "%$row[5]%")
+                                    ->count();
+
+        if($buscaUbicacion == 0)
+        {
+            $ubicacion = new Ubicacion();
+            $ubicacion->creador_id = 1;
+            $ubicacion->creador_id = 1;
+        }
+
+        $patrimonio = new Patrimonio();
+        $patrimonio->creador_id = 1;
+        // $patrimonio->creador_id = 1;
     }
 }
