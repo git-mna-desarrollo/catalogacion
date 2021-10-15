@@ -58,21 +58,6 @@ class Patrimonio extends Model
         return $this->belongsTo('App\User', 'eliminador_id');
     }
 
-    public function localidad()
-    {
-        return $this->belongsTo('App\Localidad', 'localidad_id');
-    }
-
-    public function departamento()
-    {
-        return $this->belongsTo('App\Departamento', 'departamento_id');
-    }
-
-    public function provincia()
-    {
-        return $this->belongsTo('App\Departamento', 'provincia_id');
-    }
-
     public function ubicacion()
     {
         return $this->belongsTo('App\Ubicacion', 'ubicacion_id');
@@ -81,5 +66,15 @@ class Patrimonio extends Model
     public function tecnicamaterial()
     {
         return $this->belongsTo('App\Tecnicamaterial', 'tecnicamaterial_id');
+    }
+
+    public function especialidad()
+    {
+        return $this->belongsTo('App\Especialidad', 'especialidad_id');
+    }
+
+    public function estilo()
+    {
+        return $this->belongsTo('App\Estilo', 'estilo_id');
     }
 }

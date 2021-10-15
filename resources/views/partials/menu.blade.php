@@ -13,6 +13,13 @@
 				<h4 class="menu-text">Administracion</h4>
 				<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 			</li> --}}
+
+			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+				<a href="{{ url('panel/inicio') }}" class="menu-link menu-toggle">
+					<span class="menu-icon"><i class="far fa-images"></i></span>
+					<span class="menu-text">PANEL DE CONTROL</span>
+				</a>
+			</li>
 		
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 				<a href="javascript:;" class="menu-link menu-toggle">

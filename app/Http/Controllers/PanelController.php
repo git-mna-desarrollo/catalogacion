@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Ubicacion;
+use App\Patrimonio;
 use Illuminate\Http\Request;
 
 class PanelController extends Controller
@@ -13,7 +15,10 @@ class PanelController extends Controller
 
     public function inicio()
     {
-        // echo "holas";
-        return view('panel.inicio');
+        $cantidadPatrimonios = Patrimonio::count();
+
+        // dd($cantidadPatrimonios);
+        
+        return view('panel.inicio')->with(compact('cantidadPatrimonios'));
     }
 }

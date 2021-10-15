@@ -24,7 +24,7 @@ class CreatePatrimoniosTable extends Migration
             $table->foreign('eliminador_id')->references('id')->on('users');
             
             $table->unsignedBigInteger('ubicacion_id')->nullable();
-            $table->foreign('ubicacion_id')->references('id')->on('users');
+            $table->foreign('ubicacion_id')->references('id')->on('ubicaciones');
 
             $table->unsignedBigInteger('responsable_id')->nullable();
             $table->foreign('responsable_id')->references('id')->on('users');
@@ -54,7 +54,7 @@ class CreatePatrimoniosTable extends Migration
             $table->string('inventario_anterior', 150)->nullable();
             $table->string('origen', 150)->nullable();
             $table->string('obtencion', 150)->nullable();
-            $table->date('fecha_adquisicion')->nullable();
+            $table->string('fecha_adquisicion', 150)->nullable();
             $table->string('marcas', 500)->nullable();
             $table->text('dimenciones')->nullable();
             $table->text('descripcion')->nullable();

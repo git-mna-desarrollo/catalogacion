@@ -18,14 +18,11 @@ class PatrimonioController extends Controller
 {
     public function formulario()
     {
-        $departamentos = Departamento::all();
-        $localidades = Localidad::all();
-        $provincias = Provincia::all();
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
 
         // dd($ubicaciones);
-        return view('patrimonio.formulario')->with(compact('departamentos', 'localidades', 'provincias', 'tecnicas', 'ubicaciones'));
+        return view('patrimonio.formulario')->with(compact('tecnicas', 'ubicaciones'));
     }
 
     public function guarda(Request $request)

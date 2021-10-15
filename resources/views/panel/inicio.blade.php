@@ -10,13 +10,12 @@
             <!--begin::Body-->
             <div class="card-body my-4">
                 <a href="#"
-                    class="card-title font-weight-bolder text-info font-size-h6 mb-4 text-hover-state-dark d-block">SAP
-                    UI Progress</a>
+                    class="card-title font-weight-bolder text-info font-size-h6 mb-4 text-hover-state-dark d-block">REGISTROS</a>
                 <div class="font-weight-bold text-muted font-size-sm">
-                    <span class="text-dark-75 font-weight-bolder font-size-h2 mr-2">67%</span>Avarage
+                    <span class="text-dark-75 font-weight-bolder font-size-h2 mr-2">{{ $cantidadPatrimonios }}</span>Patrimonios
                 </div>
                 <div class="progress progress-xs mt-7 bg-info-o-60">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 67%;" aria-valuenow="50"
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 22%;" aria-valuenow="50"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
@@ -30,10 +29,9 @@
             <!--begin::Body-->
             <div class="card-body my-4">
                 <a href="#"
-                    class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Airplus
-                    Budget</a>
+                    class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Usuarios</a>
                 <div class="font-weight-bold text-white font-size-sm">
-                    <span class="font-size-h2 mr-2">87K%</span>23k to goal
+                    <span class="font-size-h2 mr-2">1</span>Registrado
                 </div>
                 <div class="progress progress-xs mt-7 bg-white-o-90">
                     <div class="progress-bar bg-white" role="progressbar" style="width: 87%;" aria-valuenow="50"
@@ -50,9 +48,9 @@
             <!--begin::Body-->
             <div class="card-body my-4">
                 <a href="#"
-                    class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Customer</a>
+                    class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Restaurados</a>
                 <div class="font-weight-bold text-white font-size-sm">
-                    <span class="font-size-h2 mr-2">52,450</span>48k to goal
+                    <span class="font-size-h2 mr-2">560</span>Patrimonios Restaurados
                 </div>
                 <div class="progress progress-xs mt-7 bg-white-o-90">
                     <div class="progress-bar bg-white" role="progressbar" style="width: 52%;" aria-valuenow="50"
@@ -71,7 +69,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Donut Chart</h3>
+                    <h3 class="card-label">Restauraciones de la gestion 2021</h3>
                 </div>
             </div>
             <div class="card-body">
@@ -90,7 +88,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Donut Chart</h3>
+                    <h3 class="card-label">Proteccion Legal</h3>
                 </div>
             </div>
             <div class="card-body">
@@ -107,7 +105,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Donut Chart</h3>
+                    <h3 class="card-label">Estado de Conservacion</h3>
                 </div>
             </div>
             <div class="card-body">
@@ -125,10 +123,11 @@
 @section('js')
     {{-- <script src="{{ asset('assets/js/pages/features/charts/apexcharts.js') }}"></script> --}}
     <script>
+      // grafico de barras
         var options = {
           series: [{
-          name: 'Inflation',
-          data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+          name: 'Patrimonios',
+          data: [2, 3, 4, 10, 4, 5, 3, 2, 1, 3, 5, 2]
         }],
           chart: {
           height: 350,
@@ -145,7 +144,7 @@
         dataLabels: {
           enabled: true,
           formatter: function (val) {
-            return val + "%";
+            return val + "";
           },
           offsetY: -20,
           style: {
@@ -155,7 +154,7 @@
         },
         
         xaxis: {
-          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          categories: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
           position: 'top',
           axisBorder: {
             show: false
@@ -189,13 +188,13 @@
           labels: {
             show: false,
             formatter: function (val) {
-              return val + "%";
+              return val + "";
             }
           }
         
         },
         title: {
-          text: 'Monthly Inflation in Argentina, 2002',
+          text: 'Cantidad de patrimonios restaurados de esta gestion',
           floating: true,
           offsetY: 330,
           align: 'center',
@@ -210,12 +209,12 @@
 
         // grafico pie
         var options = {
-          series: [44, 55, 13, 43, 22],
+          series: [44, 55],
           chart: {
           width: 480,
           type: 'pie',
         },
-        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+        labels: ['Patrimonio Nacional', 'De Conjunto'],
         responsive: [{
           breakpoint: 480,
           options: {
@@ -234,11 +233,12 @@
 
         // grafico dona
          var options = {
-          series: [44, 55, 41, 17, 15],
+          series: [44, 55],
           chart: {
           width: 480,
           type: 'donut',
         },
+        labels: ['Bueno', 'Regular'],
         responsive: [{
           breakpoint: 480,
           options: {

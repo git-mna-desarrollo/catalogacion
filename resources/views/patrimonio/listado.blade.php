@@ -31,7 +31,9 @@
                         <th>ID</th>
                         <th>Inventario</th>
                         <th>Nombre</th>
-                        <th>Departamento</th>
+                        <th>Especialidad</th>
+                        <th>Estilo</th>
+                        <th>Tecnica/Material</th>
                         <th>Fecha Adquisicion</th>
                         <th>Acciones</th>
                     </tr>
@@ -42,7 +44,9 @@
                         <td>{{ $p->id }}</td>
                         <td>{{ $p->inventario }}</td>
                         <td>{{ $p->nombre }}</td>
-                        <td>{{ $p->departamento->nombre }}</td>
+                        <td>{{ $p->especialidad->nombre }}</td>
+                        <td>{{ $p->estilo->nombre }}</td>
+                        <td>{{ $p->tecnicamaterial['nombre'] }}</td>
                         <td>{{ $p->fecha_adquisicion }}</td>
                         <td>
                             <button 
