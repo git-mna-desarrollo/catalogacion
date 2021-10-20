@@ -29,17 +29,12 @@ class CreateEstadosTable extends Migration
             $table->string('individual', 2)->nullable();
             $table->string('conjunto', 2)->nullable();
             $table->string('ninguna', 2)->nullable();
-            $table->string('excelente', 2)->nullable();
-            $table->string('bueno', 2)->nullable();
-            $table->string('regular', 2)->nullable();
-            $table->string('malo', 2)->nullable();
-            $table->string('pesimo', 2)->nullable();
-            $table->string('fragmento', 2)->nullable();
-            $table->string('seguridad_buena', 2)->nullable();
-            $table->string('seguridad_razonable', 2)->nullable();
-            $table->string('seguridad_ninguna', 2)->nullable();
+
+            $table->string('estado_conservacion', 15)->nullable();
+            $table->string('condiciones_seguridad', 15)->nullable();
+
             $table->string('estado', 15)->nullable();
-            $table->datetime('deleted_at')->nullable();
+            $table->softDeletes('deleted_at', 0);
 
             $table->timestamps();
         });

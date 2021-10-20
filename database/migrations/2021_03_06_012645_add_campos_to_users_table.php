@@ -22,7 +22,7 @@ class AddCamposToUsersTable extends Migration
             $table->string('longitud', 30)->nullable()->after('password');
             $table->string('estado', 30)->nullable()->after('password');
             $table->date('fecha_nacimiento')->nullable()->after('password');
-            $table->datetime('deleted_at')->nullable()->after('remember_token');
+            $table->softDeletes('deleted_at', 0)->after('remember_token');
         });
     }
 

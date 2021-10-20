@@ -56,7 +56,15 @@ class CreatePatrimoniosTable extends Migration
             $table->string('obtencion', 150)->nullable();
             $table->string('fecha_adquisicion', 150)->nullable();
             $table->string('marcas', 500)->nullable();
-            $table->text('dimenciones')->nullable();
+
+            $table->decimal('alto', 15, 2)->nullable();
+            $table->decimal('ancho', 15, 2)->nullable();
+            $table->decimal('diametro', 15, 2)->nullable();
+            $table->decimal('circunferencia', 15, 2)->nullable();
+            $table->decimal('largo', 15, 2)->nullable();
+            $table->decimal('profundidad', 15, 2)->nullable();
+            $table->decimal('peso', 15, 2)->nullable();
+
             $table->text('descripcion')->nullable();
             $table->text('archivo_fotografico')->nullable();
             $table->text('estado_conservacion')->nullable();

@@ -32,7 +32,7 @@ class PatrimonioController extends Controller
     public function guarda(Request $request)
     {
         dd($request->all());
-        $patrimonio = new Patrimonio();
+        $patrimonio                                = new Patrimonio();
         $patrimonio->creador_id                    = Auth::user()->id;
         $patrimonio->localidad_id                  = $request->input('localidad_id');
         $patrimonio->departamento_id               = $request->input('departamento_id');
@@ -48,6 +48,7 @@ class PatrimonioController extends Controller
         $patrimonio->autor                         = $request->input('autor');
         $patrimonio->inventario                    = $request->input('inventario');
         $patrimonio->codigo                        = $request->input('codigo');
+        $patrimonio->codigo_antiguo                = $request->input('codigo_antiguo');
         $patrimonio->inventario_anterior           = $request->input('inventario_anterior');
         $patrimonio->origen                        = $request->input('origen');
         $patrimonio->obtencion                     = $request->input('obtencion');

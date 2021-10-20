@@ -146,7 +146,7 @@
           formatter: function (val) {
             return val + "";
           },
-          offsetY: -20,
+          offsetY: -20, 
           style: {
             fontSize: '12px',
             colors: ["#304758"]

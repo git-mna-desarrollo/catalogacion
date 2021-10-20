@@ -24,7 +24,7 @@ class CreateUbicacionesTable extends Migration
             $table->string('nombre', 150)->nullable();
             $table->string('descripcion', 200)->nullable();
             $table->string('estado', 15)->nullable();
-            $table->datetime('deleted_at')->nullable();
+            $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });
     }
