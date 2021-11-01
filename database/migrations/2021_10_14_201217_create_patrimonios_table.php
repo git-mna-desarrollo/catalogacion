@@ -50,11 +50,13 @@ class CreatePatrimoniosTable extends Migration
             $table->string('autor', 150)->nullable();
 
             $table->string('inventario', 150)->nullable();
-            $table->string('codigo', 150)->nullable();
             $table->string('inventario_anterior', 150)->nullable();
+            $table->string('codigo', 150)->nullable();
+            $table->string('codigo_balance', 150)->nullable();
             $table->string('origen', 150)->nullable();
             $table->string('obtencion', 150)->nullable();
-            $table->string('fecha_adquisicion', 150)->nullable();
+            $table->string('fecha_adquisicion_texto', 50)->nullable();
+            $table->date('fecha_adquisicion')->nullable();
             $table->string('marcas', 500)->nullable();
 
             $table->decimal('alto', 15, 2)->nullable();
@@ -66,14 +68,28 @@ class CreatePatrimoniosTable extends Migration
             $table->decimal('peso', 15, 2)->nullable();
 
             $table->text('descripcion')->nullable();
-            $table->text('archivo_fotografico')->nullable();
-            $table->text('estado_conservacion')->nullable();
+
+            $table->string('rollo', 10)->nullable();
+            $table->string('fotografo', 20)->nullable();
+            $table->string('toma', 10)->nullable();
+            // $table->text('archivo_fotografico')->nullable();
+
+            $table->text('especificacion_conservacion')->nullable();
             $table->text('intervenciones_realizadas')->nullable();
             $table->text('caracteristicas_tecnicas')->nullable();
             $table->text('caracteristicas_iconograficas')->nullable();
             $table->text('datos_historicos')->nullable();
             $table->text('referencias_bibliograficas')->nullable();
             $table->text('observaciones')->nullable();
+
+            $table->string('catalogo', 200)->nullable();
+            $table->string('fecha_catalogo', 50)->nullable();
+
+            $table->string('elaboro', 200)->nullable();
+            $table->string('fecha_elaboro', 50)->nullable();
+
+            $table->string('reviso', 200)->nullable();
+            $table->string('fecha_reviso', 50)->nullable();
 
             $table->string('estado',15)->nullable();
             $table->softDeletes('deleted_at', 0);

@@ -112,8 +112,6 @@ class PatrimoniosImport implements ToModel, WithStartRow
             $tmId = $buscaMaterial->id;
         }
 
-
-
         $patrimonio                      = new Patrimonio();
         // $patrimonio->creador_id          = 1;
         // $patrimonio->responsable_id      = 1;
@@ -140,7 +138,6 @@ class PatrimoniosImport implements ToModel, WithStartRow
         $patrimonio->descripcion         = $row[29];
         $patrimonio->archivo_fotografico = $row[30];
         $patrimonio->save();
-
 
     }
 
