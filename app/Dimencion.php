@@ -13,8 +13,14 @@ class Dimencion extends Model
         'creador_id', 
         'modificador_id', 
         'eliminador_id', 
-        'nombre', 
-        'descripcion', 
+        'patrimonio_id', 
+        'alto', 
+        'ancho', 
+        'largo', 
+        'profundidad', 
+        'diametro', 
+        'peso', 
+        'circunferencia', 
         'estado',
         'deleted_at'
     ];
@@ -32,6 +38,11 @@ class Dimencion extends Model
     public function eliminador()
     {
         return $this->belongsTo('App\User', 'eliminador_id');
+    }
+
+    public function patrimonio()
+    {
+        return $this->belongsTo('App\Patrimonio', 'patrimonio_id');
     }
 
 }
