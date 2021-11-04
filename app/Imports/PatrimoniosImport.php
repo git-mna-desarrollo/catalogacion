@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Estado;
 use App\Estilo;
 use App\Dimencion;
 use App\Ubicacion;
@@ -104,29 +105,97 @@ class PatrimoniosImport implements ToModel, WithStartRow
         $patrimonio->save();
         $patrimonioId = $patrimonio->id;
 
-        $dimencion = new Dimencion();
-        $dimencion->creador_id = 1;
-        $dimencion->patrimonio_id = $patrimonioId;
-        $dimencion->alto = $row[22];
-        $dimencion->ancho = $row[23];
-        $dimencion->diametro = $row[24];
+        $dimencion                 = new Dimencion();
+        $dimencion->creador_id     = 1;
+        $dimencion->patrimonio_id  = $patrimonioId;
+        $dimencion->alto           = $row[22];
+        $dimencion->ancho          = $row[23];
+        $dimencion->diametro       = $row[24];
         $dimencion->circunferencia = $row[25];
-        $dimencion->largo = $row[26];
-        $dimencion->profundidad = $row[27];
-        $dimencion->peso = $row[28];
+        $dimencion->largo          = $row[26];
+        $dimencion->profundidad    = $row[27];
+        $dimencion->peso           = $row[28];
         $dimencion->save();
 
         // preguntamos si es monumento nacional
         if($row[36] != ''){
-            $mon = 'Es';
+            $monNac = 'Si';
         }else{
-            $mon = 'No';
+            $monNac = 'No';
         }
 
-        
+        // preguntamos si es resolucion municipal
+        if($row[37] != ''){
+            $resolMun = 'Si';
+        }else{
+            $resolMun = 'No';
+        }
 
+        // preguntamos si es resolucion administrativa
+        if($row[38] != ''){
+            $resolAdm = 'Si';
+        }else{
+            $resolAdm = 'No';
+        }
+
+        // preguntamos si es individual
+        if($row[39] != ''){
+            $individual = 'Si';
+        }else{
+            $individual = 'No';
+        }
+
+        // preguntamos si es conjunto
+        if($row[40] != ''){
+            $conjunto = 'Si';
+        }else{
+            $conjunto = 'No';
+        }
+
+        // preguntamos si es ninguna
+        if($row[39] != ''){
+            $ninguna = 'Si';
+        }else{
+            $ninguna = 'No';
+        }
+
+        $estadoConservacion = null;
+        // preguntamos el estado de conservacion
+        if($row[43] != ''){
+            $estadoConservacion = 'Excelente';
+        }elseif($row[44] != ''){
+            $estadoConservacion = 'Malo';
+        }elseif($row[45] != ''){
+            $estadoConservacion = 'Bueno';
+        }elseif($row[46] != ''){
+            $estadoConservacion = 'Pesimo';
+        }elseif($row[47] != ''){
+            $estadoConservacion = 'Regular';
+        }elseif($row[48] != ''){
+            $estadoConservacion = 'Fragmento';
+        }
+
+        $condicionesSeguridad = null;
+        // preguntamos las condiciones de seguridad
+        if($row[50] != ''){
+            $condicionesSeguridad = 'Buena';
+        }elseif($row[51] != ''){
+            $condicionesSeguridad = 'Razonable';
+        }elseif($row[52] != ''){
+            $condicionesSeguridad = 'Ninguna';
+        }
         
-        
+        $estado                            = new Estado();
+        $estado->patrimonio_id             = $patrimonioId();
+        $estado->monumento_nacional        = $monNac;
+        $estado->resolucion_municipal      = $resolMun;
+        $estado->resolucion_administrativa = $resolAdm;
+        $estado->individual                = $individual;
+        $estado->conjunto                  = $conjunto;
+        $estado->ninguna                   = $ninguna;
+        $estado->estado_conservacion       = $estadoConservacion;
+        $estado->condiciones_seguridad     = $condicionesSeguridad;
+        $estado->save();        
     }
 
 
