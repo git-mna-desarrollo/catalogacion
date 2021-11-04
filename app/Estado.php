@@ -5,24 +5,23 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Dimencion extends Model
+class Estado extends Model
 {
     use SoftDeletes;
-    protected $table = "dimenciones";
+    // protected $table = "dimenciones";
 
     protected $fillable = [
         'creador_id', 
         'modificador_id', 
         'eliminador_id', 
         'patrimonio_id', 
-        'monumento_nacional', 
-        'resolucion_municipal', 
-        'resolucion_administrativa', 
-        'individual', 
-        'conjunto', 
-        'ninguna', 
-        'estado_conservacion', 
-        'condiciones_seguridad', 
+        'alto', 
+        'ancho', 
+        'largo', 
+        'profundidad', 
+        'diametro', 
+        'peso', 
+        'circunferencia', 
         'estado',
         'deleted_at'
     ];

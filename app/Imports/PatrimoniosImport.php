@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Estilo;
+use App\Dimencion;
 use App\Ubicacion;
 use App\Patrimonio;
 use App\Especialidad;
@@ -20,14 +21,7 @@ class PatrimoniosImport implements ToModel, WithStartRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function model(array $row)
-    {
-        // preguntamos si es monumento nacional
-        if($row[36] != ''){
-            $mon = 'Es';
-        }else{
-            $mon = 'No';
-        }
-
+    {        
         echo "Monumento ".$mon." - Codigo ".$row[14]." - Nombre ".$row[7]."<br />";
 
         // buscamos la ubicacion
@@ -110,11 +104,31 @@ class PatrimoniosImport implements ToModel, WithStartRow
         $patrimonio->save();
         $patrimonioId = $patrimonio->id;
 
+        $dimencion = new Dimencion();
+        $dimencion->creador_id = 1;
+        $dimencion->patrimonio_id = $patrimonioId;
+        $dimencion->alto = $row[22];
+        $dimencion->ancho = $row[23];
+        $dimencion->diametro = $row[24];
+        $dimencion->circunferencia = $row[25];
+        $dimencion->largo = $row[26];
+        $dimencion->profundidad = $row[27];
+        $dimencion->peso = $row[28];
+        $dimencion->save();
+
+        // preguntamos si es monumento nacional
+        if($row[36] != ''){
+            $mon = 'Es';
+        }else{
+            $mon = 'No';
+        }
+
         
 
-
-
+        
+        
     }
+
 
     public function startRow(): int
     {
