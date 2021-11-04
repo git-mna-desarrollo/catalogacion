@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Dimencion extends Model
 {
     use SoftDeletes;
-    protected $table = "dimenciones";
+    protected $table = "dimensiones";
 
     protected $fillable = [
         'creador_id', 

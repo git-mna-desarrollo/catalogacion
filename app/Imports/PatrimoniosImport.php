@@ -23,7 +23,7 @@ class PatrimoniosImport implements ToModel, WithStartRow
     */
     public function model(array $row)
     {        
-        echo "Monumento ".$mon." - Codigo ".$row[14]." - Nombre ".$row[7]."<br />";
+        echo "Especialidad ".$row[8]." - Codigo ".$row[14]." - Nombre ".$row[7]."<br />";
 
         // buscamos la ubicacion
         $buscaUbicacion = Ubicacion::where('nombre', 'like', "%$row[5]%")
@@ -77,31 +77,34 @@ class PatrimoniosImport implements ToModel, WithStartRow
             $tmId = $buscaMaterial->id;
         }
 
-        $patrimonio                      = new Patrimonio();
-        $patrimonio->creador_id          = 1;
-        $patrimonio->responsable_id      = 1;
-        $patrimonio->ubicacion_id        = $ubicacionId;
-        $patrimonio->especialidad_id     = $especialidadId;
-        $patrimonio->estilo_id           = $estiloId;
-        $patrimonio->tecnicamaterial_id  = $tmId;
-        $patrimonio->localidad           = "CIUDAD DE LA PAZ";
-        $patrimonio->provincia           = "MURILLO";
-        $patrimonio->departamento        = "LA PAZ";
-        $patrimonio->inmueble            = "MUSEO NACIONAL DE ARTE";
-        $patrimonio->calle               = "COMERCIO ESQ. SOCABAYA";
-        $patrimonio->nombre              = $row[7];
-        $patrimonio->escuela             = $row[10];
-        $patrimonio->epoca               = $row[11];
-        $patrimonio->autor               = $row[12];
-        $patrimonio->inventario          = $row[14];
-        $patrimonio->codigo              = $row[15];
-        $patrimonio->inventario_anterior = $row[16];
-        $patrimonio->origen              = $row[17];
-        $patrimonio->obtencion           = $row[18];
-        $patrimonio->fecha_adquisicion   = $row[19];
-        $patrimonio->marcas              = $row[20];
-        $patrimonio->descripcion         = $row[29];
-        $patrimonio->archivo_fotografico = $row[30];
+        $patrimonio                          = new Patrimonio();
+        $patrimonio->creador_id              = 1;
+        $patrimonio->responsable_id          = 1;
+        $patrimonio->ubicacion_id            = $ubicacionId;
+        $patrimonio->especialidad_id         = $especialidadId;
+        $patrimonio->estilo_id               = $estiloId;
+        $patrimonio->tecnicamaterial_id      = $tmId;
+        $patrimonio->localidad               = "CIUDAD DE LA PAZ";
+        $patrimonio->provincia               = "MURILLO";
+        $patrimonio->departamento            = "LA PAZ";
+        $patrimonio->inmueble                = "MUSEO NACIONAL DE ARTE";
+        $patrimonio->calle                   = "COMERCIO ESQ. SOCABAYA";
+        $patrimonio->nombre                  = $row[7];
+        $patrimonio->escuela                 = $row[10];
+        $patrimonio->epoca                   = $row[11];
+        $patrimonio->autor                   = $row[12];
+        $patrimonio->inventario              = $row[14];
+        $patrimonio->codigo                  = $row[15];
+        $patrimonio->inventario_anterior     = $row[16];
+        $patrimonio->origen                  = $row[17];
+        $patrimonio->obtencion               = $row[18];
+        $patrimonio->fecha_adquisicion_texto = $row[19];
+        $patrimonio->marcas                  = $row[20];
+        $patrimonio->descripcion             = $row[29];
+        $patrimonio->rollo                   = 1;
+        $patrimonio->fotografo               = $row[32];
+        $patrimonio->fecha_fotografia        = $row[33];
+        $patrimonio->toma                    = $row[34];
         $patrimonio->save();
         $patrimonioId = $patrimonio->id;
 

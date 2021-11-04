@@ -88,7 +88,7 @@ class PatrimonioController extends Controller
 
     public function migracion()
     {
-        $archivo = public_path("consolidado.xlsx");
+        $archivo = public_path("c.xlsx");
         Excel::import(new PatrimoniosImport, $archivo);
     }
 
