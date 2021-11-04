@@ -67,7 +67,7 @@ class PatrimonioController extends Controller
         $patrimonio->save();
 
         return redirect("patrimonio/listado");
-    }
+    }   
 
     public function listado()
     {
