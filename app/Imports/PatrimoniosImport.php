@@ -10,19 +10,27 @@ use App\Patrimonio;
 use App\Especialidad;
 use App\Tecnicamaterial;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Concerns\ToModel;
+// use Maatwebsite\Excel\Concerns\ToModel;
+// use Maatwebsite\Excel\Row;
+// use Maatwebsite\Excel\Concerns\OnEachRow;
+
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class PatrimoniosImport implements ToModel, WithStartRow
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
+
+class PatrimoniosImport implements ToCollection, WithStartRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
-    {        
+    public function collection(Collection $rows)
+    {
+        foreach ($rows as $row) 
+        {        
         echo "Especialidad ".$row[8]." - Codigo ".$row[14]." - Nombre ".$row[7]."<br />";
 
         // buscamos la ubicacion
@@ -189,7 +197,7 @@ class PatrimoniosImport implements ToModel, WithStartRow
         }
         
         $estado                            = new Estado();
-        $estado->patrimonio_id             = $patrimonioId();
+        $estado->patrimonio_id             = $patrimonioId;
         $estado->monumento_nacional        = $monNac;
         $estado->resolucion_municipal      = $resolMun;
         $estado->resolucion_administrativa = $resolAdm;
@@ -198,7 +206,8 @@ class PatrimoniosImport implements ToModel, WithStartRow
         $estado->ninguna                   = $ninguna;
         $estado->estado_conservacion       = $estadoConservacion;
         $estado->condiciones_seguridad     = $condicionesSeguridad;
-        $estado->save();        
+        $estado->save();       
+    } 
     }
 
 
