@@ -71,7 +71,7 @@ class CreatePatrimoniosTable extends Migration
 
             $table->string('rollo', 10)->nullable();
             $table->string('fotografo', 50)->nullable();
-            $table->string('fecha_fotografia', 10)->nullable();
+            $table->string('fecha_fotografia', 30)->nullable();
             $table->string('toma', 10)->nullable();
             // $table->text('archivo_fotografico')->nullable();
 

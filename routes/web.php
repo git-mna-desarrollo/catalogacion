@@ -48,3 +48,4 @@ Route::get('User/elimina/{id}', 'UserController@elimina');
 
 // MIGRACION
 Route::get('migracion/patrimonios', 'MigracionController@patrimonios');
+Route::get('migracion/regularizaEstados', 'MigracionController@regularizaEstados');
