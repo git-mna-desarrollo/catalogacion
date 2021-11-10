@@ -22,7 +22,7 @@ class CreateEstadosTable extends Migration
             $table->unsignedBigInteger('eliminador_id')->nullable();
             $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('patrimonio_id')->nullable();
-            $table->foreign('patrimonio_id')->references('id')->on('users');
+            $table->foreign('patrimonio_id')->references('id')->on('patrimonios');
             $table->string('monumento_nacional', 2)->nullable();
             $table->string('resolucion_municipal', 2)->nullable();
             $table->string('resolucion_administrativa', 2)->nullable();

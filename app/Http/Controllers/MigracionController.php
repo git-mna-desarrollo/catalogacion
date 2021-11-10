@@ -130,6 +130,85 @@ class MigracionController extends Controller
 
             $patrimonioId = $patrimonio->id;
 
+                         // preguntamos si es monumento nacional
+            if($row[36] != ''){
+                $monNac = 'Si';
+            }else{
+                $monNac = 'No';
+            }
+
+            // preguntamos si es resolucion municipal
+            if($row[37] != ''){
+                $resolMun = 'Si';
+            }else{
+                $resolMun = 'No';
+            }
+
+            // preguntamos si es resolucion administrativa
+            if($row[38] != ''){
+                $resolAdm = 'Si';
+            }else{
+                $resolAdm = 'No';
+            }
+
+            // preguntamos si es individual
+            if($row[39] != ''){
+                $individual = 'Si';
+            }else{
+                $individual = 'No';
+            }
+
+            // preguntamos si es conjunto
+            if($row[40] != ''){
+                $conjunto = 'Si';
+            }else{
+                $conjunto = 'No';
+            }
+
+            // preguntamos si es ninguna
+            if($row[39] != ''){
+                $ninguna = 'Si';
+            }else{
+                $ninguna = 'No';
+            }
+
+            $estadoConservacion = null;
+            // preguntamos el estado de conservacion
+            if($row[43] != ''){
+                $estadoConservacion = 'Excelente';
+            }elseif($row[44] != ''){
+                $estadoConservacion = 'Malo';
+            }elseif($row[45] != ''){
+                $estadoConservacion = 'Bueno';
+            }elseif($row[46] != ''){
+                $estadoConservacion = 'Pesimo';
+            }elseif($row[47] != ''){
+                $estadoConservacion = 'Regular';
+            }elseif($row[48] != ''){
+                $estadoConservacion = 'Fragmento';
+            }
+
+            $condicionesSeguridad = null;
+            // preguntamos las condiciones de seguridad
+            if($row[50] != ''){
+                $condicionesSeguridad = 'Buena';
+            }elseif($row[51] != ''){
+                $condicionesSeguridad = 'Razonable';
+            }elseif($row[52] != ''){
+                $condicionesSeguridad = 'Ninguna';
+            }
+
+            $estado                            = new Estado();
+            $estado->patrimonio_id             = $patrimonioId;
+            $estado->monumento_nacional        = $monNac;
+            $estado->resolucion_municipal      = $resolMun;
+            $estado->resolucion_administrativa = $resolAdm;
+            $estado->individual                = $individual;
+            $estado->conjunto                  = $conjunto;
+            $estado->ninguna                   = $ninguna;
+            $estado->estado_conservacion       = $estadoConservacion;
+            $estado->condiciones_seguridad     = $condicionesSeguridad;
+            $estado->save();       
            
             $i++;
         }
@@ -151,6 +230,13 @@ class MigracionController extends Controller
         unset($sheetData[0]);
 
         foreach ($sheetData as $row) {
+
+            $patrimonio = Patrimonio::where('codigo', "$row[15]")
+                            ->first();
+
+            if($patrimonio != null) {
+                $patrimonioId = $patrimonio->id;
+            }
             
             echo "Fila: ".$i." - Especialidad ".$row[8]." - Codigo ".$row[14]." - Nombre ".$row[7]."<br />";
              // preguntamos si es monumento nacional
@@ -220,18 +306,20 @@ class MigracionController extends Controller
             }elseif($row[52] != ''){
                 $condicionesSeguridad = 'Ninguna';
             }
-            
-            $estado                            = new Estado();
-            $estado->patrimonio_id             = $patrimonioId;
-            $estado->monumento_nacional        = $monNac;
-            $estado->resolucion_municipal      = $resolMun;
-            $estado->resolucion_administrativa = $resolAdm;
-            $estado->individual                = $individual;
-            $estado->conjunto                  = $conjunto;
-            $estado->ninguna                   = $ninguna;
-            $estado->estado_conservacion       = $estadoConservacion;
-            $estado->condiciones_seguridad     = $condicionesSeguridad;
-            $estado->save();       
+
+            if($patrimonio != null) {
+                $estado                            = new Estado();
+                $estado->patrimonio_id             = $patrimonioId;
+                $estado->monumento_nacional        = $monNac;
+                $estado->resolucion_municipal      = $resolMun;
+                $estado->resolucion_administrativa = $resolAdm;
+                $estado->individual                = $individual;
+                $estado->conjunto                  = $conjunto;
+                $estado->ninguna                   = $ninguna;
+                $estado->estado_conservacion       = $estadoConservacion;
+                $estado->condiciones_seguridad     = $condicionesSeguridad;
+                $estado->save();       
+            }
 
             $i++;
         }
