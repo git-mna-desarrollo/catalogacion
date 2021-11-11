@@ -36,6 +36,7 @@ Route::post('patrimonio/guarda', 'PatrimonioController@guarda');
 Route::get('patrimonio/listado', 'PatrimonioController@listado');
 Route::get('patrimonio/elimina/{id}', 'PatrimonioController@elimina');
 Route::get('patrimonio/migracion', 'PatrimonioController@migracion');
+Route::get('patrimonio/ficha/{patrimonioId}', 'PatrimonioController@ficha');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');

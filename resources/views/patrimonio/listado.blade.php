@@ -55,6 +55,14 @@
                                 onclick="edita('{{ $p->id }}'">
                             <i class="flaticon2-edit"></i>
                             </button>
+
+                            <a
+                                href="{{ url('patrimonio/ficha')}}/{{ $p->id }}" 
+                                class="btn btn-sm btn-icon btn-primary" 
+                                onclick="edita('{{ $p->id }}'">
+                            <i class="flaticon2-paper"></i>
+                            </a>
+
                             <button type="button" class="btn btn-sm btn-icon btn-danger"
                                 onclick="elimina('{{ $p->id }}', '{{ $p->nombre }}')">
                                 <i class="flaticon2-cross"></i>

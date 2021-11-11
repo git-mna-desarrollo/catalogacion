@@ -92,4 +92,10 @@ class PatrimonioController extends Controller
         Excel::import(new PatrimoniosImport, $archivo);
     }
 
+    public function ficha(Request $request, $patrimonioId)
+    {
+        $patrimonio = Patrimonio::find($patrimonioId);
+        return view('patrimonio.ficha')->with(compact('patrimonio'));
+    }
+
 }
