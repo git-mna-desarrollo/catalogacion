@@ -126,6 +126,21 @@ class MigracionController extends Controller
             $patrimonio->profundidad             = $row[27];
             $patrimonio->peso                    = $row[28];
 
+            $patrimonio->especificacion_conservacion   = $row[53];
+            $patrimonio->intervenciones_realizadas     = $row[54];
+            $patrimonio->caracteristicas_tecnicas      = $row[55];
+            $patrimonio->caracteristicas_iconograficas = $row[56];
+            $patrimonio->datos_historicos              = $row[57];
+            $patrimonio->referencias_bibliograficas    = $row[58];
+            
+            $patrimonio->observaciones  = $row[59];
+            $patrimonio->catalogo       = $row[62];
+            $patrimonio->fecha_catalogo = $row[63];
+            $patrimonio->elaboro        = $row[64];
+            $patrimonio->fecha_elaboro  = $row[65];
+            $patrimonio->reviso         = $row[66];
+            $patrimonio->fecha_reviso   = $row[67];
+
             $patrimonio->save();
 
             $patrimonioId = $patrimonio->id;
