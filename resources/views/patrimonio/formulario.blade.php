@@ -78,7 +78,46 @@
                                 {{-- ubicacion --}}
                                 <div class="row">
                                     
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">LOCALIDAD </label>
+                                                <input type="text" class="form-control" id="localidad" name="localidad" value="CIUDAD DE LA PAZ" disabled />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">PROVINCIA </label>
+                                                <input type="text" class="form-control" id="localidad" name="localidad" value="MURILLO" disabled />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">DEPARTAMENTO </label>
+                                                <input type="text" class="form-control" id="localidad" name="localidad" value="LA PAZ" disabled />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">INMUEBLE </label>
+                                            <input type="text" class="form-control" id="localidad" name="localidad" value="MUSEO NACIONAL DE ARTE" disabled />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">CALLE </label>
+                                            <input type="text" class="form-control" id="localidad" name="localidad" value="CALLE COMERCIO ESQ. SOCABAYA" disabled />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">UBICACION
                                                 <span class="text-danger">*</span>
@@ -93,21 +132,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">RESPONSABLE
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
-                                                @forelse ($ubicaciones as $u)
-                                                <option value="{{ $u->id }}">{{ $u->nombre }}</option>
-                                                @empty
-                                    
-                                                @endforelse
-                                            </select>
-                                        </div>
-                                    </div>
-                                
                                 </div>
 
                                 {{-- fin ubicacion --}}
