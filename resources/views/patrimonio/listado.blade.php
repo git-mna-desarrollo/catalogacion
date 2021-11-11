@@ -46,7 +46,13 @@
                         <td>{{ $p->nombre }}</td>
                         <td>{{ $p->especialidad->nombre }}</td>
                         <td>{{ $p->estilo->nombre }}</td>
-                        <td>{{ $p->tecnicamaterial['nombre'] }}</td>
+                        <td>
+                            @if ($p->tecnicamaterial_id != null)
+                                {{ $p->tecnicamaterial->nombre }}
+                            @else
+                                
+                            @endif
+                        </td>
                         <td>{{ $p->fecha_adquisicion }}</td>
                         <td>
                             <button 
