@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('metadatos')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('css')
 <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
@@ -25,7 +29,7 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
-            <form action="">
+            <form action="#" id="formularioBusqueda">
                 <div class="row">
                     <div class="col-md-1">
                         <div class="form-group">
@@ -34,7 +38,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <!--<div class="col-md-2">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Nombre </label>
                             <input type="text" class="form-control" id="nombre" name="nombre" />
@@ -43,15 +47,61 @@
 
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Nombre </label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" />
+                            <label for="exampleInputPassword1">ESPECIALIDAD
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control" id="especialidad_id" name="especialidad_id" style="width: 100%">
+                                <option value="">Seleccione</option>
+                                @forelse ($especialidades as $e)
+                                <option value="{{ $e->id }}">{{ $e->nombre }}</option>
+                                @empty
+                    
+                                @endforelse
+                            </select>
                         </div>
                     </div>
 
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">ESTILO
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control" id="estilo_id" name="estilo_id" style="width: 100%">
+                                <option value="">Seleccione</option>
+                                @forelse ($estilos as $es)
+                                <option value="{{ $es->id }}">{{ $es->nombre }}</option>
+                                @empty
+                    
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Tecnica y Material
+                                <span class="text-danger">*</span></label>
+                            <select class="form-control" id="tecnicamaterial_id" name="tecnicamaterial_id" style="width: 100%">
+                                <option value="">Seleccione</option>
+                                @forelse ($tecnicas as $t)
+                                <option value="{{ $t->id }}">{{ $t->nombre }}</option>
+                                @empty
+                    
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>-->
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div style="height: 23px;"></div>
+                            <button type="button" class="btn btn-success font-weight-bolder" onclick="buscaPatrimonio();">BUSCAR</button>
+                        </div>
+                    </div>
                     
                 </div>
             </form>
-
+            <div id="cargaDatos">
             <table class="table table-bordered table-hover table-striped" id="tabla-insumos">
                 <thead>
                     <tr>
@@ -107,6 +157,7 @@
                 <tbody>
                 </tbody>
             </table>
+            </div>
         </div>
         <!--end: Datatable-->
     </div>
@@ -117,6 +168,13 @@
 @section('js')
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script type="text/javascript">
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $(function () {
     	    $('#tabla-insumos').DataTable({
                 "searching": false,
@@ -128,6 +186,21 @@
     	    });
 
     	});
+
+    function buscaPatrimonio(){
+
+        let datosFormulario = $("#formularioBusqueda").serializeArray();
+        $.ajax({
+            url: "{{ url('patrimonio/ajaxBuscaPatrimonio') }}",
+            data: datosFormulario,
+            type: 'POST',
+            success: function(data) {
+                $("#cargaDatos").html(data);
+            }
+        });    
+    }
+
+        
 
     	function nuevo()
     	{

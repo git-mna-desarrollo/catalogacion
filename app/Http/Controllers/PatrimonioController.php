@@ -84,15 +84,16 @@ class PatrimonioController extends Controller
 
     public function listado()
     {
+        $tecnicas = Tecnicamaterial::all();
+        $ubicaciones = Ubicacion::all();
+        $especialidades = Especialidad::all();
+        $estilos = Estilo::all();
 
-        
         $patrimonios = Patrimonio::orderBy('id', 'desc')
                                 ->limit(200)
                                 ->get();
 
-        // dd($patrimonios);
-
-        return view('patrimonio.listado')->with(compact('patrimonios'));
+        return view('patrimonio.listado')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos'));
     }
 
     public function elimina(Request $request, $id)
@@ -111,6 +112,14 @@ class PatrimonioController extends Controller
     {
         $patrimonio = Patrimonio::find($patrimonioId);
         return view('patrimonio.ficha')->with(compact('patrimonio'));
+    }
+
+    public function ajaxBuscaPatrimonio(Request $request)
+    {
+        $patrimonios = Patrimonio::where('codigo', $request->input('codigo'))
+                                    ->get();
+
+        return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
     }
 
 }
