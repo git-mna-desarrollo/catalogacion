@@ -88,14 +88,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PROVINCIA </label>
-                                                <input type="text" class="form-control" id="localidad" name="localidad" value="MURILLO" disabled />
+                                                <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" disabled />
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DEPARTAMENTO </label>
-                                                <input type="text" class="form-control" id="localidad" name="localidad" value="LA PAZ" disabled />
+                                                <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" disabled />
                                         </div>
                                     </div>
 
@@ -106,14 +106,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">INMUEBLE </label>
-                                            <input type="text" class="form-control" id="localidad" name="localidad" value="MUSEO NACIONAL DE ARTE" disabled />
+                                            <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" disabled />
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CALLE </label>
-                                            <input type="text" class="form-control" id="localidad" name="localidad" value="CALLE COMERCIO ESQ. SOCABAYA" disabled />
+                                            <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" disabled />
                                         </div>
                                     </div>
                                     
@@ -138,7 +138,67 @@
                             </div>
                             <div class="tab-pane fade" id="identificacion" role="tabpanel" aria-labelledby="profile-tab-1">
 
-                                {{-- IDENTIFICACION --}}                                
+                                {{-- IDENTIFICACION --}}                       
+                                
+                                <div class="row">
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">ALTO
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="alto" name="alto" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">ANCHO
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="ancho" name="ancho" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">DIAMETRO
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="diametro" name="diametro" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">CIRCUNFERENCIA
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="circunferencia" name="circunferencia" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">LARGO
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="largo" name="largo" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">PROFUNDIDAD
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="ancho" name="ancho" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">PESO 
+                                                <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="peso" name="peso" />
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                                 
                                 <div class="row">
                                 
@@ -155,7 +215,7 @@
                                             <label for="exampleInputPassword1">ESPECIALIDAD
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
+                                            <select class="form-control" id="especialidad_id" name="especialidad_id" style="width: 100%">
                                                 @forelse ($especialidades as $e)
                                                 <option value="{{ $e->id }}">{{ $e->nombre }}</option>
                                                 @empty
@@ -170,7 +230,7 @@
                                             <label for="exampleInputPassword1">ESTILO
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
+                                            <select class="form-control" id="estilo_id" name="estilo_id" style="width: 100%">
                                                 @forelse ($estilos as $es)
                                                 <option value="{{ $es->id }}">{{ $es->nombre }}</option>
                                                 @empty
@@ -199,6 +259,7 @@
                                             <input type="text" class="form-control" id="epoca" name="epoca" />
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Autor/Atribucion
@@ -206,6 +267,7 @@
                                             <input type="text" class="form-control" id="autor" name="autor" />
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Tecnica y Material
@@ -287,32 +349,12 @@
                                             <textarea class="form-control" name="marcas"></textarea>
                                         </div>
                                     </div>
-                                
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Dimensiones (Cms.)
-                                                <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="dimensiones"></textarea>
-                                        </div>
-                                    </div>
-                                
-                                </div>
-                                
-                                <div class="row">
-                                
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Descripcion
                                                 <span class="text-danger">*</span></label>
                                             <textarea class="form-control" name="descripcion"></textarea>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1"> Archvo Fotografico
-                                                <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="archivo"></textarea>
                                         </div>
                                     </div>
                                 
@@ -324,22 +366,22 @@
                                             <label>Proteccion Legal</label>
                                             <div class="checkbox-inline">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="monumento_nacional">
                                                     <span></span>Monumento Nacional</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="resolucion_municipal">
                                                     <span></span>Resolucion Municipal</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="resolucion_administrativa">
                                                     <span></span>Resolucion Administrativa</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="individual">
                                                     <span></span>Individual</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="conjunto">
                                                     <span></span>De Conjunto</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="ninguna">
                                                     <span></span>Ninguna</label>
                                             </div>
                                             {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
@@ -354,22 +396,22 @@
                                             <label>Estado de conservacion</label>
                                             <div class="checkbox-inline">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Excelente">
                                                     <span></span>Excelente</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Bueno">
                                                     <span></span>Bueno</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Regular">
                                                     <span></span>Regular</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Malo">
                                                     <span></span>Malo</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Pesimo">
                                                     <span></span>Pesimo</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Fragmento">
                                                     <span></span>Fragmento</label>
                                             </div>
                                             {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
@@ -381,13 +423,13 @@
                                             <label>Condiciones de Seguridad</label>
                                             <div class="checkbox-inline">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Buena">
                                                     <span></span>Buena</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Razonable">
                                                     <span></span>Razonable</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="Checkboxes2">
+                                                    <input type="checkbox" name="Ninguna">
                                                     <span></span>Ninguna</label>
                                             </div>
                                             {{-- <span class="form-text text-muted">Some help text goes here</span> --}}

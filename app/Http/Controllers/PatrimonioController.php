@@ -34,13 +34,22 @@ class PatrimonioController extends Controller
         dd($request->all());
         $patrimonio                                = new Patrimonio();
         $patrimonio->creador_id                    = Auth::user()->id;
-        $patrimonio->localidad_id                  = $request->input('localidad_id');
-        $patrimonio->departamento_id               = $request->input('departamento_id');
-        $patrimonio->provincia_id                  = $request->input('provincia_id');
+        $patrimonio->localidad                     = $request->input('localidad');
+        $patrimonio->provincia                     = $request->input('provincia');
+        $patrimonio->departamento_id               = $request->input('departamento');
+        $patrimonio->inmueble                      = $request->input('inmueble');
+        $patrimonio->calle                         = $request->input('calle');
         $patrimonio->ubicacion_id                  = $request->input('ubicacion_id');
         $patrimonio->tecnicamaterial_id            = $request->input('tecnicamaterial_id');
         $patrimonio->direccion                     = $request->input('direccion');
         $patrimonio->nombre                        = $request->input('nombre');
+        $patrimonio->alto                          = $request->input('alto');
+        $patrimonio->ancho                         = $request->input('ancho');
+        $patrimonio->diametro                      = $request->input('diametro');
+        $patrimonio->circunferencia                = $request->input('circunferencia');
+        $patrimonio->largo                         = $request->input('largo');
+        $patrimonio->profundidad                   = $request->input('profundidad');
+        $patrimonio->peso                          = $request->input('peso');
         $patrimonio->especialidad                  = $request->input('especialidad');
         $patrimonio->estilo                        = $request->input('estilo');
         $patrimonio->escuela                       = $request->input('escuela');
@@ -54,9 +63,7 @@ class PatrimonioController extends Controller
         $patrimonio->obtencion                     = $request->input('obtencion');
         $patrimonio->fecha_adquisicion             = $request->input('fecha_adquisicion');
         $patrimonio->marcas                        = $request->input('marcas');
-        $patrimonio->dimenciones                   = $request->input('dimenciones');
         $patrimonio->descripcion                   = $request->input('descripcion');
-        $patrimonio->archivo_fotografico           = $request->input('archivo_fotografico');
         $patrimonio->estado_conservacion           = $request->input('estado_conservacion');
         $patrimonio->intervenciones_realizadas     = $request->input('intervenciones_realizadas');
         $patrimonio->caracteristicas_tecnicas      = $request->input('caracteristicas_tecnicas');
@@ -66,11 +73,19 @@ class PatrimonioController extends Controller
         $patrimonio->observaciones                 = $request->input('observaciones');
         $patrimonio->save();
 
+        $patrimonioId = $patrimonio->id;
+
+        $estados = new Estado();
+        $estados->creador_id = Auth::user()->id;
+        $estados->monumento_nacional = $request->input('monumento_nacional');
+
         return redirect("patrimonio/listado");
     }   
 
     public function listado()
     {
+
+        
         $patrimonios = Patrimonio::orderBy('id', 'desc')
                                 ->limit(200)
                                 ->get();

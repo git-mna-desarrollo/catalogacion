@@ -25,16 +25,42 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
+            <form action="">
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Codigo </label>
+                            <input type="number" class="form-control" id="codigo" name="codigo" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Nombre </label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Nombre </label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" />
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </form>
+
             <table class="table table-bordered table-hover table-striped" id="tabla-insumos">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Inventario</th>
+                        <th>Codigo</th>
                         <th>Nombre</th>
                         <th>Especialidad</th>
                         <th>Estilo</th>
                         <th>Tecnica/Material</th>
-                        <th>Fecha Adquisicion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -42,7 +68,7 @@
                     @forelse ($patrimonios as $p)
                     <tr>
                         <td>{{ $p->id }}</td>
-                        <td>{{ $p->inventario }}</td>
+                        <td>{{ $p->codigo }}</td>
                         <td>{{ $p->nombre }}</td>
                         <td>{{ $p->especialidad->nombre }}</td>
                         <td>{{ $p->estilo->nombre }}</td>
@@ -53,7 +79,6 @@
                                 
                             @endif
                         </td>
-                        <td>{{ $p->fecha_adquisicion }}</td>
                         <td>
                             <button 
                                 type="button" 
@@ -94,6 +119,8 @@
 <script type="text/javascript">
     $(function () {
     	    $('#tabla-insumos').DataTable({
+                "searching": false,
+                "lengthChange": false,
     	        language: {
     	            url: '{{ asset('datatableEs.json') }}',
     	        },
