@@ -562,7 +562,7 @@
 
                                     <div class="col-md-4">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile" onchange="loadFile_3(event)" />
+                                            <input type="file" class="custom-file-input" id="customFile" name="archivo[]" onchange="loadFile_3(event)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}

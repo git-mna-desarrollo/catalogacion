@@ -52,7 +52,7 @@ class MigracionController extends Controller
             }
 
             // buscamos la especialidad
-            $buscaEspecialidad = Especialidad::where('nombre', 'like', "%$row[8]%")
+            $buscaEspecialidad = Especialidad::where('nombre', 'like', "%$row[8]%") 
                                         ->first();
 
             // preguntamos si exisite                  

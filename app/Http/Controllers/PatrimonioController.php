@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PatrimonioController extends Controller
 {
-    public function formulario()
+    public function formulario(Request)
     {
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
@@ -75,6 +75,24 @@ class PatrimonioController extends Controller
 
         $patrimonioId = $patrimonio->id;
 
+        // guardado de las imagenes
+        if ($request->has('fotos')) 
+        {
+            foreach ($request->fotos as $key => $f) 
+            {
+                $archivo = $f;
+                $direccion = 'imagenesProductos/'; // upload path
+                $nombreArchivo = date('YmdHis').$key. "." . $archivo->getClientOriginalExtension();
+                $archivo->move($direccion, $nombreArchivo);
+
+                $imagenProducto              = new ImagenesProducto();
+                $imagenProducto->user_id     = Auth::user()->id;
+                $imagenProducto->producto_id = $producto_id;
+                $imagenProducto->imagen      = $nombreArchivo;
+                $imagenProducto->save();
+            }
+        }
+        // fin guardado de las imagenes
         $estados = new Estado();
         $estados->creador_id = Auth::user()->id;
         $estados->monumento_nacional = $request->input('monumento_nacional');
@@ -117,7 +135,7 @@ class PatrimonioController extends Controller
     public function ajaxBuscaPatrimonio(Request $request)
     {
         $patrimonios = Patrimonio::where('codigo', $request->input('codigo'))
-                                    ->get();
+                                    ->get();    
 
         return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
     }
