@@ -31,7 +31,7 @@ Route::get('/home', 'PanelController@inicio');
 Route::get('panel/inicio', 'panelController@inicio');
 
 // PATRIMONIO
-Route::get('patrimonio/formulario', 'PatrimonioController@formulario');
+Route::get('patrimonio/formulario/{idPatrimonio}', 'PatrimonioController@formulario');
 Route::post('patrimonio/guarda', 'PatrimonioController@guarda');
 Route::get('patrimonio/listado', 'PatrimonioController@listado');
 Route::get('patrimonio/elimina/{id}', 'PatrimonioController@elimina');
@@ -51,3 +51,6 @@ Route::get('User/elimina/{id}', 'UserController@elimina');
 // MIGRACION
 Route::get('migracion/patrimonios', 'MigracionController@patrimonios');
 Route::get('migracion/regularizaEstados', 'MigracionController@regularizaEstados');
+
+// ESPECIALIADES
+Route::get('especialidad/listado', 'EspecialidadController@listado');

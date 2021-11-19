@@ -18,20 +18,43 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PatrimonioController extends Controller
 {
-    public function formulario(Request)
+    public function formulario(Request $request, $idPatrimonio)
     {
+        if($idPatrimonio != 0){
+            $datosPatrimonio = Patrimonio::find($idPatrimonio);
+        }else{
+            $datosPatrimonio = null;
+        }
+
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
 
         // dd($ubicaciones);
-        return view('patrimonio.formulario')->with(compact('tecnicas', 'ubicaciones', 'especialidades', 'estilos'));
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos'));
     }
 
     public function guarda(Request $request)
     {
         dd($request->all());
+
+        $estadoConservacion = null;
+        // preguntamos el estado de conservacion
+        if($row[43] != ''){
+            $estadoConservacion = 'Excelente';
+        }elseif($row[44] != ''){
+            $estadoConservacion = 'Malo';
+        }elseif($row[45] != ''){
+            $estadoConservacion = 'Bueno';
+        }elseif($row[46] != ''){
+            $estadoConservacion = 'Pesimo';
+        }elseif($row[47] != ''){
+            $estadoConservacion = 'Regular';
+        }elseif($row[48] != ''){
+            $estadoConservacion = 'Fragmento';
+        }
+
         $patrimonio                                = new Patrimonio();
         $patrimonio->creador_id                    = Auth::user()->id;
         $patrimonio->localidad                     = $request->input('localidad');

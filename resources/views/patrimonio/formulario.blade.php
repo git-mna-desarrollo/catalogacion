@@ -124,7 +124,14 @@
                                             </label>
                                             <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
                                                 @forelse ($ubicaciones as $u)
-                                                <option value="{{ $u->id }}">{{ $u->nombre }}</option>
+                                                @php
+                                                    if($datosPatrimonio != null && $datosPatrimonio->ubicacion_id==$u->id){
+                                                        $seleccionado = 'selected';
+                                                    }else{
+                                                        $seleccionado = '';
+                                                    }
+                                                @endphp
+                                                <option value="{{ $u->id }}" {{ $seleccionado }}>{{ $u->nombre }}</option>
                                                 @empty
                                     
                                                 @endforelse
@@ -146,7 +153,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">ALTO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="alto" name="alto" />
+                                            <input type="number" class="form-control" id="alto" name="alto" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->alto:'' }}" />
                                         </div>
                                     </div>
 
@@ -154,7 +161,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">ANCHO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="ancho" name="ancho" />
+                                            <input type="number" class="form-control" id="ancho" name="ancho" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->ancho:'' }}" />
                                         </div>
                                     </div>
 
@@ -162,7 +169,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DIAMETRO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="diametro" name="diametro" />
+                                            <input type="number" class="form-control" id="diametro" name="diametro" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->diametro:'' }}" />
                                         </div>
                                     </div>
 
@@ -170,7 +177,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CIRCUNFERENCIA
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="circunferencia" name="circunferencia" />
+                                            <input type="number" class="form-control" id="circunferencia" name="circunferencia" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->circunferencia:'' }}" />
                                         </div>
                                     </div>
 
@@ -178,7 +185,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">LARGO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="largo" name="largo" />
+                                            <input type="number" class="form-control" id="largo" name="largo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->largo:'' }}" />
                                         </div>
                                     </div>
 
@@ -186,7 +193,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PROFUNDIDAD
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="ancho" name="ancho" />
+                                            <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->profundidad:'' }}" />
                                         </div>
                                     </div>
 
@@ -194,7 +201,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PESO 
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="peso" name="peso" />
+                                            <input type="number" class="form-control" id="peso" name="peso" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->peso:'' }}" />
                                         </div>
                                     </div>
                                     
@@ -206,7 +213,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DESIGNACION/NOMBRE
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" required />
+                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->nombre:'' }}" required />
                                         </div>
                                     </div>
                                     
@@ -217,7 +224,15 @@
                                             </label>
                                             <select class="form-control" id="especialidad_id" name="especialidad_id" style="width: 100%">
                                                 @forelse ($especialidades as $e)
-                                                <option value="{{ $e->id }}">{{ $e->nombre }}</option>
+                                                @php
+                                                    if($datosPatrimonio != null && $datosPatrimonio->especialidad_id==$e->id){
+                                                        $seleccionado = 'selected';
+                                                    }else{
+                                                        $seleccionado = '';
+                                                    }
+                                                @endphp
+
+                                                <option value="{{ $e->id }}" {{ $seleccionado }}>{{ $e->nombre }}</option>
                                                 @empty
                                     
                                                 @endforelse
@@ -232,7 +247,16 @@
                                             </label>
                                             <select class="form-control" id="estilo_id" name="estilo_id" style="width: 100%">
                                                 @forelse ($estilos as $es)
-                                                <option value="{{ $es->id }}">{{ $es->nombre }}</option>
+
+                                                @php
+                                                    if($datosPatrimonio != null && $datosPatrimonio->estilo_id==$es->id){
+                                                        $seleccionado = 'selected';
+                                                    }else{
+                                                        $seleccionado = '';
+                                                    }
+                                                @endphp
+
+                                                <option value="{{ $es->id }}" {{ $seleccionado }}>{{ $es->nombre }}</option>
                                                 @empty
                                     
                                                 @endforelse
@@ -244,7 +268,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Escuela
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="escuela" name="escuela" />
+                                            <input type="text" class="form-control" id="escuela" name="escuela" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->escuela:'' }}" />
                                         </div>
                                     </div>
                                 
@@ -256,7 +280,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Epoca y/o Fecha
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="epoca" name="epoca" />
+                                            <input type="text" class="form-control" id="epoca" name="epoca" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->epoca:'' }}" />
                                         </div>
                                     </div>
 
@@ -264,7 +288,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Autor/Atribucion
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="autor" name="autor" />
+                                            <input type="text" class="form-control" id="autor" name="autor" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->autor:'' }}" />
                                         </div>
                                     </div>
                                     
@@ -274,7 +298,15 @@
                                                 <span class="text-danger">*</span></label>
                                             <select class="form-control" id="tecnicamaterial_id" name="tecnicamaterial_id" style="width: 100%">
                                                 @forelse ($tecnicas as $t)
-                                                <option value="{{ $t->id }}">{{ $t->nombre }}</option>
+                                                @php
+                                                    if($datosPatrimonio != null && $datosPatrimonio->tecnicamaterial_id==$t->id){
+                                                        $seleccionado = 'selected';
+                                                    }else{
+                                                        $seleccionado = '';
+                                                    }
+                                                @endphp
+
+                                                <option value="{{ $t->id }}" {{ $seleccionado }}>{{ $t->nombre }}</option>
                                                 @empty
                                 
                                                 @endforelse
@@ -290,7 +322,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> No de Inventario
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="inventario" name="inventario" />
+                                            <input type="text" class="form-control" id="inventario" name="inventario" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->inventario:'' }}"/>
                                         </div>
                                     </div>
                                 
@@ -298,7 +330,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Codigo
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="codigo" name="codigo" />
+                                            <input type="text" class="form-control" id="codigo" name="codigo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->codigo:'' }}" required />
                                         </div>
                                     </div>
                                 
@@ -306,7 +338,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> No de Inventario Anterior
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="inventario_anterior" name="inventario_anterior" />
+                                            <input type="text" class="form-control" id="inventario_anterior" name="inventario_anterior" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->inventario_anterior:'' }}"/>
                                         </div>
                                     </div>
                                 
@@ -318,7 +350,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Origen
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="origen" name="origen" />
+                                            <input type="text" class="form-control" id="origen" name="origen" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->origen:'' }}" />
                                         </div>
                                     </div>
                                 
@@ -326,15 +358,15 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Obtencion
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="obtencion" name="obtencion" />
+                                            <input type="text" class="form-control" id="obtencion" name="obtencion" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->obtencion:'' }}" />
                                         </div>
                                     </div>
                                 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1"> Fecha Adquisision
+                                            <label for="exampleInputPassword1"> Fecha Adquisision <b>{{ ($datosPatrimonio != null) ? $datosPatrimonio->fecha_adquisicion_texto:'' }}</b>
                                                 <span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" id="fecha_adquisicion" name="fecha_adquisicion" />
+                                            <input type="date" class="form-control" id="fecha_adquisicion" name="fecha_adquisicion" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_adquisicion:'' }}" />
                                         </div>
                                     </div>
                                 
@@ -346,7 +378,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Marcas/Inscripciones
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="marcas"></textarea>
+                                            <textarea class="form-control" name="marcas">{{ ($datosPatrimonio != null)?$datosPatrimonio->marcas:'' }}</textarea>
                                         </div>
                                     </div>
 
@@ -354,34 +386,42 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> Descripcion
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="descripcion"></textarea>
+                                            <textarea class="form-control" name="descripcion">{{ ($datosPatrimonio != null)?$datosPatrimonio->descripcion:'' }}</textarea>
                                         </div>
                                     </div>
                                 
                                 </div>
                                 
                                 <div class="row">
+                                    @php
+                                        if($datosPatrimonio != null){
+                                            $estadosPatrimonio = App\Estado::where('patrimonio_id', $datosPatrimonio->id)
+                                                                                            ->first();
+                                        }else{
+                                            $estadosPatrimonio = null;
+                                        }
+                                    @endphp
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Proteccion Legal</label>
                                             <div class="checkbox-inline">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="monumento_nacional">
+                                                    <input type="checkbox" name="monumento_nacional" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->monumento_nacional=="Si")?"checked":'':'' }} />
                                                     <span></span>Monumento Nacional</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="resolucion_municipal">
+                                                    <input type="checkbox" name="resolucion_municipal" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->resolucion_municipal=="Si")?"checked":'':'' }} />
                                                     <span></span>Resolucion Municipal</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="resolucion_administrativa">
+                                                    <input type="checkbox" name="resolucion_administrativa" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->resolucion_administrativa=="Si")?"checked":'':'' }}>
                                                     <span></span>Resolucion Administrativa</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="individual">
+                                                    <input type="checkbox" name="individual" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->individual=="Si")?"checked":'':'' }}>
                                                     <span></span>Individual</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="conjunto">
+                                                    <input type="checkbox" name="conjunto" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->conjunto=="Si")?"checked":'':'' }}>
                                                     <span></span>De Conjunto</label>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="ninguna">
+                                                    <input type="checkbox" name="ninguna" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->ninguna=="Si")?"checked":'':'' }}>
                                                     <span></span>Ninguna</label>
                                             </div>
                                             {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
@@ -394,45 +434,26 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Estado de conservacion</label>
-                                            <div class="checkbox-inline">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Excelente">
-                                                    <span></span>Excelente</label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Bueno">
-                                                    <span></span>Bueno</label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Regular">
-                                                    <span></span>Regular</label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Malo">
-                                                    <span></span>Malo</label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Pesimo">
-                                                    <span></span>Pesimo</label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Fragmento">
-                                                    <span></span>Fragmento</label>
-                                            </div>
-                                            {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
+                                           
+                                            <select class="form-control" id="estado_conservacion" name="estado_conservacion" style="width: 100%">
+                                                <option value="Excelente" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->estado_conservacion=="Excelente")?"selected":'':'' }}>Excelente</option>
+                                                <option value="Bueno" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->estado_conservacion=="Bueno")?"selected":'':'' }}>Bueno</option>
+                                                <option value="Regular" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->estado_conservacion=="Regular")?"selected":'':'' }}>Regular</option>
+                                                <option value="Malo" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->estado_conservacion=="Malo")?"selected":'':'' }}>Malo</option>
+                                                <option value="Pesimo" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->estado_conservacion=="Pesimo")?"selected":'':'' }}>Pesimo</option>
+                                                <option value="Fragmento" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->estado_conservacion=="Fragmento")?"selected":'':'' }}>Fragmento</option>
+                                            </select>
                                         </div>
                                     </div>
                                 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Condiciones de Seguridad</label>
-                                            <div class="checkbox-inline">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Buena">
-                                                    <span></span>Buena</label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Razonable">
-                                                    <span></span>Razonable</label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" name="Ninguna">
-                                                    <span></span>Ninguna</label>
-                                            </div>
-                                            {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
+                                            <select class="form-control" id="condiciones_seguridad" name="condiciones_seguridad" style="width: 100%">
+                                                <option value="Buena" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->condiciones_seguridad=="Buena")?"selected":'':'' }}>Buena</option>
+                                                <option value="Razonable" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->condiciones_seguridad=="Razonable")?"selected":'':'' }}>Razonable</option>
+                                                <option value="Ninguna" {{ ($estadosPatrimonio!=null)?($estadosPatrimonio->condiciones_seguridad=="Ninguna")?"selected":'':'' }}>Ninguna</option>
+                                            </select>
                                         </div>
                                     </div>
                                 
@@ -449,7 +470,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> ESPECIFICACIONES SOBRE EL ESTADO DE CONSERVACION
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="estado_conservacion"></textarea>
+                                            <textarea class="form-control" name="estado_conservacion">{{ ($datosPatrimonio != null)?$datosPatrimonio->estado_conservacion:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -457,7 +478,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> INTERVENCIONES REALIZADAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="intervenciones_realizadas"></textarea>
+                                            <textarea class="form-control" name="intervenciones_realizadas">{{ ($datosPatrimonio != null)?$datosPatrimonio->intervenciones_realizadas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -469,7 +490,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> CARACTERISTICAS TECNICAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="caracteristicas_tecnicas"></textarea>
+                                            <textarea class="form-control" name="caracteristicas_tecnicas">{{ ($datosPatrimonio != null)?$datosPatrimonio->caracteristicas_tecnicas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -481,7 +502,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> CARACTERISTICAS ICONOGRAFICAS/ORNAMENTALES
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="caracteristicas_iconograficas"></textarea>
+                                            <textarea class="form-control" name="caracteristicas_iconograficas">{{ ($datosPatrimonio != null)?$datosPatrimonio->caracteristicas_iconograficas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -493,7 +514,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> DATOS HISTORICOS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="datos_historicos"></textarea>
+                                            <textarea class="form-control" name="datos_historicos">{{ ($datosPatrimonio != null)?$datosPatrimonio->datos_historicos:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -505,7 +526,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> REFERENCIAS BIBLIOGRAFICAS/ARCHIVISTAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="referencias_bibliograficas"></textarea>
+                                            <textarea class="form-control" name="referencias_bibliograficas">{{ ($datosPatrimonio != null)?$datosPatrimonio->referencias_bibliograficas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -518,11 +539,74 @@
                                             <label for="exampleInputPassword1"> OBSERVACIONES
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea class="form-control" name="observaciones"></textarea>
+                                            <textarea class="form-control" name="observaciones">{{ ($datosPatrimonio != null)?$datosPatrimonio->observaciones:'' }}</textarea>
                                         </div>
                                     </div>
                                 
                                 </div>
+
+                                <div class="row">
+                                
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1"> CATALOGO
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" name="catalogo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->catalogo:'' }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1"> FECHA CATALOGO
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="date" class="form-control" name="fec_catalogo">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1"> ELABORO
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" name="elaboro" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->elaboro:'' }}">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1"> FECHA ELABORO
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="date" class="form-control" name="fec_elaboro">
+                                        </div>
+                                    </div>
+                                
+                                </div>
+
+                                <div class="row">
+                                
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1"> REVISO
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" name="reviso" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->reviso:'' }}">
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1"> FECHA REVISO
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="date" class="form-control" name="fec_reviso">
+                                        </div>
+                                    </div>
+                                
+                                </div>
+
                                 {{-- FIN ANALISIS --}}
                             </div>
 
