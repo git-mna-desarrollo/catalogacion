@@ -19,7 +19,7 @@
         </div>
         <div class="card-toolbar">
             <!--begin::Button-->
-            <a href="{{ url('patrimonio/formulario') }}" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+            <a href="{{ url('patrimonio/formulario/0') }}" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
                 <i class="fa fa-plus-square"></i> NUEVO PATRIMONIO
             </a>
             <!--end::Button-->
@@ -101,8 +101,8 @@
                     
                 </div>
             </form>
-            <div id="cargaDatos">
-            <table class="table table-bordered table-hover table-striped" id="tabla-insumos">
+            <div class="table-responsive m-t-40" id="cargaDatos">
+            <table class="table table-bordered table-hover table-striped" id="tabla-patrimonios">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -130,12 +130,13 @@
                             @endif
                         </td>
                         <td>
-                            <button 
+                            <a
+                                href="{{ url('patrimonio/formulario', [$p->id]) }}" 
                                 type="button" 
                                 class="btn btn-sm btn-icon btn-warning" 
                                 onclick="edita('{{ $p->id }}'">
                             <i class="flaticon2-edit"></i>
-                            </button>
+                            </a>
 
                             <a
                                 href="{{ url('patrimonio/ficha')}}/{{ $p->id }}" 
@@ -176,16 +177,19 @@
     });
 
     $(function () {
-    	    $('#tabla-insumos').DataTable({
-                "searching": false,
-                "lengthChange": false,
-    	        language: {
-    	            url: '{{ asset('datatableEs.json') }}',
-    	        },
-				order: [[ 0, "desc" ]]
-    	    });
 
-    	});
+        // cargamos lo datos del datatable
+        $.ajax({
+            url: "{{ url('patrimonio/ajaxListado') }}",
+            // data: datosFormulario,
+            type: 'POST',
+            success: function(data) {
+                $("#cargaDatos").html(data);
+            }
+        });    
+
+
+    });
 
     function buscaPatrimonio(){
 

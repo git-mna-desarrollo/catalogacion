@@ -53,3 +53,14 @@
     <tbody>
     </tbody>
 </table>
+<script>
+    // cargamos los valores del data table
+    $('#tabla-insumos').DataTable({
+        "searching": false,
+        "lengthChange": false,
+        language: {
+            url: '{{ asset('datatableEs.json') }}',
+        },
+        order: [[ 0, "desc" ]]
+    });
+</script>

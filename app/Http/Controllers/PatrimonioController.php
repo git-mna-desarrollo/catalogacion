@@ -130,6 +130,7 @@ class PatrimonioController extends Controller
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
 
+
         $patrimonios = Patrimonio::orderBy('id', 'desc')
                                 ->limit(200)
                                 ->get();
@@ -161,6 +162,28 @@ class PatrimonioController extends Controller
                                     ->get();    
 
         return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
+    }
+
+    public function ajaxListado(Request $request)
+    {
+        
+        $qPatrimonios = Patrimonio::query();    
+
+        if($request->filled('codigo')){
+            $qPatrimonios->where('codigo', $request->input('codigo'));
+        }
+
+        if(!$request->filled('codigo')){
+            $qPatrimonios->orderBy('id', 'desc');
+            $qPatrimonios->limit(200);
+        }
+
+        $patrimonios = $qPatrimonios->get();
+
+        // dd($patrimonios);
+
+        return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
+    
     }
 
 }

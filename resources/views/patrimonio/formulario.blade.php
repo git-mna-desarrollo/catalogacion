@@ -470,7 +470,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> ESPECIFICACIONES SOBRE EL ESTADO DE CONSERVACION
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="estado_conservacion">{{ ($datosPatrimonio != null)?$datosPatrimonio->estado_conservacion:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="estado_conservacion">{{ ($datosPatrimonio != null)?$datosPatrimonio->estado_conservacion:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -478,7 +478,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> INTERVENCIONES REALIZADAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="intervenciones_realizadas">{{ ($datosPatrimonio != null)?$datosPatrimonio->intervenciones_realizadas:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="intervenciones_realizadas">{{ ($datosPatrimonio != null)?$datosPatrimonio->intervenciones_realizadas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -490,7 +490,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> CARACTERISTICAS TECNICAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="caracteristicas_tecnicas">{{ ($datosPatrimonio != null)?$datosPatrimonio->caracteristicas_tecnicas:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="caracteristicas_tecnicas">{{ ($datosPatrimonio != null)?$datosPatrimonio->caracteristicas_tecnicas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -502,7 +502,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> CARACTERISTICAS ICONOGRAFICAS/ORNAMENTALES
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="caracteristicas_iconograficas">{{ ($datosPatrimonio != null)?$datosPatrimonio->caracteristicas_iconograficas:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="caracteristicas_iconograficas">{{ ($datosPatrimonio != null)?$datosPatrimonio->caracteristicas_iconograficas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -514,7 +514,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> DATOS HISTORICOS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="datos_historicos">{{ ($datosPatrimonio != null)?$datosPatrimonio->datos_historicos:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="datos_historicos">{{ ($datosPatrimonio != null)?$datosPatrimonio->datos_historicos:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -526,7 +526,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> REFERENCIAS BIBLIOGRAFICAS/ARCHIVISTAS
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="referencias_bibliograficas">{{ ($datosPatrimonio != null)?$datosPatrimonio->referencias_bibliograficas:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="referencias_bibliograficas">{{ ($datosPatrimonio != null)?$datosPatrimonio->referencias_bibliograficas:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -539,7 +539,7 @@
                                             <label for="exampleInputPassword1"> OBSERVACIONES
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea class="form-control" name="observaciones">{{ ($datosPatrimonio != null)?$datosPatrimonio->observaciones:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="observaciones">{{ ($datosPatrimonio != null)?$datosPatrimonio->observaciones:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -558,7 +558,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1"> FECHA CATALOGO
+                                            <label for="exampleInputPassword1"> FECHA CATALOGO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_catalogo:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input type="date" class="form-control" name="fec_catalogo">
@@ -576,7 +576,7 @@
                                     
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1"> FECHA ELABORO
+                                            <label for="exampleInputPassword1"> FECHA ELABORO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_elaboro:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input type="date" class="form-control" name="fec_elaboro">
@@ -598,7 +598,7 @@
                                 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1"> FECHA REVISO
+                                            <label for="exampleInputPassword1"> FECHA REVISO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_reviso:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input type="date" class="form-control" name="fec_reviso">

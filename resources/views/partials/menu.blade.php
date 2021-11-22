@@ -32,7 +32,7 @@
 					<ul class="menu-subnav">
 						
 						<li class="menu-item" aria-haspopup="true">
-							<a href="{{ url('patrimonio/formulario') }}" class="menu-link">
+							<a href="{{ url('patrimonio/formulario/0') }}" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>

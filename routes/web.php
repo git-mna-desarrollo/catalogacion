@@ -38,6 +38,7 @@ Route::get('patrimonio/elimina/{id}', 'PatrimonioController@elimina');
 Route::get('patrimonio/migracion', 'PatrimonioController@migracion');
 Route::get('patrimonio/ficha/{patrimonioId}', 'PatrimonioController@ficha');
 Route::post('patrimonio/ajaxBuscaPatrimonio', 'PatrimonioController@ajaxBuscaPatrimonio');
+Route::post('patrimonio/ajaxListado', 'PatrimonioController@ajaxListado');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');
