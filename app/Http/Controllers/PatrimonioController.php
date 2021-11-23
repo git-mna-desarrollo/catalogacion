@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Estado;
 use App\Estilo;
 use App\Localidad;
 use App\Provincia;
@@ -37,34 +38,24 @@ class PatrimonioController extends Controller
 
     public function guarda(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
-        $estadoConservacion = null;
-        // preguntamos el estado de conservacion
-        if($row[43] != ''){
-            $estadoConservacion = 'Excelente';
-        }elseif($row[44] != ''){
-            $estadoConservacion = 'Malo';
-        }elseif($row[45] != ''){
-            $estadoConservacion = 'Bueno';
-        }elseif($row[46] != ''){
-            $estadoConservacion = 'Pesimo';
-        }elseif($row[47] != ''){
-            $estadoConservacion = 'Regular';
-        }elseif($row[48] != ''){
-            $estadoConservacion = 'Fragmento';
+        if($request->filled('patrimonio_id')){
+            $patrimonio = Patrimonio::find($request->input('patrimonio_id')); 
+        }else{
+            $patrimonio = new Patrimonio();
         }
 
-        $patrimonio                                = new Patrimonio();
         $patrimonio->creador_id                    = Auth::user()->id;
-        $patrimonio->localidad                     = $request->input('localidad');
-        $patrimonio->provincia                     = $request->input('provincia');
-        $patrimonio->departamento_id               = $request->input('departamento');
-        $patrimonio->inmueble                      = $request->input('inmueble');
-        $patrimonio->calle                         = $request->input('calle');
+        $patrimonio->especialidad_id               = $request->input('especialidad_id');
+        $patrimonio->estilo_id                     = $request->input('estilo_id');
         $patrimonio->ubicacion_id                  = $request->input('ubicacion_id');
         $patrimonio->tecnicamaterial_id            = $request->input('tecnicamaterial_id');
-        $patrimonio->direccion                     = $request->input('direccion');
+        $patrimonio->localidad                     = $request->input('localidad');
+        $patrimonio->provincia                     = $request->input('provincia');
+        $patrimonio->departamento                  = $request->input('departamento');
+        $patrimonio->inmueble                      = $request->input('inmueble');
+        $patrimonio->calle                         = $request->input('calle');
         $patrimonio->nombre                        = $request->input('nombre');
         $patrimonio->alto                          = $request->input('alto');
         $patrimonio->ancho                         = $request->input('ancho');
@@ -73,21 +64,17 @@ class PatrimonioController extends Controller
         $patrimonio->largo                         = $request->input('largo');
         $patrimonio->profundidad                   = $request->input('profundidad');
         $patrimonio->peso                          = $request->input('peso');
-        $patrimonio->especialidad                  = $request->input('especialidad');
-        $patrimonio->estilo                        = $request->input('estilo');
         $patrimonio->escuela                       = $request->input('escuela');
         $patrimonio->epoca                         = $request->input('epoca');
         $patrimonio->autor                         = $request->input('autor');
         $patrimonio->inventario                    = $request->input('inventario');
         $patrimonio->codigo                        = $request->input('codigo');
-        $patrimonio->codigo_antiguo                = $request->input('codigo_antiguo');
         $patrimonio->inventario_anterior           = $request->input('inventario_anterior');
         $patrimonio->origen                        = $request->input('origen');
         $patrimonio->obtencion                     = $request->input('obtencion');
         $patrimonio->fecha_adquisicion             = $request->input('fecha_adquisicion');
         $patrimonio->marcas                        = $request->input('marcas');
         $patrimonio->descripcion                   = $request->input('descripcion');
-        $patrimonio->estado_conservacion           = $request->input('estado_conservacion');
         $patrimonio->intervenciones_realizadas     = $request->input('intervenciones_realizadas');
         $patrimonio->caracteristicas_tecnicas      = $request->input('caracteristicas_tecnicas');
         $patrimonio->caracteristicas_iconograficas = $request->input('caracteristicas_iconograficas');
@@ -97,6 +84,61 @@ class PatrimonioController extends Controller
         $patrimonio->save();
 
         $patrimonioId = $patrimonio->id;
+
+        // preguntamos el estado de conservacion
+        if($request->has('monumento_nacional')){
+            $monumento_nacional = 'Si';    
+        }else{
+            $monumento_nacional = 'No';    
+        }
+
+        if($request->has('resolucion_municipal')){
+            $resolucion_municipal = 'Si';    
+        }else{
+            $resolucion_municipal = 'No';    
+        }
+
+        if($request->has('resolucion_administrativa')){
+            $resolucion_administrativa = 'Si';    
+        }else{
+            $resolucion_administrativa = 'No';    
+        }
+
+        if($request->has('individual')){
+            $individual = 'Si';    
+        }else{
+            $individual = 'No';    
+        }
+
+        if($request->has('conjunto')){
+            $conjunto = 'Si';    
+        }else{
+            $conjunto = 'No';    
+        }
+
+        if($request->has('ninguna')){
+            $ninguna = 'Si';    
+        }else{
+            $ninguna = 'No';    
+        }
+
+        if($request->filled('patrimonio_id')){
+            $estados = Estado::where('patrimonio_id', $request->input('patrimonio_id'))
+                                ->first(); 
+        }else{
+            $estados = new Estado();
+        }
+
+        $estados->patrimonio_id             = $patrimonioId;
+        $estados->monumento_nacional        = $monumento_nacional;
+        $estados->resolucion_municipal      = $resolucion_municipal;
+        $estados->resolucion_administrativa = $resolucion_administrativa;
+        $estados->individual                = $individual;
+        $estados->conjunto                  = $conjunto;
+        $estados->ninguna                   = $ninguna;
+        $estados->estado_conservacion       = $request->input('estado_conservacion');
+        $estados->condiciones_seguridad     = $request->input('condiciones_seguridad');
+        $estados->save();
 
         // guardado de las imagenes
         if ($request->has('fotos')) 
@@ -116,9 +158,6 @@ class PatrimonioController extends Controller
             }
         }
         // fin guardado de las imagenes
-        $estados = new Estado();
-        $estados->creador_id = Auth::user()->id;
-        $estados->monumento_nacional = $request->input('monumento_nacional');
 
         return redirect("patrimonio/listado");
     }   

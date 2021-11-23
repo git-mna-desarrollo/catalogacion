@@ -81,21 +81,22 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">LOCALIDAD </label>
-                                                <input type="text" class="form-control" id="localidad" name="localidad" value="CIUDAD DE LA PAZ" disabled />
+                                                <input type="text" class="form-control" id="localidad" name="localidad" value="CIUDAD DE LA PAZ" readonly />
+                                                <input type="hidden" name="patrimonio_id" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->id:'' }}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PROVINCIA </label>
-                                                <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" disabled />
+                                                <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" readonly />
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DEPARTAMENTO </label>
-                                                <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" disabled />
+                                                <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" readonly />
                                         </div>
                                     </div>
 
@@ -106,14 +107,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">INMUEBLE </label>
-                                            <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" disabled />
+                                            <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" readonly />
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CALLE </label>
-                                            <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" disabled />
+                                            <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" readonly />
                                         </div>
                                     </div>
                                     
