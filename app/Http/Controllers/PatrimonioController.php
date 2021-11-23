@@ -166,14 +166,19 @@ class PatrimonioController extends Controller
 
     public function ajaxListado(Request $request)
     {
-        
+        // dd($request->all());
         $qPatrimonios = Patrimonio::query();    
 
         if($request->filled('codigo')){
             $qPatrimonios->where('codigo', $request->input('codigo'));
         }
 
-        if(!$request->filled('codigo')){
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $qPatrimonios->where('nombre', 'like', "%$nombre%");
+        }
+
+        if(!$request->filled('codigo') && !$request->filled('nombre')){
             $qPatrimonios->orderBy('id', 'desc');
             $qPatrimonios->limit(200);
         }

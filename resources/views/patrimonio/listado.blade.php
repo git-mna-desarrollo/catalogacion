@@ -38,7 +38,7 @@
                         </div>
                     </div>
 
-                    <!--<div class="col-md-2">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Nombre </label>
                             <input type="text" class="form-control" id="nombre" name="nombre" />
@@ -50,7 +50,7 @@
                             <label for="exampleInputPassword1">ESPECIALIDAD
                                 <span class="text-danger">*</span>
                             </label>
-                            <select class="form-control" id="especialidad_id" name="especialidad_id" style="width: 100%">
+                            <select class="form-control seleccionadores" id="especialidad_id" name="especialidad_id" style="width: 100%">
                                 <option value="">Seleccione</option>
                                 @forelse ($especialidades as $e)
                                 <option value="{{ $e->id }}">{{ $e->nombre }}</option>
@@ -66,7 +66,7 @@
                             <label for="exampleInputPassword1">ESTILO
                                 <span class="text-danger">*</span>
                             </label>
-                            <select class="form-control" id="estilo_id" name="estilo_id" style="width: 100%">
+                            <select class="form-control seleccionadores" id="estilo_id" name="estilo_id" style="width: 100%">
                                 <option value="">Seleccione</option>
                                 @forelse ($estilos as $es)
                                 <option value="{{ $es->id }}">{{ $es->nombre }}</option>
@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Tecnica y Material
                                 <span class="text-danger">*</span></label>
-                            <select class="form-control" id="tecnicamaterial_id" name="tecnicamaterial_id" style="width: 100%">
+                            <select class="form-control seleccionadores" id="tecnicamaterial_id" name="tecnicamaterial_id" style="width: 100%">
                                 <option value="">Seleccione</option>
                                 @forelse ($tecnicas as $t)
                                 <option value="{{ $t->id }}">{{ $t->nombre }}</option>
@@ -90,7 +90,7 @@
                                 @endforelse
                             </select>
                         </div>
-                    </div>-->
+                    </div>
 
                     <div class="col-md-2">
                         <div class="form-group">
@@ -178,6 +178,12 @@
 
     $(function () {
 
+        //cargamos a los script para select 2
+        $('.seleccionadores').select2({
+            placeholder: "Seleccione"
+        });
+
+
         // cargamos lo datos del datatable
         $.ajax({
             url: "{{ url('patrimonio/ajaxListado') }}",
@@ -195,7 +201,7 @@
 
         let datosFormulario = $("#formularioBusqueda").serializeArray();
         $.ajax({
-            url: "{{ url('patrimonio/ajaxBuscaPatrimonio') }}",
+            url: "{{ url('patrimonio/ajaxListado') }}",
             data: datosFormulario,
             type: 'POST',
             success: function(data) {
@@ -206,76 +212,76 @@
 
         
 
-    	function nuevo()
-    	{
-			// pone los inputs vacios
-			$("#titulo_id").val('');
-			$("#nombre").val('');
-			$("#descripcion").val('');
-			// abre el modal
-    		$("#modalRaza").modal('show');
-    	}
+    function nuevo()
+    {
+        // pone los inputs vacios
+        $("#titulo_id").val('');
+        $("#nombre").val('');
+        $("#descripcion").val('');
+        // abre el modal
+        $("#modalRaza").modal('show');
+    }
 
-		function edita(id, nombre, descripcion)
-    	{
-			// colocamos valores en los inputs
-			$("#titulo_id").val(id);
-			$("#nombre").val(nombre);
-			$("#descripcion").val(descripcion);
+    function edita(id, nombre, descripcion)
+    {
+        // colocamos valores en los inputs
+        $("#titulo_id").val(id);
+        $("#nombre").val(nombre);
+        $("#descripcion").val(descripcion);
 
-			// mostramos el modal
-    		$("#modalRaza").modal('show');
-    	}
+        // mostramos el modal
+        $("#modalRaza").modal('show');
+    }
 
-    	function crear()
-    	{
-			// verificamos que el formulario este correcto
-    		if($("#formulario-tipos")[0].checkValidity()){
-				// enviamos el formulario
-    			$("#formulario-tipos").submit();
-				// mostramos la alerta
-				Swal.fire("Excelente!", "Registro Guardado!", "success");
-    		}else{
-				// de lo contrario mostramos los errores
-				// del formulario
-    			$("#formulario-tipos")[0].reportValidity()
-    		}
-
-    	}
-
-		function elimina(id, nombre)
-        {
-			// mostramos la pregunta en el alert
-            Swal.fire({
-                title: "Quieres eliminar "+nombre,
-                text: "Ya no podras recuperarlo!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Si, borrar!",
-                cancelButtonText: "No, cancelar!",
-                reverseButtons: true
-            }).then(function(result) {
-				// si pulsa boton si
-                if (result.value) {
-
-                    window.location.href = "{{ url('patrimonio/elimina') }}/"+id;
-
-                    Swal.fire(
-                        "Borrado!",
-                        "El registro fue eliminado.",
-                        "success"
-                    )
-                    // result.dismiss can be "cancel", "overlay",
-                    // "close", and "timer"
-                } else if (result.dismiss === "cancel") {
-                    Swal.fire(
-                        "Cancelado",
-                        "La operacion fue cancelada",
-                        "error"
-                    )
-                }
-            });
+    function crear()
+    {
+        // verificamos que el formulario este correcto
+        if($("#formulario-tipos")[0].checkValidity()){
+            // enviamos el formulario
+            $("#formulario-tipos").submit();
+            // mostramos la alerta
+            Swal.fire("Excelente!", "Registro Guardado!", "success");
+        }else{
+            // de lo contrario mostramos los errores
+            // del formulario
+            $("#formulario-tipos")[0].reportValidity()
         }
+
+    }
+
+    function elimina(id, nombre)
+    {
+        // mostramos la pregunta en el alert
+        Swal.fire({
+            title: "Quieres eliminar "+nombre,
+            text: "Ya no podras recuperarlo!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, borrar!",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true
+        }).then(function(result) {
+            // si pulsa boton si
+            if (result.value) {
+
+                window.location.href = "{{ url('patrimonio/elimina') }}/"+id;
+
+                Swal.fire(
+                    "Borrado!",
+                    "El registro fue eliminado.",
+                    "success"
+                )
+                // result.dismiss can be "cancel", "overlay",
+                // "close", and "timer"
+            } else if (result.dismiss === "cancel") {
+                Swal.fire(
+                    "Cancelado",
+                    "La operacion fue cancelada",
+                    "error"
+                )
+            }
+        });
+    }
 
 </script>
 @endsection

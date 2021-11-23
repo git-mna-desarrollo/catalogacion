@@ -701,6 +701,7 @@
 @stop
 
 @section('js')
+<script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }} "></script>
 
     <script type="text/javascript">
 

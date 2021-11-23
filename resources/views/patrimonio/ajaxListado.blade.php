@@ -26,12 +26,13 @@
                 @endif
             </td>
             <td>
-                <button 
+                <a
+                    href="{{ url('patrimonio/formulario', [$p->id]) }}" 
                     type="button" 
                     class="btn btn-sm btn-icon btn-warning" 
                     onclick="edita('{{ $p->id }}'">
                 <i class="flaticon2-edit"></i>
-                </button>
+                </a>
 
                 <a
                     href="{{ url('patrimonio/ficha')}}/{{ $p->id }}" 
