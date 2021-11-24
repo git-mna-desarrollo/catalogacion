@@ -123,7 +123,7 @@
                                             <label for="exampleInputPassword1">UBICACION
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="localidad_id" name="localidad_id" style="width: 100%">
+                                            <select class="form-control" id="ubicacion_id" name="ubicacion_id" style="width: 100%">
                                                 @forelse ($ubicaciones as $u)
                                                 @php
                                                     if($datosPatrimonio != null && $datosPatrimonio->ubicacion_id==$u->id){
@@ -471,7 +471,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> ESPECIFICACIONES SOBRE EL ESTADO DE CONSERVACION
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" rows="5" name="estado_conservacion">{{ ($datosPatrimonio != null)?$datosPatrimonio->estado_conservacion:'' }}</textarea>
+                                            <textarea class="form-control" rows="5" name="especificacion_conservacion">{{ ($datosPatrimonio != null)?$datosPatrimonio->especificacion_conservacion:'' }}</textarea>
                                         </div>
                                     </div>
                                 
@@ -562,7 +562,7 @@
                                             <label for="exampleInputPassword1"> FECHA CATALOGO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_catalogo:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" class="form-control" name="fec_catalogo">
+                                            <input type="date" class="form-control" name="fec_catalogo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_catalogo:'' }}" />
                                         </div>
                                     </div>
 
@@ -580,7 +580,7 @@
                                             <label for="exampleInputPassword1"> FECHA ELABORO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_elaboro:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" class="form-control" name="fec_elaboro">
+                                            <input type="date" class="form-control" name="fec_elaboro" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_elaboro:'' }}" />
                                         </div>
                                     </div>
                                 
@@ -602,7 +602,7 @@
                                             <label for="exampleInputPassword1"> FECHA REVISO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_reviso:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" class="form-control" name="fec_reviso">
+                                            <input type="date" class="form-control" name="fec_reviso" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_reviso:'' }}" />
                                         </div>
                                     </div>
                                 
@@ -613,7 +613,8 @@
 
                             <div class="tab-pane fade" id="archivos" role="tabpanel" aria-labelledby="profile-tab-1">
                                 <div class="row">
-                                    <div class="col-md-4">
+
+                                    <div class="col-md-3">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 1)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
@@ -625,43 +626,42 @@
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile" onchange="loadFile_2(event)" />
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 2)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
-                                        <img id="output_2" class="img-fluid" />
-                                        <script>
-                                            var loadFile_2 = function(event) {
-                                            var reader = new FileReader();
-                                            reader.onload = function(){
-                                              var output = document.getElementById('output_2');
-                                              output.src = reader.result;
-                                            };
-                                            reader.readAsDataURL(event.target.files[0]);
-                                          };
-                                        </script>
+                                        <img id="thumbnil_2" class="img-fluid" style="margin-top: 10px;" />
+                                        <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_2" style="display:none;"
+                                            onclick="quitarImagen(2)">Quitar Imagen</button>
+                                    
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile" name="archivo[]" onchange="loadFile_3(event)" />
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 3)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
-                                        <img id="output_3" class="img-fluid" />
-                                        <script>
-                                            var loadFile_3 = function(event) {
-                                            var reader = new FileReader();
-                                            reader.onload = function(){
-                                              var output = document.getElementById('output_3');
-                                              output.src = reader.result;
-                                            };
-                                            reader.readAsDataURL(event.target.files[0]);
-                                          };
-                                        </script>
+                                        <img id="thumbnil_3" class="img-fluid" style="margin-top: 10px;" />
+                                        <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_3" style="display:none;"
+                                            onclick="quitarImagen(3)">Quitar Imagen</button>
+                                    
+                                        {{-- <div id="drag-drop-area"></div> --}}
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 4)" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
+                                        </div>
+                                        {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
+                                        <img id="thumbnil_4" class="img-fluid" style="margin-top: 10px;" />
+                                        <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_4" style="display:none;"
+                                            onclick="quitarImagen(4)">Quitar Imagen</button>
+                                    
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
 

@@ -75,12 +75,19 @@ class PatrimonioController extends Controller
         $patrimonio->fecha_adquisicion             = $request->input('fecha_adquisicion');
         $patrimonio->marcas                        = $request->input('marcas');
         $patrimonio->descripcion                   = $request->input('descripcion');
+        $patrimonio->especificacion_conservacion   = $request->input('especificacion_conservacion');
         $patrimonio->intervenciones_realizadas     = $request->input('intervenciones_realizadas');
         $patrimonio->caracteristicas_tecnicas      = $request->input('caracteristicas_tecnicas');
         $patrimonio->caracteristicas_iconograficas = $request->input('caracteristicas_iconograficas');
         $patrimonio->datos_historicos              = $request->input('datos_historicos');
         $patrimonio->referencias_bibliograficas    = $request->input('referencias_bibliograficas');
         $patrimonio->observaciones                 = $request->input('observaciones');
+        $patrimonio->catalogo                      = $request->input('catalogo');
+        $patrimonio->fec_catalogo                  = $request->input('fec_catalogo');
+        $patrimonio->elaboro                       = $request->input('elaboro');
+        $patrimonio->fec_elaboro                   = $request->input('fec_elaboro');
+        $patrimonio->reviso                        = $request->input('reviso');
+        $patrimonio->fec_reviso                    = $request->input('fec_reviso');
         $patrimonio->save();
 
         $patrimonioId = $patrimonio->id;
