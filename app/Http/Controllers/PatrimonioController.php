@@ -237,7 +237,22 @@ class PatrimonioController extends Controller
             $qPatrimonios->where('autor', 'like', "%$autor%");
         }
 
-        if(!$request->filled('codigo') && !$request->filled('nombre')){
+        if($request->filled('especialidad_id')){
+            $especialidad = $request->input('especialidad_id');
+            $qPatrimonios->where('especialidad_id', "$especialidad");
+        }
+
+        if($request->filled('estilo_id')){
+            $estilo = $request->input('estilo_id');
+            $qPatrimonios->where('estilo_id', "$estilo");
+        }
+
+        if($request->filled('tecnicamaterial_id')){
+            $tecnica = $request->input('tecnicamaterial_id');
+            $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
+        }
+
+        if(!$request->filled('codigo') && !$request->filled('nombre') && !$request->filled('autor_busqueda') && !$request->filled('especialidad_id') && !$request->filled('estilo_id') && !$request->filled('tecnicamaterial_id')){
             $qPatrimonios->orderBy('id', 'desc');
             $qPatrimonios->limit(200);
         }
