@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Estado;
 use App\Estilo;
+use App\Imagen;
 use App\Localidad;
 use App\Provincia;
 use App\Ubicacion;
@@ -150,7 +151,7 @@ class PatrimonioController extends Controller
         // guardado de las imagenes
         if ($request->has('archivo')) 
         {
-            foreach ($request->fotos as $key => $f) 
+            foreach ($request->archivo as $key => $f) 
             {
                 $archivo = $f;
                 $direccion = 'imagenes/'; // upload path
@@ -159,7 +160,7 @@ class PatrimonioController extends Controller
 
                 $imagenProducto              = new Imagen();
                 $imagenProducto->creador_id  = Auth::user()->id;
-                $imagenProducto->producto_id = $producto_id;
+                $imagenProducto->patrimonio_id = $patrimonioId;
                 $imagenProducto->imagen      = $nombreArchivo;
                 $imagenProducto->save();
             }
