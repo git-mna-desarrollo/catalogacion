@@ -671,7 +671,53 @@
                             <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab-1">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        Aqui los documentos
+                                        
+                                        {{-- subida de documentos --}}
+                                        <div id="documentos_1">
+                                            <div class="form-group row" id="documentos_1">
+                                                <div data-repeater-list="doc" class="col-lg-12">
+                                        
+                                                    <div data-repeater-item class="form-group row align-items-center">
+                                                        <div class="col-md-12">
+                                                            
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label>Documento:</label>
+                                                            <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                                            <div class="d-md-none mb-2"></div>
+                                                        </div>
+                                        
+                                                        <div class="col-md-2">
+                                                            <label>Kcb:</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" name="documento[]" id="customFile" />
+                                                                <label class="custom-file-label" for="customFile">Elegir</label>
+                                                            </div>
+                                                        </div>
+                                        
+                                                        <div class="col-md-3">
+                                                            <br />
+                                                            <a href="javascript:;" data-repeater-delete=""
+                                                                class="btn btn-block font-weight-bolder btn-light-danger">
+                                                                <i class="la la-trash-o"></i>Eliminar Documento
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <a href="javascript:;" data-repeater-create="" class="btn btn-block font-weight-bolder btn-light-primary">
+                                                        <i class="la la-plus"></i>Adicionar Ejemplar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        
+                                            <br />
+                                        
+                                        </div>
+                                        {{-- fin subida de documentos --}}
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
                                 </div>
@@ -711,6 +757,28 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        jQuery(document).ready(function() {
+        
+            $('#documentos_1').repeater({
+                initEmpty: false,
+            
+                defaultValues: {
+                    'text-input': 'foo'
+                },
+                
+                show: function () {
+                    $(this).slideDown();
+                },
+
+                hide: function (deleteElement) {                
+                    $(this).slideUp(deleteElement);                 
+                },
+                
+                isFirstItemUndeletable: true
+            });
+        
         });
 
         function guarda()

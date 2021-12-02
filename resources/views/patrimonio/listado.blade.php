@@ -47,6 +47,22 @@
 
                     <div class="col-md-2">
                         <div class="form-group">
+                            <label for="exampleInputPassword1">AUTOR
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control seleccionadores" id="autor_busqueda" name="autor_busqueda" style="width: 100%">
+                                <option value="">Seleccione</option>
+                                @forelse ($autores as $a)
+                                <option value="{{ $a->autor }}">{{ $a->autor }}</option>
+                                @empty
+                    
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
                             <label for="exampleInputPassword1">ESPECIALIDAD
                                 <span class="text-danger">*</span>
                             </label>
@@ -77,7 +93,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Tecnica y Material
                                 <span class="text-danger">*</span></label>
@@ -92,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <div class="form-group">
                             <div style="height: 23px;"></div>
                             <button type="button" class="btn btn-success font-weight-bolder" onclick="buscaPatrimonio();">BUSCAR</button>
@@ -102,62 +118,7 @@
                 </div>
             </form>
             <div class="table-responsive m-t-40" id="cargaDatos">
-            <table class="table table-bordered table-hover table-striped" id="tabla-patrimonios">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Codigo</th>
-                        <th>Nombre</th>
-                        <th>Especialidad</th>
-                        <th>Estilo</th>
-                        <th>Tecnica/Material</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($patrimonios as $p)
-                    <tr>
-                        <td>{{ $p->id }}</td>
-                        <td>{{ $p->codigo }}</td>
-                        <td>{{ $p->nombre }}</td>
-                        <td>{{ $p->especialidad->nombre }}</td>
-                        <td>{{ $p->estilo->nombre }}</td>
-                        <td>
-                            @if ($p->tecnicamaterial_id != null)
-                                {{ $p->tecnicamaterial->nombre }}
-                            @else
-                                
-                            @endif
-                        </td>
-                        <td>
-                            <a
-                                href="{{ url('patrimonio/formulario', [$p->id]) }}" 
-                                type="button" 
-                                class="btn btn-sm btn-icon btn-warning" 
-                                onclick="edita('{{ $p->id }}'">
-                            <i class="flaticon2-edit"></i>
-                            </a>
-
-                            <a
-                                href="{{ url('patrimonio/ficha')}}/{{ $p->id }}" 
-                                class="btn btn-sm btn-icon btn-primary" 
-                                onclick="edita('{{ $p->id }}'">
-                            <i class="flaticon2-paper"></i>
-                            </a>
-
-                            <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $p->id }}', '{{ $p->nombre }}')">
-                                <i class="flaticon2-cross"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @empty
-                    <h3 class="text-danger">NO EXISTEN PATRIMONIOS</h3>
-                    @endforelse
-                </tbody>
-                <tbody>
-                </tbody>
-            </table>
+            
             </div>
         </div>
         <!--end: Datatable-->

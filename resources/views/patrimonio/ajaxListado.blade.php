@@ -4,6 +4,7 @@
             <th>ID</th>
             <th>Codigo</th>
             <th>Nombre</th>
+            <th>Autor</th>
             <th>Especialidad</th>
             <th>Estilo</th>
             <th>Tecnica/Material</th>
@@ -16,6 +17,7 @@
             <td>{{ $p->id }}</td>
             <td>{{ $p->codigo }}</td>
             <td>{{ $p->nombre }}</td>
+            <td>{{ $p->autor }}</td>
             <td>{{ $p->especialidad->nombre }}</td>
             <td>{{ $p->estilo->nombre }}</td>
             <td>

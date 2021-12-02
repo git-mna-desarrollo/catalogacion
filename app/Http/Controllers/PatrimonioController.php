@@ -175,13 +175,21 @@ class PatrimonioController extends Controller
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
+        $autores = Patrimonio::select("autor")
+                    ->groupBy("autor")
+                    ->get();
 
+        // foreach($autores as $a){
+        //     echo $a->autor."<br />";
+        // }
+
+        // dd($autores);
 
         $patrimonios = Patrimonio::orderBy('id', 'desc')
                                 ->limit(200)
                                 ->get();
 
-        return view('patrimonio.listado')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos'));
+        return view('patrimonio.listado')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores'));
     }
 
     public function elimina(Request $request, $id)
@@ -222,6 +230,11 @@ class PatrimonioController extends Controller
         if($request->filled('nombre')){
             $nombre = $request->input('nombre');
             $qPatrimonios->where('nombre', 'like', "%$nombre%");
+        }
+
+        if($request->filled('autor_busqueda')){
+            $autor = $request->input('autor_busqueda');
+            $qPatrimonios->where('autor', 'like', "%$autor%");
         }
 
         if(!$request->filled('codigo') && !$request->filled('nombre')){
