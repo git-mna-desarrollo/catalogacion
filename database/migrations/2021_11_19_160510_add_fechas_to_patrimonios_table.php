@@ -29,7 +29,7 @@ class AddFechasToPatrimoniosTable extends Migration
     {
         Schema::table('patrimonios', function (Blueprint $table) {
             $table->dropColumn('fec_catalogo');
-            $table->dropColumn('fec_elavoro');
+            $table->dropColumn('fec_elaboro');
             $table->dropColumn('fec_reviso');
         });
     }

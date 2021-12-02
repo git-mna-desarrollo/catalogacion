@@ -681,21 +681,21 @@
                                                         <div class="col-md-12">
                                                             
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <label>Documento:</label>
-                                                            <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                                        <div class="col-md-6">
+                                                            <label>Nombre Documento:</label>
+                                                            <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento" />
                                                             <div class="d-md-none mb-2"></div>
                                                         </div>
                                         
                                                         <div class="col-md-2">
-                                                            <label>Kcb:</label>
+                                                            <label>Archivo:</label>
                                                             <div class="custom-file">
-                                                                <input type="file" class="custom-file-input" name="documento[]" id="customFile" />
+                                                                <input type="file" class="custom-file-input" name="archivo" id="archivo" />
                                                                 <label class="custom-file-label" for="customFile">Elegir</label>
                                                             </div>
                                                         </div>
                                         
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-2">
                                                             <br />
                                                             <a href="javascript:;" data-repeater-delete=""
                                                                 class="btn btn-block font-weight-bolder btn-light-danger">
@@ -709,7 +709,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <a href="javascript:;" data-repeater-create="" class="btn btn-block font-weight-bolder btn-light-primary">
-                                                        <i class="la la-plus"></i>Adicionar Ejemplar
+                                                        <i class="la la-plus"></i>Adicionar Documento
                                                     </a>
                                                 </div>
                                             </div>

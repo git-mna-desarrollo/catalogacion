@@ -21,6 +21,8 @@ class CreateImagenesTable extends Migration
             $table->foreign('modificador_id')->references('id')->on('users');
             $table->unsignedBigInteger('eliminador_id')->nullable();
             $table->foreign('eliminador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('patrimonio_id')->nullable();
+            $table->foreign('patrimonio_id')->references('id')->on('patrimonios');
             $table->string('imagen', 150)->nullable();
             $table->string('estado', 15)->nullable();
             $table->softDeletes('deleted_at', 0);

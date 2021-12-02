@@ -148,17 +148,17 @@ class PatrimonioController extends Controller
         $estados->save();
 
         // guardado de las imagenes
-        if ($request->has('fotos')) 
+        if ($request->has('archivo')) 
         {
             foreach ($request->fotos as $key => $f) 
             {
                 $archivo = $f;
-                $direccion = 'imagenesProductos/'; // upload path
+                $direccion = 'imagenes/'; // upload path
                 $nombreArchivo = date('YmdHis').$key. "." . $archivo->getClientOriginalExtension();
                 $archivo->move($direccion, $nombreArchivo);
 
-                $imagenProducto              = new ImagenesProducto();
-                $imagenProducto->user_id     = Auth::user()->id;
+                $imagenProducto              = new Imagen();
+                $imagenProducto->creador_id  = Auth::user()->id;
                 $imagenProducto->producto_id = $producto_id;
                 $imagenProducto->imagen      = $nombreArchivo;
                 $imagenProducto->save();
