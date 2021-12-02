@@ -111,7 +111,8 @@
                     <div class="col-md-1">
                         <div class="form-group">
                             <div style="height: 23px;"></div>
-                            <button type="button" class="btn btn-success font-weight-bolder" onclick="buscaPatrimonio();">BUSCAR</button>
+                            <button type="button" id="btnBusqueda" class="btn btn-success font-weight-bolder" onclick="buscaPatrimonio();">BUSCAR</button>
+                            <button class="btn btn-warning" id="btnEspera" style="display:none;" disabled>Trabajando...</button>
                         </div>
                     </div>
                     
@@ -160,6 +161,9 @@
 
     function buscaPatrimonio(){
 
+        $("#btnBusqueda").hide();
+        $("#btnEspera").show();
+
         let datosFormulario = $("#formularioBusqueda").serializeArray();
         $.ajax({
             url: "{{ url('patrimonio/ajaxListado') }}",
@@ -167,6 +171,9 @@
             type: 'POST',
             success: function(data) {
                 $("#cargaDatos").html(data);
+
+                $("#btnBusqueda").show();
+                $("#btnEspera").hide();
             }
         });    
     }
