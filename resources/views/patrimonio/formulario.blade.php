@@ -617,7 +617,7 @@
                                         @foreach ($imagenes as $i)
                                             <div class="col-md-3">
                                                 <img src="{{ asset("imagenes/$i->imagen") }}" class="img-fluid">
-                                                <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1" onclick="quitarImagen({{ $i->id }})">Quitar Imagen</button>
+                                                <button type="button" class="btn btn-danger mr-2 btn-block" onclick="quitarImagen({{ $i->id }})">Quitar Imagen</button>
                                             </div>    
                                         @endforeach
                                     @endif
@@ -637,51 +637,53 @@
                                     
                                     <div class="col-md-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 1)" />
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile_1" onchange="showMyImage(this, 1)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_1" class="img-fluid" style="margin-top: 10px;" />
-                                        <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1" style="display:none;" onclick="quitarImagen(1)">Quitar Imagen</button>
-                                        
+                                        <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1" style="display:none;"
+                                            onclick="mueveImagen(1)">Quitar Imagen
+                                        </button>
+                                    
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 2)" />
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile_2" onchange="showMyImage(this, 2)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_2" class="img-fluid" style="margin-top: 10px;" />
                                         <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_2" style="display:none;"
-                                            onclick="quitarImagen(2)">Quitar Imagen</button>
+                                            onclick="mueveImagen(2)">Quitar Imagen</button>
                                     
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 3)" />
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile_3" onchange="showMyImage(this, 3)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_3" class="img-fluid" style="margin-top: 10px;" />
                                         <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_3" style="display:none;"
-                                            onclick="quitarImagen(3)">Quitar Imagen</button>
+                                            onclick="mueveImagen(3)">Quitar Imagen</button>
                                     
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 4)" />
+                                            <input type="file" class="custom-file-input" name="archivo[]" id="customFile_4" onchange="showMyImage(this, 4)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_4" class="img-fluid" style="margin-top: 10px;" />
                                         <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_4" style="display:none;"
-                                            onclick="quitarImagen(4)">Quitar Imagen</button>
+                                            onclick="mueveImagen(4)">Quitar Imagen</button>
                                     
                                         {{-- <div id="drag-drop-area"></div> --}}
                                     </div>
@@ -834,6 +836,7 @@
 
             var files = fileInput.files;
             $("#btnRimg_"+numero).show();
+            console.log(numero);
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 var imageType = /image.*/;
@@ -910,6 +913,11 @@
                     // $("#listadoProductosAjax").html(data);
                 }
             });    
+        }
+
+        function mueveImagen(numero){
+            $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");
+            $("#customFile_"+numero).val('');
         }
 
     </script>
