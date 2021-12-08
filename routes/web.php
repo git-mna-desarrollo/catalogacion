@@ -39,6 +39,7 @@ Route::get('patrimonio/migracion', 'PatrimonioController@migracion');
 Route::get('patrimonio/ficha/{patrimonioId}', 'PatrimonioController@ficha');
 Route::post('patrimonio/ajaxBuscaPatrimonio', 'PatrimonioController@ajaxBuscaPatrimonio');
 Route::post('patrimonio/ajaxListado', 'PatrimonioController@ajaxListado');
+Route::post('patrimonio/ajaxElimina', 'PatrimonioController@ajaxElimina');
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');
@@ -55,3 +56,6 @@ Route::get('migracion/regularizaEstados', 'MigracionController@regularizaEstados
 
 // ESPECIALIADES
 Route::get('especialidad/listado', 'EspecialidadController@listado');
+
+// IMAGENES
+Route::post('imagen/ajaxElimina', 'ImagenController@ajaxElimina');

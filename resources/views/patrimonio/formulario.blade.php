@@ -612,8 +612,29 @@
                             </div>
 
                             <div class="tab-pane fade" id="archivos" role="tabpanel" aria-labelledby="profile-tab-1">
-                                <div class="row">
+                                <div class="row" id="cargaImagenes">
+                                    @if ($imagenes != null)
+                                        @foreach ($imagenes as $i)
+                                            <div class="col-md-3">
+                                                <img src="{{ asset("imagenes/$i->imagen") }}" class="img-fluid">
+                                                <button type="button" class="btn btn-danger mr-2 btn-block" id="btnRimg_1" onclick="quitarImagen({{ $i->id }})">Quitar Imagen</button>
+                                            </div>    
+                                        @endforeach
+                                    @endif
+                                </div>
 
+                                <p>&nbsp;</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2 class="text-primary">
+                                            SUBIR IMAGENES
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    
+                                    
                                     <div class="col-md-3">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile" onchange="showMyImage(this, 1)" />
@@ -833,7 +854,62 @@
 
         function quitarImagen(numero)
         {
-            $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");    
+            // $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");   
+            Swal.fire({
+                title: "Desea eliminar la imagen",
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, borrar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then(function(result) {
+                // si pulsa boton si
+                if (result.value) {
+
+                    ajaxEliminaImagen(numero);
+                    //window.location.href = "{{ url('imagen/elimina') }}/"+numero;
+                    // alert('entro aqui')
+                    // eliminamos la pintura
+                    /*$.ajax({
+                        url: "{{ url('Patrimonio/ajaxElimina') }}",
+                        data: {departamento: departamento},
+                        type: 'POST',
+                        success: function(data) {
+                            // $("#ajaxDistritos").html(data);
+                            // $("#listadoProductosAjax").html(data);
+                        }
+                    });*/
+                    // fin de eliminamos la pintura
+
+                    Swal.fire(
+                        "Borrado!",
+                        "El registro fue eliminado.",
+                        "success"
+                    )
+                    // result.dismiss can be "cancel", "overlay",
+                    // "close", and "timer"
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
+        }
+
+        function ajaxEliminaImagen(numero)
+        {
+            $.ajax({
+                url: "{{ url('imagen/ajaxElimina') }}",
+                data: {idImagen: numero},
+                type: 'POST',
+                success: function(data) {
+                    $("#cargaImagenes").html(data);
+                    // $("#listadoProductosAjax").html(data);
+                }
+            });    
         }
 
     </script>

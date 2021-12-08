@@ -24,8 +24,11 @@ class PatrimonioController extends Controller
     {
         if($idPatrimonio != 0){
             $datosPatrimonio = Patrimonio::find($idPatrimonio);
+            $imagenes = Imagen::where('patrimonio_id', $datosPatrimonio->id)
+                        ->get();
         }else{
             $datosPatrimonio = null;
+            $imagenes = null;
         }
 
         $tecnicas = Tecnicamaterial::all();
@@ -34,7 +37,7 @@ class PatrimonioController extends Controller
         $estilos = Estilo::all();
 
         // dd($ubicaciones);
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos'));
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes'));
     }
 
     public function guarda(Request $request)
@@ -265,5 +268,4 @@ class PatrimonioController extends Controller
         return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
     
     }
-
 }
