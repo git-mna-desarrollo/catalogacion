@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    @if ($documentos->count() > 0)
+    @if ($documentos)
     <table class="table table-striped table">
         <thead>
             <tr>
