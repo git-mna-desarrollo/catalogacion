@@ -692,56 +692,104 @@
                             </div>
 
                             <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab-1">
+
                                 <div class="row">
                                     <div class="col-md-12">
-                                        
-                                        {{-- subida de documentos --}}
-                                        <div id="documentos_1">
-                                            <div class="form-group row" id="documentos_1">
-                                                <div data-repeater-list="doc" class="col-lg-12">
-                                        
-                                                    <div data-repeater-item class="form-group row align-items-center">
-                                                        <div class="col-md-12">
-                                                            
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label>Nombre Documento:</label>
-                                                            <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento" />
-                                                            <div class="d-md-none mb-2"></div>
-                                                        </div>
-                                        
-                                                        <div class="col-md-2">
-                                                            <label>Archivo:</label>
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input" name="archivo" id="archivo" />
-                                                                <label class="custom-file-label" for="customFile">Elegir</label>
-                                                            </div>
-                                                        </div>
-                                        
-                                                        <div class="col-md-2">
-                                                            <br />
-                                                            <a href="javascript:;" data-repeater-delete=""
-                                                                class="btn btn-block font-weight-bolder btn-light-danger">
-                                                                <i class="la la-trash-o"></i>Eliminar Documento
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <a href="javascript:;" data-repeater-create="" class="btn btn-block font-weight-bolder btn-light-primary">
-                                                        <i class="la la-plus"></i>Adicionar Documento
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        
-                                            <br />
-                                        
+                                        @if ($documentos != null)
+                                            <table class="table table-striped table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>DOCUMENTOS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach ($documentos as $d)
+                                                <tr>
+                                                    <td>
+                                                        {{ $d->nombre }}
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <button type="button" class="btn btn-sm btn-icon btn-danger"
+                                                            onclick="mueveDocumento('{{ $d->id }}', '{{ $d->nombre }}')">
+                                                            <i class="flaticon2-cross"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>        
+                                                @endforeach
+                                                </tbody>
+                                            </table>    
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2 class="text-primary">
+                                            SUBIR DOCUMENTOS
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Nombre Documento #1:</label>
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <div class="d-md-none mb-2"></div>
+                                    </div>
+                    
+                                    <div class="col-md-2">
+                                        <label>Archivo:</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="documento[]" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
                                         </div>
-                                        {{-- fin subida de documentos --}}
-                                        {{-- <div id="drag-drop-area"></div> --}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Nombre Documento #2:</label>
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <div class="d-md-none mb-2"></div>
+                                    </div>
+                                
+                                    <div class="col-md-2">
+                                        <label>Archivo:</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="documento[]" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Nombre Documento #3:</label>
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <div class="d-md-none mb-2"></div>
+                                    </div>
+                                
+                                    <div class="col-md-2">
+                                        <label>Archivo:</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="documento[]" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Nombre Documento #4:</label>
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <div class="d-md-none mb-2"></div>
+                                    </div>
+                                
+                                    <div class="col-md-2">
+                                        <label>Archivo:</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="documento[]" />
+                                            <label class="custom-file-label" for="customFile">Elegir</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -871,27 +919,12 @@
                 if (result.value) {
 
                     ajaxEliminaImagen(numero);
-                    //window.location.href = "{{ url('imagen/elimina') }}/"+numero;
-                    // alert('entro aqui')
-                    // eliminamos la pintura
-                    /*$.ajax({
-                        url: "{{ url('Patrimonio/ajaxElimina') }}",
-                        data: {departamento: departamento},
-                        type: 'POST',
-                        success: function(data) {
-                            // $("#ajaxDistritos").html(data);
-                            // $("#listadoProductosAjax").html(data);
-                        }
-                    });*/
-                    // fin de eliminamos la pintura
 
                     Swal.fire(
                         "Borrado!",
                         "El registro fue eliminado.",
                         "success"
                     )
-                    // result.dismiss can be "cancel", "overlay",
-                    // "close", and "timer"
                 } else if (result.dismiss === "cancel") {
                     Swal.fire(
                         "Cancelado",
@@ -913,6 +946,51 @@
                     // $("#listadoProductosAjax").html(data);
                 }
             });    
+        }
+
+        function ajaxEliminaDocumento(id)
+        {
+            $.ajax({
+                url: "{{ url('documento/ajaxElimina') }}",
+                data: {idImagen: numero},
+                type: 'POST',
+                success: function(data) {
+                    $("#cargaImagenes").html(data);
+                    // $("#listadoProductosAjax").html(data);
+                }
+            });    
+        }
+
+        function mueveDocumento(id, nombre)
+        {
+            // $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");   
+            Swal.fire({
+                title: "Desea eliminar: "+nombre,
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, borrar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then(function(result) {
+                // si pulsa boton si
+                if (result.value) {
+
+                    ajaxEliminaDocumento(id);
+
+                    Swal.fire(
+                        "Borrado!",
+                        "El registro fue eliminado.",
+                        "success"
+                    )
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
         }
 
         function mueveImagen(numero){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Estado;
 use App\Estilo;
 use App\Imagen;
+use App\Documento;
 use App\Localidad;
 use App\Provincia;
 use App\Ubicacion;
@@ -23,12 +24,18 @@ class PatrimonioController extends Controller
     public function formulario(Request $request, $idPatrimonio)
     {
         if($idPatrimonio != 0){
+
             $datosPatrimonio = Patrimonio::find($idPatrimonio);
+
             $imagenes = Imagen::where('patrimonio_id', $datosPatrimonio->id)
+                        ->get();
+
+            $documentos = Documento::where('patrimonio_id', $datosPatrimonio->id)
                         ->get();
         }else{
             $datosPatrimonio = null;
             $imagenes = null;
+            $documentos = null;
         }
 
         $tecnicas = Tecnicamaterial::all();
@@ -37,12 +44,11 @@ class PatrimonioController extends Controller
         $estilos = Estilo::all();
 
         // dd($ubicaciones);
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes'));
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos'));
     }
 
     public function guarda(Request $request)
     {
-        // dd($request->all());
 
         if($request->filled('patrimonio_id')){
             $patrimonio = Patrimonio::find($request->input('patrimonio_id')); 
@@ -169,6 +175,27 @@ class PatrimonioController extends Controller
             }
         }
         // fin guardado de las imagenes
+
+        // guardado de los documentos
+        if ($request->has('documento')) 
+        {
+            foreach ($request->documento as $key => $f) 
+            {
+                $archivo = $f;
+                $direccion = 'documentos/'; // upload path
+                $nombreArchivo = date('YmdHis').$key. "." . $archivo->getClientOriginalExtension();
+                $archivo->move($direccion, $nombreArchivo);
+
+                $imagenProducto                = new Documento();
+                $imagenProducto->creador_id    = Auth::user()->id;
+                $imagenProducto->patrimonio_id = $patrimonioId;
+                $imagenProducto->nombre        = $request->input("nombre_documento.$key");
+                $imagenProducto->documento     = $nombreArchivo;
+                $imagenProducto->save();
+            }
+        }
+        // fin guardado de las documentos
+
 
         return redirect("patrimonio/listado");
     }   
