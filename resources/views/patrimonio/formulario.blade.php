@@ -693,7 +693,7 @@
 
                             <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab-1">
 
-                                <div class="row">
+                                <div class="row" id="cargaDocumentos">
                                     <div class="col-md-12">
                                         @if ($documentos != null)
                                             <table class="table table-striped table">
@@ -952,10 +952,10 @@
         {
             $.ajax({
                 url: "{{ url('documento/ajaxElimina') }}",
-                data: {idImagen: numero},
+                data: {id: id},
                 type: 'POST',
                 success: function(data) {
-                    $("#cargaImagenes").html(data);
+                    $("#cargaDocumentos").html(data);
                     // $("#listadoProductosAjax").html(data);
                 }
             });    

@@ -59,3 +59,6 @@ Route::get('especialidad/listado', 'EspecialidadController@listado');
 
 // IMAGENES
 Route::post('imagen/ajaxElimina', 'ImagenController@ajaxElimina');
+
+// DOCUMENTOS
+Route::post('documento/ajaxElimina', 'DocumentoController@ajaxElimina');
