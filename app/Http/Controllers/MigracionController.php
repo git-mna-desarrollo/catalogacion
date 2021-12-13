@@ -340,4 +340,34 @@ class MigracionController extends Controller
         }
 
     }
+
+    public function tecnicaMaterial(Request $request)
+    {
+        $archivo = public_path("tecnica.xlsx");
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($archivo);
+        $d=$spreadsheet->getSheet(0)->toArray();
+
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+        $i=1;
+
+        // descartamos la primera fila del excel
+        unset($sheetData[0]);
+
+        foreach ($sheetData as $row) {
+
+            $tecnica = Tecnicamaterial::where('nombre', 'like', "%$row[0]%")
+                                        ->first();
+
+            if($tecnica){
+                echo "<font color='red'>".$row[0]."- SI </font><br />";
+            }else{
+                echo $row[0]."- NO <br />";
+                $tecnica = new Tecnicamaterial();
+                $tecnica->creador_id = 1;
+                $tecnica->nombre = $row[0];
+                $tecnica->save();
+            }
+        }
+    }
 }

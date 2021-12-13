@@ -53,6 +53,7 @@ Route::get('User/elimina/{id}', 'UserController@elimina');
 // MIGRACION
 Route::get('migracion/patrimonios', 'MigracionController@patrimonios');
 Route::get('migracion/regularizaEstados', 'MigracionController@regularizaEstados');
+Route::get('migracion/tecnicaMaterial', 'MigracionController@tecnicaMaterial');
 
 // ESPECIALIADES
 Route::get('especialidad/listado', 'EspecialidadController@listado');

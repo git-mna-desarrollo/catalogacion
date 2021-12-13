@@ -21,10 +21,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PatrimonioController extends Controller
 {
+    // formulario de registro de patrimonios
     public function formulario(Request $request, $idPatrimonio)
     {
+        // preguntamos si es uno nuevo
+        // para enviar datos al formulario
         if($idPatrimonio != 0){
 
+            // por verdad enviamos los datos para editar
             $datosPatrimonio = Patrimonio::find($idPatrimonio);
 
             $imagenes = Imagen::where('patrimonio_id', $datosPatrimonio->id)
@@ -33,29 +37,33 @@ class PatrimonioController extends Controller
             $documentos = Documento::where('patrimonio_id', $datosPatrimonio->id)
                         ->get();
         }else{
+            // de lo contrario se envian datos como null
             $datosPatrimonio = null;
             $imagenes = null;
             $documentos = null;
         }
 
+        // mandamos los datos de los combos al formulario
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
 
-        // dd($ubicaciones);
         return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos'));
     }
 
     public function guarda(Request $request)
     {
 
+        // preguntamos si el campo patrimonio existe
         if($request->filled('patrimonio_id')){
+            // si existe habilitamos la edicion
             $patrimonio = Patrimonio::find($request->input('patrimonio_id')); 
         }else{
+            // si no existe creamos uno nuevo
             $patrimonio = new Patrimonio();
         }
-
+        // seteamos los datos para el formulario
         $patrimonio->creador_id                    = Auth::user()->id;
         $patrimonio->especialidad_id               = $request->input('especialidad_id');
         $patrimonio->estilo_id                     = $request->input('estilo_id');
@@ -102,50 +110,54 @@ class PatrimonioController extends Controller
 
         $patrimonioId = $patrimonio->id;
 
-        // preguntamos el estado de conservacion
+        // preguntamos el chaeck de monumento_nacional
         if($request->has('monumento_nacional')){
             $monumento_nacional = 'Si';    
         }else{
             $monumento_nacional = 'No';    
         }
-
+        // preguntamos el chaeck de la resolucion_municipal
         if($request->has('resolucion_municipal')){
             $resolucion_municipal = 'Si';    
         }else{
             $resolucion_municipal = 'No';    
         }
-
+        // preguntamos el chaeck de resolucion_administrativa
         if($request->has('resolucion_administrativa')){
             $resolucion_administrativa = 'Si';    
         }else{
             $resolucion_administrativa = 'No';    
         }
-
+        // preguntamos el chaeck de individual
         if($request->has('individual')){
             $individual = 'Si';    
         }else{
             $individual = 'No';    
         }
-
+        // preguntamos el chaeck de conjunto
         if($request->has('conjunto')){
             $conjunto = 'Si';    
         }else{
             $conjunto = 'No';    
         }
-
+        // preguntamos el chaeck de ninguna
         if($request->has('ninguna')){
             $ninguna = 'Si';    
         }else{
             $ninguna = 'No';    
         }
-
+        // preguntamos existe el patrimonio
+        // para guardar los estados
         if($request->filled('patrimonio_id')){
+            // si existe editamos
             $estados = Estado::where('patrimonio_id', $request->input('patrimonio_id'))
                                 ->first(); 
         }else{
+            // si no existe creamos uno nuevo
             $estados = new Estado();
         }
 
+        // seteamos los datos para guardar
         $estados->patrimonio_id             = $patrimonioId;
         $estados->monumento_nacional        = $monumento_nacional;
         $estados->resolucion_municipal      = $resolucion_municipal;
@@ -195,13 +207,12 @@ class PatrimonioController extends Controller
             }
         }
         // fin guardado de las documentos
-
-
         return redirect("patrimonio/listado");
     }   
 
     public function listado()
     {
+        // extremos los datos para los combos de las busquedas
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
@@ -209,12 +220,6 @@ class PatrimonioController extends Controller
         $autores = Patrimonio::select("autor")
                     ->groupBy("autor")
                     ->get();
-
-        // foreach($autores as $a){
-        //     echo $a->autor."<br />";
-        // }
-
-        // dd($autores);
 
         $patrimonios = Patrimonio::orderBy('id', 'desc')
                                 ->limit(200)
