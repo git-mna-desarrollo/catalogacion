@@ -11,6 +11,7 @@ use App\Patrimonio;
 use App\Especialidad;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -368,6 +369,88 @@ class MigracionController extends Controller
                 $tecnica->nombre = $row[0];
                 $tecnica->save();
             }
+        }
+    }
+
+    public function gilimana(Request $request) 
+    {
+        $archivo = public_path("gilimana.xlsx");
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($archivo);
+        $d=$spreadsheet->getSheet(0)->toArray();
+
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+        $i=1;
+
+        // descartamos la primera fila del excel
+        unset($sheetData[0]);
+
+        foreach ($sheetData as $row) {
+
+            // buscamos la especialidad
+            $buscaEspecialidad = Especialidad::where('nombre', 'like', "%$row[11]%") 
+                                        ->first();
+
+            // preguntamos si exisite                  
+            if($buscaEspecialidad == null)
+            {
+                $especialidadId = null;
+
+            }else{
+                $especialidadId = $buscaEspecialidad->id;
+            }
+
+            // buscamos la tecnica y material
+            $buscaMaterial = Tecnicamaterial::where('nombre', 'like', "%$row[8]%")
+                                        ->first();
+
+            // preguntamos si exisite                  
+            if($buscaMaterial == null)
+            {
+                $tmId = null;
+
+            }else{
+                $tmId = $buscaMaterial->id;
+            }
+
+            // $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]);
+            // $fecha = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]));
+
+            echo "Fila -".$row[0]."codigo ".$row[0]."----".$row[2]." Fecha --".$row[5]."<br />";
+
+            $patrimonio                        = new Patrimonio();
+            $patrimonio->creador_id            = 1;
+            $patrimonio->responsable_id        = 1;
+            $patrimonio->ubicacion_id          = 37;
+            $patrimonio->especialidad_id       = $especialidadId;
+            $patrimonio->tecnicamaterial_id    = $tmId;
+            $patrimonio->localidad             = "CIUDAD DE LA PAZ";
+            $patrimonio->provincia             = "MURILLO";
+            $patrimonio->departamento          = "LA PAZ";
+            $patrimonio->inmueble              = "EDIFICIO MANANTIAL";
+            $patrimonio->calle                 = "CALLE 20 DE OCTUBRE";
+            $patrimonio->nombre                = $row[9];
+            $patrimonio->autor                 = $row[7];
+            $patrimonio->codigo                = $row[2];
+            $patrimonio->codigo_administrativo = $row[3];
+            $patrimonio->forma_adquisicion     = $row[4];
+            // $patrimonio->fecha_ingreso_adm     = $row[5];
+            $patrimonio->valor                 = $row[6];
+            $patrimonio->save();
+
+
+            /*$tecnica = Tecnicamaterial::where('nombre', 'like', "%$row[0]%")
+                                        ->first();
+
+            if($tecnica){
+                echo "<font color='red'>".$row[0]."- SI </font><br />";
+            }else{
+                echo $row[0]."- NO <br />";
+                $tecnica = new Tecnicamaterial();
+                $tecnica->creador_id = 1;
+                $tecnica->nombre = $row[0];
+                $tecnica->save();
+            }*/
         }
     }
 }

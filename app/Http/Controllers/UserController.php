@@ -72,20 +72,19 @@ class UserController extends Controller
             $persona = new User();
         }
 
-        $persona->categoria_id     = $request->categoria_id;
-        $persona->name             = $request->name;
-        $persona->ci               = $request->ci;
-        $persona->email            = $request->email;
+        $persona->perfil = $request->perfil;
+        $persona->name   = $request->name;
+        $persona->ci     = $request->ci;
+        $persona->email  = $request->email;
         if($request->has('password')){
             $persona->password         = Hash::make($request->password);
         }
         $persona->fecha_nacimiento = $request->fecha_nacimiento;
         $persona->direccion        = $request->direccion;
         $persona->celulares        = $request->celulares;
-        $persona->perfil           = "Doctor";
         $persona->save();
 
-        return redirect('User/listado');
+        return redirect('user/listado');
     }
 
     public function elimina(Request $request)

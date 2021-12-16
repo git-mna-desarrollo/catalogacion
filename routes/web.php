@@ -42,18 +42,19 @@ Route::post('patrimonio/ajaxListado', 'PatrimonioController@ajaxListado');
 Route::post('patrimonio/ajaxElimina', 'PatrimonioController@ajaxElimina');
 
 // USUARIOS
-Route::get('User/listado', 'UserController@listado');
-Route::get('User/nuevo', 'UserController@nuevo');
-Route::post('User/ajaxOtb', 'UserController@ajaxOtb');
-Route::post('User/guarda', 'UserController@guarda');
-Route::get('User/ajax_listado', 'UserController@ajax_listado');
-Route::get('User/edita/{id}', 'UserController@edita');
-Route::get('User/elimina/{id}', 'UserController@elimina');
+Route::get('user/listado', 'UserController@listado');
+Route::get('user/nuevo', 'UserController@nuevo');
+Route::post('user/ajaxOtb', 'UserController@ajaxOtb');
+Route::post('user/guarda', 'UserController@guarda');
+Route::get('user/ajax_listado', 'UserController@ajax_listado');
+Route::get('user/edita/{id}', 'UserController@edita');
+Route::get('user/elimina/{id}', 'UserController@elimina');
 
 // MIGRACION
 Route::get('migracion/patrimonios', 'MigracionController@patrimonios');
 Route::get('migracion/regularizaEstados', 'MigracionController@regularizaEstados');
 Route::get('migracion/tecnicaMaterial', 'MigracionController@tecnicaMaterial');
+Route::get('migracion/gilimana', 'MigracionController@gilimana');
 
 // ESPECIALIADES
 Route::get('especialidad/listado', 'EspecialidadController@listado');

@@ -14,7 +14,7 @@
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
-				<a href="{{ url('User/nuevo') }}" class="btn btn-primary font-weight-bolder">
+				<a href="{{ url('user/nuevo') }}" class="btn btn-primary font-weight-bolder">
 					<span class="svg-icon svg-icon-md">
 						<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -64,7 +64,7 @@
 				iDisplayLength: 10,
 				processing: true,
 				serverSide: true,
-				ajax: "{{ url('User/ajax_listado') }}",
+				ajax: "{{ url('user/ajax_listado') }}",
 				"order": [[ 0, "desc" ]],
 				columns: [
 					{data: 'id', name: 'id'},

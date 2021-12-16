@@ -18,8 +18,16 @@
             <td>{{ $p->codigo }}</td>
             <td>{{ $p->nombre }}</td>
             <td>{{ $p->autor }}</td>
-            <td>{{ $p->especialidad->nombre }}</td>
-            <td>{{ $p->estilo->nombre }}</td>
+            <td>
+                @if ($p->especialidad_id != null)
+                    {{ $p->especialidad->nombre }}
+                @endif
+            </td>
+            <td>
+                @if($p->estilo_id != null)
+                    {{ $p->estilo->nombre }}
+                @endif
+            </td>
             <td>
                 @if ($p->tecnicamaterial_id != null)
                     {{ $p->tecnicamaterial->nombre }}

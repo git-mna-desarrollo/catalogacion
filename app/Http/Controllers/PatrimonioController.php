@@ -260,7 +260,8 @@ class PatrimonioController extends Controller
         $qPatrimonios = Patrimonio::query();    
 
         if($request->filled('codigo')){
-            $qPatrimonios->where('codigo', $request->input('codigo'));
+            $codigo = $request->input('codigo');
+            $qPatrimonios->where('codigo', 'like', "%$codigo");
         }
 
         if($request->filled('nombre')){
