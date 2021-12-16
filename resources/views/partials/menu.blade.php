@@ -64,7 +64,7 @@
 					<ul class="menu-subnav">
 			
 						<li class="menu-item" aria-haspopup="true">
-							<a href="{{ url('user/nuevo') }}" class="menu-link">
+							<a href="{{ url('user/formulario/0') }}" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>

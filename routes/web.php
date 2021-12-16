@@ -43,7 +43,7 @@ Route::post('patrimonio/ajaxElimina', 'PatrimonioController@ajaxElimina');
 
 // USUARIOS
 Route::get('user/listado', 'UserController@listado');
-Route::get('user/nuevo', 'UserController@nuevo');
+Route::get('user/formulario/{idUser}', 'UserController@formulario');
 Route::post('user/ajaxOtb', 'UserController@ajaxOtb');
 Route::post('user/guarda', 'UserController@guarda');
 Route::get('user/ajax_listado', 'UserController@ajax_listado');

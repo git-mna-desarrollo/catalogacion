@@ -28,28 +28,29 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nombres y Apellidos
                                 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="name" name="name" required />
+                                <input type="text" class="form-control" id="name" name="name" value="{{ ($datosUser != null)?$datosUser->name:'' }}" required />
+                                <input type="hidden" name="userId" value="{{ ($datosUser != null)?$datosUser->id:'' }}" >
                             </div>        
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Carnet
                                 <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="ci" name="ci" required />
+                                <input type="number" class="form-control" id="ci" name="ci" value="{{ ($datosUser != null)?$datosUser->ci:'' }}" required />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Email
                                 <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" name="email" />
+                                <input type="email" class="form-control" id="email" name="email" value="{{ ($datosUser != null)?$datosUser->email:'' }}" />
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Fecha Nacimiento
                                     <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" />
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ ($datosUser != null)?$datosUser->fecha_nacimiento:'' }}"/>
                             </div>
                         </div>
                     </div>
@@ -59,15 +60,15 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Direccion
                                 </label>
-                                <input type="text" class="form-control" id="direccion" name="direccion" />
+                                <input type="text" class="form-control" id="direccion" name="direccion" value="{{ ($datosUser != null)?$datosUser->direccion:'' }}" />
                             </div>        
                         </div>
                         
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Telefonos
+                                <label for="exampleInputPassword1">Celulares
                                 </label>
-                                <input type="text" class="form-control" id="celulares" name="celulares" />
+                                <input type="text" class="form-control" id="celulares" name="celulares" value="{{ ($datosUser != null)?$datosUser->celulares:'' }}" />
                             </div>
                         </div>
                     </div>
@@ -77,12 +78,12 @@
                             <div class="form-group">
                                 <label for="exampleSelect1">Perfil <span class="text-danger">*</span></label>
                                 <select class="form-control" id="perfil" name="perfil" >
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Direccion">Direccion</option>
-                                    <option value="Bibliotecario">Bibliotecario</option>
-                                    <option value="Curador">Curador</option>
-                                    <option value="Conservador">Conservador</option>
-                                    <option value="Visitante">Visitante</option>
+                                    <option value="Administrador" {{ ($datosUser->perfil == 'Administrador')?'selected':'' }}>Administrador</option>
+                                    <option value="Direccion" {{ ($datosUser->perfil == 'Direccion')?'selected':'' }}>Direccion</option>
+                                    <option value="Bibliotecario" {{ ($datosUser->perfil == 'Bibliotecario')?'selected':'' }}>Bibliotecario</option>
+                                    <option value="Curador" {{ ($datosUser->perfil == 'Curador')?'selected':'' }}>Curador</option>
+                                    <option value="Conservador" {{ ($datosUser->perfil == 'Conservador')?'selected':'' }}>Conservador</option>
+                                    <option value="Visitante" {{ ($datosUser->perfil == 'Visitante')?'selected':'' }}>Visitante</option>
                                 </select>
                             </div>
                         </div>
@@ -90,7 +91,7 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password
                                     <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="password" name="password" required />
+                                <input type="password" class="form-control" id="password" name="password" />
                             </div>
                         </div>
                     </div>
@@ -137,20 +138,9 @@
             }
         }
 
-        function canbiaDepartamento()
+        function edita(idUser)
         {
-            let departamento = $("#departamento").val();
-
-            $.ajax({
-                url: "{{ url('User/ajaxDistrito') }}",
-                data: {departamento: departamento},
-                type: 'POST',
-                success: function(data) {
-                    $("#ajaxDistritos").html(data);
-                    // $("#listadoProductosAjax").html(data);
-                }
-            });
-
+            window.location.href = "{{ url('user/formulario') }}/"+idUser;
         }
 
     </script>

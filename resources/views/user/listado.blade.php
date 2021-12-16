@@ -81,9 +81,9 @@
             });
     	} );
 
-		function edita(id)
+		function edita(idUser)
 		{
-			window.location.href = "{{ url('User/edita') }}/"+id;
+			window.location.href = "{{ url('user/formulario') }}/"+idUser;
 		}
 
 		function elimina(id, nombre)

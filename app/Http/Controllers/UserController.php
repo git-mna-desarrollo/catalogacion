@@ -38,11 +38,16 @@ class UserController extends Controller
                 })->make(true);
     }
 
-    public function nuevo()
+    public function formulario(Request $request, $idUser)
     {
-        // $categorias = Categoria::all();
-        // return view('user.nuevo')->with(compact('categorias'));        			
-        return view('user.nuevo');
+        // dd($idUser);
+        if($idUser != 0){
+            $datosUser = User::find($idUser);
+        }else{
+            $datosUser = null;
+        }    
+
+        return view('user.formulario')->with(compact('datosUser'));
     }
 
     public function ajaxDistrito(Request $request)
@@ -66,8 +71,8 @@ class UserController extends Controller
     {
         // dd($request->input());
 
-        if($request->has('id')){
-            $persona = User::find($request->id);
+        if($request->has('userId')){
+            $persona = User::find($request->userId);
         }else{
             $persona = new User();
         }
@@ -76,7 +81,7 @@ class UserController extends Controller
         $persona->name   = $request->name;
         $persona->ci     = $request->ci;
         $persona->email  = $request->email;
-        if($request->has('password')){
+        if($request->filled('password')){
             $persona->password         = Hash::make($request->password);
         }
         $persona->fecha_nacimiento = $request->fecha_nacimiento;
