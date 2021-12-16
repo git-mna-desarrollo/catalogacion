@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         // dd($request->input());
 
-        if($request->filled('userId')){
+        if($request->has('userId')){
             $persona = User::find($request->userId);
         }else{
             $persona = new User();
@@ -81,7 +81,7 @@ class UserController extends Controller
         $persona->name   = $request->name;
         $persona->ci     = $request->ci;
         $persona->email  = $request->email;
-        if($request->filled('password')){
+        if($request->has('password')){
             $persona->password         = Hash::make($request->password);
         }
         $persona->fecha_nacimiento = $request->fecha_nacimiento;

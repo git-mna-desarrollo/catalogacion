@@ -10,26 +10,26 @@
 {{-- inicio modal --}}
 
 <!-- Modal-->
-<div class="modal fade" id="modalRaza" data-backdrop="static" tabindex="-1" role="dialog"
+<div class="modal fade" id="modal-es" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE RAZA</h5>
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ESPECIALIDAD</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('Raza/guarda') }}" method="POST" id="formulario-tipos">
+                <form action="{{ url('especialidad/guarda') }}" method="POST" id="formulario-tipos">
                     @csrf
                     <div class="row">
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Nombre de la Raza
+                                <label for="exampleInputPassword1">Nombre
                                     <span class="text-danger">*</span></label>
-                                <input type="hidden" class="form-control" id="raza_id" name="raza_id" />
+                                <input type="hidden" class="form-control" id="id" name="id" />
                                 <input type="text" class="form-control" id="nombre" name="nombre" required />
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Descripcion
                                     <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="descripcion" name="descripcion" required />
+                                <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -59,13 +59,13 @@
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">
         <div class="card-title">
-            <h3 class="card-label">TIPOS DE RAZAS
+            <h3 class="card-label">ESPECIALIDADES
             </h3>
         </div>
         <div class="card-toolbar">
             <!--begin::Button-->
             <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-                <i class="fa fa-plus-square"></i> NUEVA RAZA
+                <i class="fa fa-plus-square"></i> NUEVA ESPECIALIDAD
             </a>
             <!--end::Button-->
         </div>
@@ -84,18 +84,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($razas as $ra)
+                    @forelse ($especialidades as $e)
                     <tr>
-                        <td style="width: 5%">{{ $ra->id }}</td>
-                        <td style="width: 30%">{{ $ra->nombre }}</td>
-                        <td style="width: 40%">{{ $ra->descripcion }}</td>
+                        <td style="width: 5%">{{ $e->id }}</td>
+                        <td style="width: 30%">{{ $e->nombre }}</td>
+                        <td style="width: 40%">{{ $e->descripcion }}</td>
                         <td style="width: 10%">
                             <button type="button" class="btn btn-sm btn-icon btn-warning"
-                                onclick="edita('{{ $ra->id }}', '{{ $ra->nombre }}', '{{ $ra->descripcion }}')">
+                                onclick="edita('{{ $e->id }}', '{{ $e->nombre }}', '{{ $e->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
                             <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $ra->id }}', '{{ $ra->nombre }}')">
+                                onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
                                 <i class="flaticon2-cross"></i>
                             </button>
                         </td>
@@ -129,22 +129,22 @@
     	function nuevo()
     	{
 			// pone los inputs vacios
-			$("#raza_id").val('');
+			$("#id").val('');
 			$("#nombre").val('');
 			$("#descripcion").val('');
 			// abre el modal
-    		$("#modalRaza").modal('show');
+    		$("#modal-es").modal('show');
     	}
 
 		function edita(id, nombre, descripcion)
     	{
 			// colocamos valores en los inputs
-			$("#raza_id").val(id);
+			$("#id").val(id);
 			$("#nombre").val(nombre);
 			$("#descripcion").val(descripcion);
 
 			// mostramos el modal
-    		$("#modalRaza").modal('show');
+    		$("#modal-es").modal('show');
     	}
 
     	function crear()
@@ -178,7 +178,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('Raza/elimina') }}/"+id;
+                    window.location.href = "{{ url('especialidad/elimina') }}/"+id;
 
                     Swal.fire(
                         "Borrado!",

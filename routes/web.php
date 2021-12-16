@@ -58,6 +58,8 @@ Route::get('migracion/gilimana', 'MigracionController@gilimana');
 
 // ESPECIALIADES
 Route::get('especialidad/listado', 'EspecialidadController@listado');
+Route::post('especialidad/guarda', 'EspecialidadController@guarda');
+Route::get('especialidad/elimina/{id}', 'EspecialidadController@elimina');
 
 // IMAGENES
 Route::post('imagen/ajaxElimina', 'ImagenController@ajaxElimina');
