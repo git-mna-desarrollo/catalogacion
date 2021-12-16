@@ -78,12 +78,12 @@
                             <div class="form-group">
                                 <label for="exampleSelect1">Perfil <span class="text-danger">*</span></label>
                                 <select class="form-control" id="perfil" name="perfil" >
-                                    <option value="Administrador" {{ ($datosUser->perfil == 'Administrador')?'selected':'' }}>Administrador</option>
-                                    <option value="Direccion" {{ ($datosUser->perfil == 'Direccion')?'selected':'' }}>Direccion</option>
-                                    <option value="Bibliotecario" {{ ($datosUser->perfil == 'Bibliotecario')?'selected':'' }}>Bibliotecario</option>
-                                    <option value="Curador" {{ ($datosUser->perfil == 'Curador')?'selected':'' }}>Curador</option>
-                                    <option value="Conservador" {{ ($datosUser->perfil == 'Conservador')?'selected':'' }}>Conservador</option>
-                                    <option value="Visitante" {{ ($datosUser->perfil == 'Visitante')?'selected':'' }}>Visitante</option>
+                                    <option value="Administrador" {{ ($datosUser != null && $datosUser->perfil == 'Administrador')?'selected':'' }}>Administrador</option>
+                                    <option value="Direccion" {{ ($datosUser != null && $datosUser->perfil == 'Direccion')?'selected':'' }}>Direccion</option>
+                                    <option value="Bibliotecario" {{ ($datosUser != null && $datosUser->perfil == 'Bibliotecario')?'selected':'' }}>Bibliotecario</option>
+                                    <option value="Curador" {{ ($datosUser != null && $datosUser->perfil == 'Curador')?'selected':'' }}>Curador</option>
+                                    <option value="Conservador" {{ ($datosUser != null && $datosUser->perfil == 'Conservador')?'selected':'' }}>Conservador</option>
+                                    <option value="Visitante" {{ ($datosUser != null && $datosUser->perfil == 'Visitante')?'selected':'' }}>Visitante</option>
                                 </select>
                             </div>
                         </div>

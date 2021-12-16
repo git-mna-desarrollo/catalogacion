@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         // dd($request->input());
 
-        if($request->has('userId')){
+        if($request->filled('userId')){
             $persona = User::find($request->userId);
         }else{
             $persona = new User();
