@@ -76,3 +76,8 @@ Route::get('tecnicamaterial/elimina/{id}', 'TecnicamaterialController@elimina');
 Route::get('estilo/listado', 'EstiloController@listado');
 Route::post('estilo/guarda', 'EstiloController@guarda');
 Route::get('estilo/elimina/{id}', 'EstiloController@elimina');
+
+// UBICACIONES
+Route::get('ubicacion/listado', 'UbicacionController@listado');
+Route::post('ubicacion/guarda', 'UbicacionController@guarda');
+Route::get('ubicacion/elimina/{id}', 'UbicacionController@elimina');

@@ -101,7 +101,7 @@
                         </td>
                     </tr>
                     @empty
-                    <h3 class="text-danger">NO EXISTEN RAZAS</h3>
+                    <h3 class="text-danger">NO EXISTEN DATOS</h3>
                     @endforelse
                 </tbody>
                 <tbody>

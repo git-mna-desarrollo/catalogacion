@@ -26,7 +26,7 @@ class EstiloController extends Controller
         $estilo->descripcion = $request->input('descripcion');
         $estilo->save();
 
-        return redirect("especialidad/listado");
+        return redirect("estilo/listado");
     }
 
     public function elimina(Request $request, $id)

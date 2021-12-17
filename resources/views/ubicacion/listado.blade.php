@@ -21,7 +21,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('estilo/guarda') }}" method="POST" id="formulario-tipos">
+                <form action="{{ url('ubicacion/guarda') }}" method="POST" id="formulario-tipos">
                     @csrf
                     <div class="row">
 
@@ -84,18 +84,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($estilos as $e)
+                    @forelse ($ubicaciones as $u)
                     <tr>
-                        <td style="width: 5%">{{ $e->id }}</td>
-                        <td style="width: 30%">{{ $e->nombre }}</td>
-                        <td style="width: 40%">{{ $e->descripcion }}</td>
+                        <td style="width: 5%">{{ $u->id }}</td>
+                        <td style="width: 30%">{{ $u->nombre }}</td>
+                        <td style="width: 40%">{{ $u->descripcion }}</td>
                         <td style="width: 10%">
                             <button type="button" class="btn btn-sm btn-icon btn-warning"
-                                onclick="edita('{{ $e->id }}', '{{ $e->nombre }}', '{{ $e->descripcion }}')">
+                                onclick="edita('{{ $u->id }}', '{{ $u->nombre }}', '{{ $u->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
                             <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
+                                onclick="elimina('{{ $u->id }}', '{{ $u->nombre }}')">
                                 <i class="flaticon2-cross"></i>
                             </button>
                         </td>
@@ -178,7 +178,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('estilo/elimina') }}/"+id;
+                    window.location.href = "{{ url('ubicacion/elimina') }}/"+id;
 
                     Swal.fire(
                         "Borrado!",

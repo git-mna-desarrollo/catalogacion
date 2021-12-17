@@ -121,6 +121,15 @@
 								<span class="menu-text">Estilos</span>
 							</a>
 						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('ubicacion/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Ubicaciones</span>
+							</a>
+						</li>
 			
 					</ul>
 				</div>
