@@ -66,3 +66,13 @@ Route::post('imagen/ajaxElimina', 'ImagenController@ajaxElimina');
 
 // DOCUMENTOS
 Route::post('documento/ajaxElimina', 'DocumentoController@ajaxElimina');
+
+// TECNICA/MATERIAL
+Route::get('tecnicamaterial/listado', 'TecnicamaterialController@listado');
+Route::post('tecnicamaterial/guarda', 'TecnicamaterialController@guarda');
+Route::get('tecnicamaterial/elimina/{id}', 'TecnicamaterialController@elimina');
+
+// ESTILOS
+Route::get('estilo/listado', 'EstiloController@listado');
+Route::post('estilo/guarda', 'EstiloController@guarda');
+Route::get('estilo/elimina/{id}', 'EstiloController@elimina');

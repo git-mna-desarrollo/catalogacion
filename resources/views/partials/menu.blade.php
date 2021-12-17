@@ -105,11 +105,20 @@
 						</li>
 			
 						<li class="menu-item" aria-haspopup="true">
-							<a href="{{ url('patrimonio/listado') }}" class="menu-link">
+							<a href="{{ url('tecnicamaterial/listado') }}" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>
-								<span class="menu-text">Listado</span>
+								<span class="menu-text">Tecnicas/Materiales</span>
+							</a>
+						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('estilo/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Estilos</span>
 							</a>
 						</li>
 			
