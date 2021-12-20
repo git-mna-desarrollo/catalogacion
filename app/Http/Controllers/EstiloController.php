@@ -19,7 +19,7 @@ class EstiloController extends Controller
         if($request->filled('id')){
             $estilo = Estilo::find($request->input('id'));
         }else{
-            $estilo = new Especialidad();
+            $estilo = new Estilo();
         }
         
         $estilo->nombre = $request->input('nombre');

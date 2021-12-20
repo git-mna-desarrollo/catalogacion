@@ -81,3 +81,8 @@ Route::get('estilo/elimina/{id}', 'EstiloController@elimina');
 Route::get('ubicacion/listado', 'UbicacionController@listado');
 Route::post('ubicacion/guarda', 'UbicacionController@guarda');
 Route::get('ubicacion/elimina/{id}', 'UbicacionController@elimina');
+
+// SITIO
+Route::get('sitio/listado', 'SitioController@listado');
+Route::post('sitio/guarda', 'SitioController@guarda');
+Route::get('sitio/elimina/{id}', 'SitioController@elimina');
