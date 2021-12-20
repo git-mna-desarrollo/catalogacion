@@ -14,6 +14,18 @@
 				<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 			</li> --}}
 
+			<li>
+				<div class="text-center mb-10">
+					<div class="symbol symbol-60 symbol-circle symbol-xl-90">
+						<div class="symbol-label" style="background-image:url('{{ url('assets/media/users/fotoPerfil.jpg') }}')"></div>
+						<i class="symbol-badge symbol-badge-bottom bg-success"></i>
+					</div>
+					<h4 class="font-weight-bold my-2">{{ Auth::user()->name }}</h4>
+					<div class="text-light mb-2">{{ Auth::user()->perfil }}</div>
+					<span class="label label-light-danger label-inline font-weight-bold label-lg">Salir</span>
+				</div>
+			</li>
+
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 				<a href="{{ url('panel/inicio') }}" class="menu-link menu-toggle">
 					<span class="menu-icon"><i class="fas fa-chart-bar"></i></span>
