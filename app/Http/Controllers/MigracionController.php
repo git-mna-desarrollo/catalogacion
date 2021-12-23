@@ -453,4 +453,43 @@ class MigracionController extends Controller
             }*/
         }
     }
+
+    // esta funcion regulariza los datos administrativos
+    // hacia los patrimonios del MNA
+    public function regularizacionAdminMna(Request $request)
+    {
+        $archivo = public_path("complemento_MNA.xlsx");
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($archivo);
+        $d=$spreadsheet->getSheet(0)->toArray();
+
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+        $i=1;
+
+        // descartamos la primera fila del excel
+        unset($sheetData[0]);
+        $contador = 1;
+        foreach ($sheetData as $row) {
+
+            $patrimonio = Patrimonio::where('codigo', $row[2])
+                                    ->whereNull('codigo_administrativo')
+                                    ->first();
+
+            if($patrimonio){
+                echo $contador."<b> Codigo Inventario </b> ".$row[2]." <b>del MNA</b> ".$patrimonio->codigo." <b>Autor </b>".$patrimonio->autor."<br />";
+
+                $regularizaPatrimonio                        = Patrimonio::find($patrimonio->id);
+                $regularizaPatrimonio->codigo_administrativo = $row[1];
+                $regularizaPatrimonio->valor                 = $row[5];
+                $regularizaPatrimonio->cuenta                = $row[13];
+                $regularizaPatrimonio->sub_cuenta            = $row[14];
+                $regularizaPatrimonio->save();
+
+            }
+
+            $contador++;           
+                                    
+        }
+
+    }
 }

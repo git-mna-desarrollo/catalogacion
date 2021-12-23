@@ -14,7 +14,7 @@
     <tbody>
         @forelse ($patrimonios as $p)
         <tr>
-            <td>{{ $p->id }}</td>
+            <td>{{ $p->codigo_administrativo }}</td>
             <td>{{ $p->codigo }}</td>
             <td>{{ $p->nombre }}</td>
             <td>{{ $p->autor }}</td>

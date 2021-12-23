@@ -55,6 +55,7 @@ Route::get('migracion/patrimonios', 'MigracionController@patrimonios');
 Route::get('migracion/regularizaEstados', 'MigracionController@regularizaEstados');
 Route::get('migracion/tecnicaMaterial', 'MigracionController@tecnicaMaterial');
 Route::get('migracion/gilimana', 'MigracionController@gilimana');
+Route::get('migracion/regularizacionAdminMna', 'MigracionController@regularizacionAdminMna');
 
 // ESPECIALIADES
 Route::get('especialidad/listado', 'EspecialidadController@listado');
