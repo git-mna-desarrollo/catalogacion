@@ -50,43 +50,26 @@ class UserController extends Controller
         return view('user.formulario')->with(compact('datosUser'));
     }
 
-    public function ajaxDistrito(Request $request)
-    {
-        $distritos = Sector::where('departamento', $request->departamento)
-                        ->whereNull('padre_id')
-                        ->get();
-        
-        return view('user.ajaxDistritos')->with(compact('distritos'));                   
-    }
-
-    public function ajaxOtb(Request $request)
-    {
-        $otbs = Sector::where('padre_id', $request->distrito)
-                        ->get();
-
-        return view('user.ajaxOtb')->with(compact('otbs'));                   
-    }
-
     public function guarda(Request $request)
     {
         // dd($request->input());
 
-        if($request->has('userId')){
+        if($request->filled('userId')){
             $persona = User::find($request->userId);
         }else{
             $persona = new User();
         }
 
-        $persona->perfil = $request->perfil;
-        $persona->name   = $request->name;
-        $persona->ci     = $request->ci;
-        $persona->email  = $request->email;
+        $persona->perfil = $request->input('perfil');
+        $persona->name   = $request->input('name');
+        $persona->ci     = $request->input('ci');
+        $persona->email  = $request->input('email');
         if($request->has('password')){
-            $persona->password         = Hash::make($request->password);
+            $persona->password         = Hash::make($request->input('password'));
         }
-        $persona->fecha_nacimiento = $request->fecha_nacimiento;
-        $persona->direccion        = $request->direccion;
-        $persona->celulares        = $request->celulares;
+        $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $persona->direccion        = $request->input('direccion');
+        $persona->celulares        = $request->input('celulares');
         $persona->save();
 
         return redirect('user/listado');

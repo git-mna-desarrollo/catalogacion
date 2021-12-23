@@ -6,10 +6,10 @@
     @csrf
 
     <div class="form-group row">
-        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
+        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Usuario') }}</label>
 
         <div class="col-md-8">
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <input id="email" type="text" class="form-control @error('ci') is-invalid @enderror" name="ci" value="{{ old('ci') }}" required autocomplete="ci" autofocus>
 
             @error('email')
                 <span class="invalid-feedback" role="alert">

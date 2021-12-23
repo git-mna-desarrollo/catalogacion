@@ -61,15 +61,18 @@
                                     <span class="nav-text">IMAGENES</span>
                                 </a>
                             </li>
-
+                            @if (Auth::user()->perfil == 'Administrativo')
+                                
                             <li class="nav-item">
                                 <a class="nav-link" id="contact-tab-1" data-toggle="tab" href="#documentos" aria-controls="contact">
                                     <span class="nav-icon">
                                         <i class="fas fa-file-alt"></i>
                                     </span>
-                                    <span class="nav-text">DOCUMENTOS</span>
+                                    <span class="nav-text">ADMINISTRATIVO</span>
                                 </a>
                             </li>
+
+                            @endif
 
                         </ul>
                         <div class="tab-content mt-5" id="myTabContent1">
@@ -111,35 +114,59 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CALLE </label>
                                             <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" readonly />
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-4">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">UBICACION
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control seleccionadores" id="ubicacion_id" name="ubicacion_id" style="width: 100%">
+                                                    @forelse ($ubicaciones as $u)
+                                                    @php
+                                                        if($datosPatrimonio != null && $datosPatrimonio->ubicacion_id==$u->id){
+                                                            $seleccionado = 'selected'; 
+                                                        }else{
+                                                            $seleccionado = '';
+                                                        }
+                                                    @endphp
+                                                    <option value="{{ $u->id }}" {{ $seleccionado }}>{{ $u->nombre }}</option>
+                                                    @empty
+                                        
+                                                    @endforelse
+                                                </select>
+                                            </div>
+                                    </div>
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">UBICACION
+                                            <label for="exampleInputPassword1">SITIO
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="ubicacion_id" name="ubicacion_id" style="width: 100%">
-                                                @forelse ($ubicaciones as $u)
+                                            <select class="form-control seleccionadores" id="sitio_id" name="ubicacion_id" style="width: 100%">
+                                                @forelse ($sitios as $s)
                                                 @php
-                                                    if($datosPatrimonio != null && $datosPatrimonio->ubicacion_id==$u->id){
-                                                        $seleccionado = 'selected';
+                                                    if($datosPatrimonio != null && $datosPatrimonio->ubicacion_id==$s->id){
+                                                        $seleccionado = 'selected'; 
                                                     }else{
                                                         $seleccionado = '';
                                                     }
                                                 @endphp
-                                                <option value="{{ $u->id }}" {{ $seleccionado }}>{{ $u->nombre }}</option>
+                                                <option value="{{ $s->id }}" {{ $seleccionado }}>({{ $s->sigla }}) {{ $s->descripcion }}</option>
                                                 @empty
                                     
                                                 @endforelse
                                             </select>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 {{-- fin ubicacion --}}
@@ -183,7 +210,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="form-group">
+                                        <div class="form-group">                                
                                             <label for="exampleInputPassword1">LARGO
                                                 <span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" id="largo" name="largo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->largo:'' }}" />
@@ -693,6 +720,12 @@
 
                             <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab-1">
 
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                    </div>
+                                </div>
+
                                 <div class="row" id="cargaDocumentos">
                                     <div class="col-md-12">
                                         @if ($documentos != null)
@@ -831,6 +864,10 @@
         });
 
         jQuery(document).ready(function() {
+
+            $('.seleccionadores').select2({
+                placeholder: "Seleccione"
+            });
         
             $('#documentos_1').repeater({
                 initEmpty: false,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Sitio;
 use App\Estado;
 use App\Estilo;
 use App\Imagen;
@@ -44,12 +45,13 @@ class PatrimonioController extends Controller
         }
 
         // mandamos los datos de los combos al formulario
+        $sitios = Sitio::all();
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
 
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos'));
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios'));
     }
 
     public function guarda(Request $request)
