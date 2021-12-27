@@ -24,7 +24,7 @@
                     @csrf
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Asignado
                                     <span class="text-danger">*</span>
@@ -38,6 +38,15 @@
                         
                                     @endforelse
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Fecha
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" id="fecha" name="fecha" value="{{ date('Y-m-d') }}" class="form-control">
                             </div>
                         </div>
 
@@ -134,10 +143,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Origen</th>
                         <th>Asignado</th>
                         <th>Destino</th>
                         <th>Lugar</th>
+                        <th>Fecha</th>
+                        <th>Observaciones</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -145,14 +155,15 @@
                     @forelse ($movimientos as $m)
                     <tr>
                         <td>{{ $m->id }}</td>
-                        <td>{{ $m->creador->name }}</td>
                         <td>
                             @if ($m->asignado_id != null)
-                                {{ $m->asignado->nombre }}
+                                {{ $m->asignado->name }}
                             @endif
                         </td>
                         <td>{{ $m->destino->nombre }}</td>
                         <td>{{ $m->sitio->descripcion }} ({{ $m->sitio->sigla }})</td>
+                        <td>{{ $m->fecha }}</td>
+                        <td>{{ $m->observaciones }}</td>
                         <td>
                             <button type="button" class="btn btn-sm btn-icon btn-danger"
                                 onclick="elimina('{{ $m->id }}', '{{ $m->destino->nombre }}')">

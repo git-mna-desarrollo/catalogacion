@@ -34,6 +34,8 @@ class CreateMovimientosTable extends Migration
             $table->unsignedBigInteger('sitio_id')->nullable();
             $table->foreign('sitio_id')->references('id')->on('sitios');
 
+            $table->date('fecha')->nullable();
+
             $table->string('observaciones', 500)->nullable();
 
             $table->string('estado', 15)->nullable();

@@ -40,6 +40,7 @@ class MovimientosController extends Controller
         $movimiento->asignado_id   = $request->input('asignado_id');
         $movimiento->destino_id    = $request->input('destino_id');
         $movimiento->sitio_id      = $request->input('sitio_id');
+        $movimiento->fecha         = $request->input('fecha');
         $movimiento->observaciones = $request->input('observaciones');
         $movimiento->save();
 
