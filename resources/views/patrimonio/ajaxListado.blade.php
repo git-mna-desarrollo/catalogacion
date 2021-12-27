@@ -40,19 +40,30 @@
                     href="{{ url('patrimonio/formulario', [$p->id]) }}" 
                     type="button" 
                     class="btn btn-sm btn-icon btn-warning" 
-                    onclick="edita('{{ $p->id }}'">
+                    onclick="edita('{{ $p->id }}'"
+                    title="Editar">
                 <i class="flaticon2-edit"></i>
                 </a>
 
                 <a
                     href="{{ url('patrimonio/ficha')}}/{{ $p->id }}" 
                     class="btn btn-sm btn-icon btn-primary" 
-                    onclick="edita('{{ $p->id }}'">
+                    onclick="edita('{{ $p->id }}'"
+                    title="Ver">
                 <i class="flaticon2-paper"></i>
                 </a>
 
+                <a 
+                    href="{{ url('movimiento/inicio/')}}/{{ $p->id }}" 
+                    class="btn btn-sm btn-icon btn-info" 
+                    title="Transferencias"
+                    >
+                    <i class="fas fa-arrows-alt"></i>
+                </a>
+
                 <button type="button" class="btn btn-sm btn-icon btn-danger"
-                    onclick="elimina('{{ $p->id }}', '{{ $p->nombre }}')">
+                    onclick="elimina('{{ $p->id }}', '{{ $p->nombre }}')"
+                    title="Eliminar">
                     <i class="flaticon2-cross"></i>
                 </button>
             </td>

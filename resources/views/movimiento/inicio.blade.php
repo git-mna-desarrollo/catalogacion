@@ -14,7 +14,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE UBICACION</h5>
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE MOVIMIENTO</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -26,20 +26,64 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Nombre
-                                    <span class="text-danger">*</span></label>
-                                <input type="hidden" class="form-control" id="id" name="id" />
-                                <input type="text" class="form-control" id="nombre" name="nombre" required />
+                                <label for="exampleInputPassword1">Asignado
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control seleccionadores" id="asignado_id" name="asignado_id" style="width: 100%">
+                                    <option value="">Seleccione</option>
+                                    @forelse ($usuarios as $u)
+                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                    @empty
+                        
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Ubicacion
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control seleccionadores" id="ubicacion_id" name="ubicacion_id" style="width: 100%">
+                                    <option value="">Seleccione</option>
+                                    @forelse ($ubicaciones as $ub)
+                                        <option value="{{ $ub->id }}">{{ $ub->nombre }}</option>
+                                    @empty
+                        
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Sitio
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-control seleccionadores" id="sitio_id" name="sitio_id" style="width: 100%">
+                                    <option value="">Seleccione</option>
+                                    @forelse ($sitios as $s)
+                                        <option value="{{ $s->id }}">{{ $s->descripcion }} ({{ $s->sigla }})</option>
+                                    @empty
+                        
+                                    @endforelse
+                                </select>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Descripcion
+                                <label for="exampleInputPassword1">Observaciones
                                     <span class="text-danger">*</span></label>
-                                <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
+                                <textarea id="observaciones" name="observaciones" class="form-control"></textarea>
                             </div>
                         </div>
+                        
                     </div>
 
                 </form>
@@ -58,43 +102,60 @@
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">
         <div class="card-title">
-            <h3 class="card-label">ESTILOS
+            <h3 class="card-label">MOVIMIENTOS
             </h3>
         </div>
         <div class="card-toolbar">
             <!--begin::Button-->
             <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-                <i class="fa fa-plus-square"></i> NUEVO ESTILO
+                <i class="fa fa-plus-square"></i> NUEVO MOVIMIENTO
             </a>
             <!--end::Button-->
         </div>
     </div>
 
     <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h3><span class="text-primary">CODIGO: </span> {{ $datosPatrimonio->codigo_administrativo }}</h3>
+            </div>
+
+            <div class="col-md-4">
+                <h3><span class="text-primary">NOMBRE: </span> {{ $datosPatrimonio->nombre }}</h3>
+            </div>
+
+            <div class="col-md-4">
+                <h3><span class="text-primary">AUTOR: </span> {{ $datosPatrimonio->autor }}</h3>
+            </div>
+        </div>
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
             <table class="table table-bordered table-hover table-striped" id="tabla-raza">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
+                        <th>Origen</th>
+                        <th>Asignado</th>
+                        <th>Destino</th>
+                        <th>Lugar</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($estilos as $e)
+                    @forelse ($movimientos as $m)
                     <tr>
-                        <td style="width: 5%">{{ $e->id }}</td>
-                        <td style="width: 30%">{{ $e->nombre }}</td>
-                        <td style="width: 40%">{{ $e->descripcion }}</td>
-                        <td style="width: 10%">
+                        <td>{{ $m->id }}</td>
+                        <td>{{ $m->creador->nombre }}</td>
+                        <td>{{ $m->asignado->nombre }}</td>
+                        <td>{{ $m->destino->nombre }}</td>
+                        <td>{{ $m->sitio->nombre }}</td>
+                        <td>
                             <button type="button" class="btn btn-sm btn-icon btn-warning"
-                                onclick="edita('{{ $e->id }}', '{{ $e->nombre }}', '{{ $e->descripcion }}')">
+                                onclick="edita('{{ $m->id }}', '{{ $m->nombre }}', '{{ $m->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
                             <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
+                                onclick="elimina('{{ $m->id }}', '{{ $m->nombre }}')">
                                 <i class="flaticon2-cross"></i>
                             </button>
                         </td>
@@ -117,13 +178,19 @@
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script type="text/javascript">
     $(function () {
-			$('#tabla-raza').DataTable({
-				order: [[ 1, "asc" ]],
-				language: {
-					url: '{{ asset('datatableEs.json') }}'
-				},
-			});
-    	});
+        $('#tabla-raza').DataTable({
+            order: [[ 1, "asc" ]],
+            language: {
+                url: '{{ asset('datatableEs.json') }}'
+            },
+        });
+
+        //cargamos a los script para select 2
+        $('.seleccionadores').select2({
+            placeholder: "Seleccione"
+        });
+
+    });
 
     	function nuevo()
     	{

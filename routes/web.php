@@ -44,7 +44,6 @@ Route::post('patrimonio/ajaxElimina', 'PatrimonioController@ajaxElimina');
 // USUARIOS
 Route::get('user/listado', 'UserController@listado');
 Route::get('user/formulario/{idUser}', 'UserController@formulario');
-Route::post('user/ajaxOtb', 'UserController@ajaxOtb');
 Route::post('user/guarda', 'UserController@guarda');
 Route::get('user/ajax_listado', 'UserController@ajax_listado');
 Route::get('user/edita/{id}', 'UserController@edita');
@@ -87,3 +86,6 @@ Route::get('ubicacion/elimina/{id}', 'UbicacionController@elimina');
 Route::get('sitio/listado', 'SitioController@listado');
 Route::post('sitio/guarda', 'SitioController@guarda');
 Route::get('sitio/elimina/{id}', 'SitioController@elimina');
+
+// MOVIMIENTOS
+Route::get('movimiento/inicio/{patrimonioId}', 'MovimientosController@inicio');

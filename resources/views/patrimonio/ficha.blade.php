@@ -85,7 +85,11 @@
                                     </td>
                                     <td>
                                         <h5 class="font-weight-boldest">10 ESTILO</h5>
-                                        <p class="font-size-h6">{{ $patrimonio->estilo->nombre }}</p>
+                                        <p class="font-size-h6">
+                                            @if ($patrimonio->patrimonio_id != null)
+                                                {{ $patrimonio->estilo->nombre }}
+                                            @endif
+                                        </p>
                                     </td>
                                     <td>
                                         <h5 class="font-weight-boldest">16 CODIGO</h5>
@@ -170,7 +174,7 @@
                                             <tr>
                                                 <td>MONUMENTO NACIONAL </td>
                                                 <td>
-                                                    @if ($estado->monumento_nacional == 'Si')
+                                                    @if ($estado != null && $estado->monumento_nacional == 'Si')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -186,7 +190,7 @@
                                                 </td>
                                                 <td style="padding-left: 60px;">INDIVIDUAL</td>
                                                 <td>
-                                                    @if ($estado->individual == 'Si')
+                                                    @if ($estado!= null && $estado->individual == 'Si')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -204,7 +208,7 @@
                                             <tr>
                                                 <td>RESOLUCION MUNICIPAL </td>
                                                 <td>
-                                                    @if ($estado->resolucion_municipal == 'Si')
+                                                    @if ($estado != null && $estado->resolucion_municipal == 'Si')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -221,7 +225,7 @@
                                                 </td>
                                                 <td style="padding-left: 60px;">DE CONJUNTO</td>
                                                 <td>
-                                                    @if ($estado->conjunto == 'Si')
+                                                    @if ($estado != null && $estado->conjunto == 'Si')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -239,7 +243,7 @@
                                             <tr>
                                                 <td>RESOL. ADM.</td>
                                                 <td>
-                                                    @if ($estado->resolucion_administrativa == 'Si')
+                                                    @if ($estado != null && $estado->resolucion_administrativa == 'Si')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -255,7 +259,7 @@
                                                 </td>
                                                 <td style="padding-left: 60px;">NINGUNA</td>
                                                 <td>
-                                                    @if ($estado->ninguna == 'Si')
+                                                    @if ($estado != null && $estado->ninguna == 'Si')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -282,7 +286,7 @@
                                             <tr>
                                                 <td>EXCELENTE </td>
                                                 <td>
-                                                    @if ($estado->estado_conservacion == 'Excelente')
+                                                    @if ($estado != null && $estado->estado_conservacion == 'Excelente')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -299,7 +303,7 @@
                         
                                                 <td>BUENO </td>
                                                 <td>
-                                                    @if ($estado->estado_conservacion == 'Bueno')
+                                                    @if ($estado != null && $estado->estado_conservacion == 'Bueno')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -316,7 +320,7 @@
                         
                                                 <td>REGULAR </td>
                                                 <td>
-                                                    @if ($estado->estado_conservacion == 'Regular')
+                                                    @if ($estado != null && $estado->estado_conservacion == 'Regular')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -335,7 +339,7 @@
                                             <tr>
                                                 <td>MALO </td>
                                                 <td>
-                                                    @if ($estado->estado_conservacion == 'Malo')
+                                                    @if ($estado != null && $estado->estado_conservacion == 'Malo')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -352,7 +356,7 @@
                         
                                                 <td>PESIMO </td>
                                                 <td>
-                                                    @if ($estado->estado_conservacion == 'Pesimo')
+                                                    @if ($estado != null && $estado->estado_conservacion == 'Pesimo')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -369,7 +373,7 @@
                         
                                                 <td>FRAGMENTO </td>
                                                 <td>
-                                                    @if ($estado->estado_conservacion == 'Fragmento')
+                                                    @if ($estado != null && $estado->estado_conservacion == 'Fragmento')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -395,7 +399,7 @@
                                             <tr>
                                                 <td>BUENA </td>
                                                 <td>
-                                                    @if ($estado->condiciones_seguridad == 'Buena')
+                                                    @if ($estado != null && $estado->condiciones_seguridad == 'Buena')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -412,7 +416,7 @@
                         
                                                 <td>RAZONABLE </td>
                                                 <td>
-                                                    @if ($estado->condiciones_seguridad == 'Razonable')
+                                                    @if ($estado != null && $estado->condiciones_seguridad == 'Razonable')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
@@ -429,7 +433,7 @@
                         
                                                 <td>NINGUNA </td>
                                                 <td>
-                                                    @if ($estado->condiciones_seguridad == 'Ninguna')
+                                                    @if ($estado != null && $estado->condiciones_seguridad == 'Ninguna')
                                                     <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                         <input type="checkbox" name="Checkboxes16" checked="checked" />
                                                         <span></span>
