@@ -45,12 +45,12 @@ class Movimiento extends Model
 
     public function asignado()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User', 'asignado_id');
     }
 
     public function destino()
     {
-        return $this->belongsTo('App\Destino', 'ubicacion_id');
+        return $this->belongsTo('App\Ubicacion', 'destino_id');
     }
 
     public function sitio()

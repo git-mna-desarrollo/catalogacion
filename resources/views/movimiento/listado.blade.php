@@ -20,7 +20,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('estilo/guarda') }}" method="POST" id="formulario-tipos">
+                <form action="{{ url('movimiento/guarda') }}" method="POST" id="formulario-movimiento">
                     @csrf
                     <div class="row">
 
@@ -29,6 +29,7 @@
                                 <label for="exampleInputPassword1">Asignado
                                     <span class="text-danger">*</span>
                                 </label>
+                                <input type="hidden" name="patrimonio_id" id="patrimonio_id" value="{{ $datosPatrimonio->id }}">
                                 <select class="form-control seleccionadores" id="asignado_id" name="asignado_id" style="width: 100%">
                                     <option value="">Seleccione</option>
                                     @forelse ($usuarios as $u)
@@ -49,8 +50,7 @@
                                 <label for="exampleInputPassword1">Ubicacion
                                     <span class="text-danger">*</span>
                                 </label>
-                                <select class="form-control seleccionadores" id="ubicacion_id" name="ubicacion_id" style="width: 100%">
-                                    <option value="">Seleccione</option>
+                                <select class="form-control seleccionadores" id="destino_id" name="destino_id" style="width: 100%">
                                     @forelse ($ubicaciones as $ub)
                                         <option value="{{ $ub->id }}">{{ $ub->nombre }}</option>
                                     @empty
@@ -66,7 +66,6 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <select class="form-control seleccionadores" id="sitio_id" name="sitio_id" style="width: 100%">
-                                    <option value="">Seleccione</option>
                                     @forelse ($sitios as $s)
                                         <option value="{{ $s->id }}">{{ $s->descripcion }} ({{ $s->sigla }})</option>
                                     @empty
@@ -83,7 +82,7 @@
                                 <textarea id="observaciones" name="observaciones" class="form-control"></textarea>
                             </div>
                         </div>
-                        
+
                     </div>
 
                 </form>
@@ -128,6 +127,7 @@
                 <h3><span class="text-primary">AUTOR: </span> {{ $datosPatrimonio->autor }}</h3>
             </div>
         </div>
+        <h3>&nbsp;</h3>
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
             <table class="table table-bordered table-hover table-striped" id="tabla-raza">
@@ -145,17 +145,17 @@
                     @forelse ($movimientos as $m)
                     <tr>
                         <td>{{ $m->id }}</td>
-                        <td>{{ $m->creador->nombre }}</td>
-                        <td>{{ $m->asignado->nombre }}</td>
-                        <td>{{ $m->destino->nombre }}</td>
-                        <td>{{ $m->sitio->nombre }}</td>
+                        <td>{{ $m->creador->name }}</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-icon btn-warning"
-                                onclick="edita('{{ $m->id }}', '{{ $m->nombre }}', '{{ $m->descripcion }}')">
-                                <i class="flaticon2-edit"></i>
-                            </button>
+                            @if ($m->asignado_id != null)
+                                {{ $m->asignado->nombre }}
+                            @endif
+                        </td>
+                        <td>{{ $m->destino->nombre }}</td>
+                        <td>{{ $m->sitio->descripcion }} ({{ $m->sitio->sigla }})</td>
+                        <td>
                             <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $m->id }}', '{{ $m->nombre }}')">
+                                onclick="elimina('{{ $m->id }}', '{{ $m->destino->nombre }}')">
                                 <i class="flaticon2-cross"></i>
                             </button>
                         </td>
@@ -179,7 +179,7 @@
 <script type="text/javascript">
     $(function () {
         $('#tabla-raza').DataTable({
-            order: [[ 1, "asc" ]],
+            order: [[ 0, "desc" ]],
             language: {
                 url: '{{ asset('datatableEs.json') }}'
             },
@@ -216,15 +216,15 @@
     	function crear()
     	{
 			// verificamos que el formulario este correcto
-    		if($("#formulario-tipos")[0].checkValidity()){
+    		if($("#formulario-movimiento")[0].checkValidity()){
 				// enviamos el formulario
-    			$("#formulario-tipos").submit();
+    			$("#formulario-movimiento").submit();
 				// mostramos la alerta
 				Swal.fire("Excelente!", "Registro Guardado!", "success");
     		}else{
 				// de lo contrario mostramos los errores
 				// del formulario
-    			$("#formulario-tipos")[0].reportValidity()
+    			$("#formulario-movimiento")[0].reportValidity()
     		}
 
     	}

@@ -88,4 +88,5 @@ Route::post('sitio/guarda', 'SitioController@guarda');
 Route::get('sitio/elimina/{id}', 'SitioController@elimina');
 
 // MOVIMIENTOS
-Route::get('movimiento/inicio/{patrimonioId}', 'MovimientosController@inicio');
+Route::get('movimiento/listado/{patrimonioId}', 'MovimientosController@listado');
+Route::post('movimiento/guarda', 'MovimientosController@guarda');
