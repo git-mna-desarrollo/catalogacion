@@ -28,7 +28,7 @@ Auth::routes();
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
-Route::get('panel/inicio', 'panelController@inicio');
+Route::get('panel/inicio', 'PanelController@inicio');
 
 // PATRIMONIO
 Route::get('patrimonio/formulario/{idPatrimonio}', 'PatrimonioController@formulario');
