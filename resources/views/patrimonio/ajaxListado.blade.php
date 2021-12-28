@@ -54,7 +54,7 @@
                 </a>
 
                 <a 
-                    href="{{ url('movimiento/inicio/')}}/{{ $p->id }}" 
+                    href="{{ url('movimiento/listado/')}}/{{ $p->id }}" 
                     class="btn btn-sm btn-icon btn-info" 
                     title="Transferencias"
                     >
