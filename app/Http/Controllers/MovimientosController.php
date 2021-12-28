@@ -46,4 +46,16 @@ class MovimientosController extends Controller
 
         return redirect("movimiento/listado/$patrimonio_id");
     }
+
+    public function elimina(Request $request, $id)
+    {
+        $patrimonio = Movimiento::find($id);
+        $auxPatrimonio = $patrimonio;
+        $patrimonio->eliminador_id = Auth::user()->id;
+        $patrimonio->save();
+
+        $patrimonio = Movimiento::destroy($id);
+        return redirect("movimiento/listado/$auxPatrimonio->patrimonio_id");
+    }
+
 }
