@@ -72,6 +72,8 @@
 				</div>
 			</li>
 
+			@if (Auth::user()->perfil == 'Administrador')
+				
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 				<a href="javascript:;" class="menu-link menu-toggle">
 					<span class="menu-icon"><i class="fas fa-user-friends"></i></span>
@@ -103,6 +105,7 @@
 					</ul>
 				</div>
 			</li>
+			@endif
 
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 				<a href="javascript:;" class="menu-link menu-toggle">
