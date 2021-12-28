@@ -84,7 +84,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">LOCALIDAD </label>
-                                                <input type="text" class="form-control" id="localidad" name="localidad" value="CIUDAD DE LA PAZ" readonly />
+                                                <input type="text" class="form-control" id="localidad" name="localidad" value="CIUDAD DE LA PAZ" />
                                                 <input type="hidden" name="patrimonio_id" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->id:'' }}">
                                         </div>
                                     </div>
@@ -92,14 +92,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PROVINCIA </label>
-                                                <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" readonly />
+                                                <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" />
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DEPARTAMENTO </label>
-                                                <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" readonly />
+                                                <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" />
                                         </div>
                                     </div>
 
@@ -110,14 +110,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">INMUEBLE </label>
-                                            <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" readonly />
+                                            <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" />
                                         </div>
                                     </div>
 
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CALLE </label>
-                                            <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" readonly />
+                                            <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" />
                                         </div>
                                     </div>
                                     
@@ -251,6 +251,7 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" id="especialidad_id" name="especialidad_id" style="width: 100%">
+                                                <option value="">SELECCIONE</option>
                                                 @forelse ($especialidades as $e)
                                                 @php
                                                     if($datosPatrimonio != null && $datosPatrimonio->especialidad_id==$e->id){
@@ -274,6 +275,7 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select class="form-control" id="estilo_id" name="estilo_id" style="width: 100%">
+                                                <option value="">SELECCIONE</option>
                                                 @forelse ($estilos as $es)
 
                                                 @php

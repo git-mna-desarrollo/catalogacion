@@ -108,9 +108,25 @@ class PatrimonioController extends Controller
         $patrimonio->fec_elaboro                   = $request->input('fec_elaboro');
         $patrimonio->reviso                        = $request->input('reviso');
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
+
+        // para los logs
+        if($patrimonio->isDirty()){
+            $modificacion = new Modificacion();
+        }
+
+        if($patrimonio->isDirty('localidad')){
+            
+            // dd("Si");
+        }else{
+            // dd("No");
+        }
+
+        // fin para los logs
         $patrimonio->save();
 
         $patrimonioId = $patrimonio->id;
+        
+        // $patrimonio->isDirty('especialidad_id');
 
         // preguntamos el chaeck de monumento_nacional
         if($request->has('monumento_nacional')){
