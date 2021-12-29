@@ -110,7 +110,7 @@ class PatrimonioController extends Controller
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
 
         // para los logs
-        if($patrimonio->isDirty()){
+        /*if($patrimonio->isDirty()){
             $modificacion = new Modificacion();
         }
 
@@ -119,7 +119,7 @@ class PatrimonioController extends Controller
             // dd("Si");
         }else{
             // dd("No");
-        }
+        }*/
 
         // fin para los logs
         $patrimonio->save();
@@ -170,10 +170,18 @@ class PatrimonioController extends Controller
             // si existe editamos
             $estados = Estado::where('patrimonio_id', $request->input('patrimonio_id'))
                                 ->first(); 
+            if($estados != null){
+                $estados = Estado::where('patrimonio_id', $request->input('patrimonio_id'))
+                                ->first();
+            }else{
+                $estados = new Estado();
+            }
         }else{
             // si no existe creamos uno nuevo
             $estados = new Estado();
         }
+
+        // dd($estados);
 
         // seteamos los datos para guardar
         $estados->patrimonio_id             = $patrimonioId;
