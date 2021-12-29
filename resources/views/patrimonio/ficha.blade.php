@@ -162,8 +162,15 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td style="width: 50%;">
-                                        IMAGEN
-                        
+                                        @php
+                                            $imagen = App\Imagen::where('patrimonio_id', $patrimonio->id)
+                                                    ->first();
+
+                                            // dd($imagen);
+                                        @endphp
+                                        @if ($imagen)
+                                            <img src="{{ asset("imagenes/$imagen->imagen") }}">                                            
+                                        @endif
                                         <h5 class="font-weight-boldest">25 PROTECCION LEGAL</h5>
                                         <p class="font-size-h6">
                                             @php
