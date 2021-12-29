@@ -169,7 +169,7 @@
                                             // dd($imagen);
                                         @endphp
                                         @if ($imagen)
-                                            <img src="{{ asset("imagenes/$imagen->imagen") }}">                                            
+                                            <img src="{{ asset("imagenes/$imagen->imagen") }}" height="150">                                            
                                         @endif
                                         <h5 class="font-weight-boldest">25 PROTECCION LEGAL</h5>
                                         <p class="font-size-h6">
@@ -631,7 +631,13 @@
                         </div>
                     </div>
                     {{-- fin reverso --}}
-        
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{{ url("patrimonio/impresion/$patrimonio->id") }}" target="_blank" class="btn btn-secondary btn-block">IMPRIMIR</a>
+                    </div>
                 </div>
         
             </div>
