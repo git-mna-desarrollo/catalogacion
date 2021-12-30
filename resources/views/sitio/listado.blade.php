@@ -94,10 +94,17 @@
                                 onclick="edita('{{ $s->id }}', '{{ $s->sigla }}', '{{ $s->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $s->id }}', '{{ $s->descripcion }}')">
-                                <i class="flaticon2-cross"></i>
-                            </button>
+                            @php
+                                $movimientos = App\Movimiento::where('sitio_id', $s->id)
+                                                            ->first();
+                                // dd($patrimonios);
+                            @endphp
+                            @if ($movimientos == null)
+                                <button type="button" class="btn btn-sm btn-icon btn-danger"
+                                    onclick="elimina('{{ $s->id }}', '{{ $s->descripcion }}')">
+                                    <i class="flaticon2-cross"></i>
+                                </button>
+                            @endif
                         </td>
                     </tr>
                     @empty

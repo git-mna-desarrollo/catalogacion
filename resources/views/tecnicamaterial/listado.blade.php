@@ -94,10 +94,18 @@
                                 onclick="edita('{{ $t->id }}', '{{ $t->nombre }}', '{{ $t->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $t->id }}', '{{ $t->nombre }}')">
-                                <i class="flaticon2-cross"></i>
-                            </button>
+                            @php
+                                $patrimonios = App\Patrimonio::where('tecnicamaterial_id', $t->id)
+                                                            ->first();
+
+                                // dd($patrimonios);
+                            @endphp
+                            @if ($patrimonios == null)
+                                <button type="button" class="btn btn-sm btn-icon btn-danger"
+                                    onclick="elimina('{{ $t->id }}', '{{ $t->nombre }}')">
+                                    <i class="flaticon2-cross"></i>
+                                </button>
+                            @endif
                         </td>
                     </tr>
                     @empty

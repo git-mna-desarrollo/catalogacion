@@ -636,7 +636,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="{{ url("patrimonio/impresion/$patrimonio->id") }}" target="_blank" class="btn btn-secondary btn-block">IMPRIMIR</a>
+                        <a href="{{ url("patrimonio/impresion/$patrimonio->id") }}" target="_blank" class="btn btn-info btn-block">IMPRIMIR</a>
                     </div>
                 </div>
         

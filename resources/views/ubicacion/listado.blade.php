@@ -94,10 +94,16 @@
                                 onclick="edita('{{ $u->id }}', '{{ $u->nombre }}', '{{ $u->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                onclick="elimina('{{ $u->id }}', '{{ $u->nombre }}')">
-                                <i class="flaticon2-cross"></i>
-                            </button>
+                            @php
+                                $patrimonios = App\Patrimonio::where('ubicacion_id', $u->id)
+                                                            ->first();
+                            @endphp
+                            @if ($patrimonios == null)
+                                <button type="button" class="btn btn-sm btn-icon btn-danger"
+                                    onclick="elimina('{{ $u->id }}', '{{ $u->nombre }}')">
+                                    <i class="flaticon2-cross"></i>
+                                </button>
+                            @endif
                         </td>
                     </tr>
                     @empty
