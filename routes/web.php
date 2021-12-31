@@ -40,6 +40,8 @@ Route::get('patrimonio/ficha/{patrimonioId}', 'PatrimonioController@ficha');
 Route::post('patrimonio/ajaxBuscaPatrimonio', 'PatrimonioController@ajaxBuscaPatrimonio');
 Route::post('patrimonio/ajaxListado', 'PatrimonioController@ajaxListado');
 Route::post('patrimonio/ajaxElimina', 'PatrimonioController@ajaxElimina');
+Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresion');
+// Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresion');
 
 // USUARIOS
 Route::get('user/listado', 'UserController@listado');

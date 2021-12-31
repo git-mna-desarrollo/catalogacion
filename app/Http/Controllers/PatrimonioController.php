@@ -19,6 +19,7 @@ use App\Imports\PatrimoniosImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class PatrimonioController extends Controller
 {
@@ -342,4 +343,22 @@ class PatrimonioController extends Controller
         return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
     
     }
+
+    public function impresion(Request $request, $patrimonioId)
+    {
+        // dd($patrimonioId);
+        // Generate PDF
+        // retreive all records from db
+        $patrimonio = Patrimonio::find($patrimonioId);
+        // dd($patrimonio);
+        // share data to view
+        view()->share('patrimonio',$patrimonio);
+        $pdf = PDF::loadView('pdf.ficha', $patrimonio);
+
+        // download PDF file with download method
+        return $pdf->stream('ficha.pdf');
+    
+        // return view('patrimonio.ficha')->with(compact('patrimonio'));
+    }
+
 }
