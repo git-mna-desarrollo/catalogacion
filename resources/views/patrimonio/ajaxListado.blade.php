@@ -5,6 +5,7 @@
             <th>Codigo</th>
             <th>Nombre</th>
             <th>Autor</th>
+            <th>Epoca</th>
             <th>Especialidad</th>
             <th>Estilo</th>
             <th>Tecnica/Material</th>
@@ -18,6 +19,7 @@
             <td>{{ $p->codigo }}</td>
             <td>{{ $p->nombre }}</td>
             <td>{{ $p->autor }}</td>
+            <td>{{ $p->epoca }}</td>
             <td>
                 @if ($p->especialidad_id != null)
                     {{ $p->especialidad->nombre }}

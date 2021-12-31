@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8" />
 		@yield('metadatos')
-		<title>MNA PATRIC</title>
+		<title>MNA</title>
 		<meta name="description" content="Base form control examples" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<link rel="canonical" href="https://keenthemes.com/metronic" />
@@ -36,7 +36,7 @@
 		<!--begin::Header Mobile-->
 		<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 			<!--begin::Logo-->
-			<a href="index.html">
+			<a href="#">
 				<img alt="Logo" src="{{ asset('assets/logoMW.png') }}" />
 			</a>
 			<!--end::Logo-->
@@ -79,7 +79,7 @@
 					<!--begin::Brand-->
 					<div class="brand flex-column-auto" id="kt_brand">
 						<!--begin::Logo-->
-						<a href="index.html" class="brand-logo">
+						<a href="#" class="brand-logo">
 							<img alt="Logo" src="{{ asset('assets/logoMW.png') }}" width="60" />
 						</a>
 						<!--end::Logo-->

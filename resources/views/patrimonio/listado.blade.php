@@ -30,22 +30,30 @@
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
             <form action="#" id="formularioBusqueda">
+
                 <div class="row">
                     <div class="col-md-1">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Codigo </label>
-                            <input type="number" class="form-control" id="codigo" name="codigo" />
+                            <input type="number" class="form-control" id="codigo" name="codigo" placeholder="3421" />
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Nombre </label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" />
+                            <label for="exampleInputPassword1">Codigo Administrativo</label>
+                            <input type="text" class="form-control" id="codigo_administrativo" name="codigo_administrativo" placeholder="4027-03-OAGI-0089" />
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Nombre </label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="PAREJA VERDE" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleInputPassword1">AUTOR
                                 <span class="text-danger">*</span>
@@ -53,7 +61,7 @@
                             <select class="form-control seleccionadores" id="autor_busqueda" name="autor_busqueda" style="width: 100%">
                                 <option value="">Seleccione</option>
                                 @forelse ($autores as $a)
-                                <option value="{{ $a->autor }}">{{ $a->autor }}</option>
+                                    <option value="{{ $a->autor }}">{{ $a->autor }}</option>
                                 @empty
                     
                                 @endforelse
@@ -61,7 +69,27 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">EPOCA
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control seleccionadores" id="epoca_busqueda" name="epoca_busqueda" style="width: 100%">
+                                <option value="">Seleccione</option>
+                                @forelse ($epocas as $e)
+                                    <option value="{{ $e->epoca }}">{{ $e->epoca }}</option>
+                                @empty
+                    
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">ESPECIALIDAD
                                 <span class="text-danger">*</span>
@@ -77,7 +105,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">ESTILO
                                 <span class="text-danger">*</span>
@@ -93,7 +121,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Tecnica y Material
                                 <span class="text-danger">*</span></label>
@@ -108,11 +136,15 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <div style="height: 23px;"></div>
-                            <button type="button" id="btnBusqueda" class="btn btn-success font-weight-bolder" onclick="buscaPatrimonio();">BUSCAR</button>
-                            <button class="btn btn-warning" id="btnEspera" style="display:none;" disabled>Trabajando...</button>
+                            <button type="button" id="btnBusqueda" class="btn btn-success font-weight-bolder btn-block" onclick="buscaPatrimonio();">BUSCAR</button>
+                            <button type="button" id="btnEspera" style="display:none;" class="btn btn-block btn-light-success spinner spinner-darker-success spinner-left mr-3" disabled>
+                                ESTAMOS TRABAJANDO EN TU BUSQUEDA, PACIENCIA POR FAVOR. <i class="icon-xl far fa-smile-wink"></i>
+                            </button>
                         </div>
                     </div>
                     
@@ -174,6 +206,8 @@
 
                 $("#btnBusqueda").show();
                 $("#btnEspera").hide();
+
+                $('.seleccionadores').val(null).trigger('change');
             }
         });    
     }

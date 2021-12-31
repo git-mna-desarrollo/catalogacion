@@ -723,8 +723,26 @@
                             <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab-1">
 
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <label>CODIGO FCB:</label>
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <div class="d-md-none mb-2"></div>
+                                    </div>
+                                </div>
 
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>CUENTA:</label>
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <div class="d-md-none mb-2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>SUBCUENTA:</label>
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <div class="d-md-none mb-2"></div>
                                     </div>
                                 </div>
 

@@ -243,6 +243,11 @@ class PatrimonioController extends Controller
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
+
+        $epocas = Patrimonio::select("epoca")
+                            ->groupBy('epoca')
+                            ->get();
+
         $autores = Patrimonio::select("autor")
                     ->groupBy("autor")
                     ->get();
@@ -251,7 +256,7 @@ class PatrimonioController extends Controller
                                 ->limit(200)
                                 ->get();
 
-        return view('patrimonio.listado')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores'));
+        return view('patrimonio.listado')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas'));
     }
 
     public function elimina(Request $request, $id)
@@ -290,6 +295,11 @@ class PatrimonioController extends Controller
             $qPatrimonios->where('codigo', 'like', "%$codigo");
         }
 
+        if($request->filled('codigo_administrativo')){
+            $codigo_administrativo = $request->input('codigo_administrativo');
+            $qPatrimonios->where('codigo_administrativo', 'like', "$codigo_administrativo");
+        }
+
         if($request->filled('nombre')){
             $nombre = $request->input('nombre');
             $qPatrimonios->where('nombre', 'like', "%$nombre%");
@@ -313,6 +323,11 @@ class PatrimonioController extends Controller
         if($request->filled('tecnicamaterial_id')){
             $tecnica = $request->input('tecnicamaterial_id');
             $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
+        }
+
+        if($request->filled('epoca_busqueda')){
+            $epoca = $request->input('epoca_busqueda');
+            $qPatrimonios->where('epoca', "$epoca");
         }
 
         if(!$request->filled('codigo') && !$request->filled('nombre') && !$request->filled('autor_busqueda') && !$request->filled('especialidad_id') && !$request->filled('estilo_id') && !$request->filled('tecnicamaterial_id')){
