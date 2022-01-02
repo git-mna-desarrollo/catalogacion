@@ -27,6 +27,7 @@
         /*estilos para tablas de datos*/
         table.datos {
             font-size: 8pt;
+            table-layout: fixed;
             /*line-height:14px;*/
             width: 100%;
             border-collapse: collapse;
@@ -41,7 +42,10 @@
 
         .datos td {
             /* height: 20px; */
-            padding-left: 10px;
+            padding-left: 6px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            /* padding-right: 6px; */
         }
 
         .datos th,
@@ -67,7 +71,7 @@
 
         .datos_sb td {
             /* height: 20px; */
-            padding-left: 10px;
+            padding-left: 0px;
         }
 
         .datos_sb th,
@@ -238,14 +242,21 @@
     
         <table class="datos">
             <tr>
-                <td style="width: 200px; height: 400px;">
-                    @php
-                        $imagen = App\Imagen::where('patrimonio_id', $patrimonio->id)
-                        ->first();
-                    @endphp
-                    @if ($imagen)
-                        <img style="vertical-align: bottom;" width="100%" align="center" src="{{ asset("imagenes/$imagen->imagen") }}" /><br />
-                    @endif
+                <td>
+                    <table class="datos_sb">
+                        <tr>
+                            <td style="width: 335px; height: 420px; vertical-align: middle;">
+                                @php
+                                    $imagen = App\Imagen::where('patrimonio_id', $patrimonio->id)
+                                    ->first();
+                                @endphp
+                                @if ($imagen)
+                                    <img style="vertical-align: top;" width="100%" align="center" src="{{ asset("imagenes/$imagen->imagen") }}" /><br />
+                                @endif
+                            </td>
+                        </tr>
+                    </table>
+                    <hr />
                     <span class="titulos">25 PROTECCION LEGAL</span>
                         @php
                         $estado = App\Estado::where('patrimonio_id', $patrimonio->id)
@@ -532,49 +543,64 @@
                     </span>
     
                 </td>
-                <td>
-                    <span class="titulos">21 MARCAS / INSCRIPCIONES</span>
-                    <span class="contenidos">{{ $patrimonio->tecnicamaterial->nombre }}</span>
-                    <hr />
-    
-                    <span class="titulos">22 DIMENCIONES</span>
-                    <span class="contenidos">
-                    <table class="table-borderless">
+                <td style="vertical-align: top;">
+                    <table class="datos_sb" style="vertical-align: top;">
                         <tr>
-                            <td>ALTO </td>
-                            <td>{{ $patrimonio->alto }}</td>
-                            <td style="padding-left: 60px;">LARGO </td>
-                            <td>{{ $patrimonio->largo }}</td>
-                        </tr>
-                        <tr>
-                            <td>ANCHO </td>
-                            <td>{{ $patrimonio->ancho }}</td>
-                            <td style="padding-left: 60px;">PROFUNDIDAD </td>
-                            <td>{{ $patrimonio->profundidad }}</td>
-                        </tr>
-                        <tr>
-                            <td>DIAMETRO </td>
-                            <td>{{ $patrimonio->diametro }}</td>
-                            <td style="padding-left: 60px;">PESO </td>
-                            <td>{{ $patrimonio->peso }}</td>
-                        </tr>
-                        <tr>
-                            <td>CIRCUNFERENCIA </td>
-                            <td>{{ $patrimonio->circunferencia }}</td>
-                            <td> </td>
-                            <td> </td>
+                            <td style="height: 100px; vertical-align: top;">
+                                <span class="titulos">21 MARCAS / INSCRIPCIONES</span>
+                                <span class="contenidos">{{ $patrimonio->tecnicamaterial->nombre }}</span>
+                            </td>
                         </tr>
                     </table>
-                    </span>
                     <hr />
+                    <table class="datos_sb">
+                        <tr>
+                            <td>
+                                <span class="titulos">22 DIMENCIONES</span>
+                                <table class="datos_sb">
+                                    <tr>
+                                        <td>ALTO </td>
+                                        <td>{{ $patrimonio->alto }}</td>
+                                        <td style="padding-left: 60px;">LARGO </td>
+                                        <td>{{ $patrimonio->largo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ANCHO </td>
+                                        <td>{{ $patrimonio->ancho }}</td>
+                                        <td style="padding-left: 60px;">PROFUNDIDAD </td>
+                                        <td>{{ $patrimonio->profundidad }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DIAMETRO </td>
+                                        <td>{{ $patrimonio->diametro }}</td>
+                                        <td style="padding-left: 60px;">PESO </td>
+                                        <td>{{ $patrimonio->peso }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CIRCUNFERENCIA </td>
+                                        <td>{{ $patrimonio->circunferencia }}</td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr />
+                    <table class="datos_sb" style="vertical-align: top;">
+                        <tr>
+                            <td style="height: 355px; vertical-align: top;">
+                                <span class="titulos">23 DESCRIPCION</span>
+                                <span class="contenidos">{{ $patrimonio->descripcion }}</span>                            
+                            </td>
+                        </tr>
+                    </table>
+                    
     
-                    <span class="titulos">23 DESCRIPCION</span>
-                    <span class="contenidos">{{ $patrimonio->descripcion }}</span>
                     <hr />
     
                     <span class="titulos">24 ARCHIVO FOTOGRAFICO</span>
-                    <span class="contenidos">
-                    <table class="table-borderless">
+                    <table class="datos_sb">
                         <tr>
                             <td>No. DE ROLLO </td>
                             <td>{{ $patrimonio->rollo }}</td>
@@ -595,8 +621,6 @@
                         </tr>
     
                     </table>
-                    </span>
-                    <hr />
     
                 </td>
             </tr>
