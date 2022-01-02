@@ -354,6 +354,7 @@ class PatrimonioController extends Controller
         // share data to view
         view()->share('patrimonio',$patrimonio);
         $pdf = PDF::loadView('pdf.ficha', $patrimonio);
+        $pdf->setPaper('Legal', 'portrait');
 
         // download PDF file with download method
         return $pdf->stream('ficha.pdf');

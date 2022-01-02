@@ -80,8 +80,6 @@
             /* padding: 5px; */
             /* text-align: center; */
         }
-
-        
         
         .titulos{
             font-weight: bold;
@@ -103,7 +101,7 @@
 <body>
     <header></header>
     <main>
-
+        <div style="height: 1200px; background-color: #ffffff;">
         <table class="datos">
             <tr>
                 <td width="20%">
@@ -245,7 +243,7 @@
                 <td>
                     <table class="datos_sb">
                         <tr>
-                            <td style="width: 335px; height: 420px; vertical-align: middle;">
+                            <td style="width: 355px; height: 550px; vertical-align: middle;">
                                 @php
                                     $imagen = App\Imagen::where('patrimonio_id', $patrimonio->id)
                                     ->first();
@@ -589,7 +587,7 @@
                     <hr />
                     <table class="datos_sb" style="vertical-align: top;">
                         <tr>
-                            <td style="height: 355px; vertical-align: top;">
+                            <td style="height: 500px; vertical-align: top;">
                                 <span class="titulos">23 DESCRIPCION</span>
                                 <span class="contenidos">{{ $patrimonio->descripcion }}</span>                            
                             </td>
@@ -622,6 +620,87 @@
     
                     </table>
     
+                </td>
+            </tr>
+        </table>
+        </div>
+        <div style="page-break-after: always;"></div>
+        <table class="datos" style="vertical-align: top;">
+            <tr>
+                <td>
+                    <span class="titulos">ANALISIS HISTORICO ARTISITICO</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 140px; vertical-align: top;">
+                    <span class="titulos">28 ESPECIFICACIONES SOBRE ES ESTADO DE CONSERVACION</span><br />
+                    <span class="contenidos">{{ $patrimonio->especificacion_conservacion }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 140px; vertical-align: top;">
+                    <span class="titulos">29 INTERVENCIONES REALIZADAS</span><br />
+                    <span class="contenidos">{{ $patrimonio->intervenciones_realizadas }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 140px; vertical-align: top;">
+                    <span class="titulos">30 CARACTERISTICAS TECNICAS</span><br />
+                    <span class="contenidos">{{ $patrimonio->caracteristicas_tecnicas }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 140px; vertical-align: top;">
+                    <span class="titulos">31 CARACTERISTICAS ICONOGRAFICAS / ORNAMENTALES</span><br />
+                    <span class="contenidos">{{ $patrimonio->caracteristicas_iconograficas }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 140px; vertical-align: top;">
+                    <span class="titulos">32 DATOS HISTORICOS</span><br />
+                    <span class="contenidos">{{ $patrimonio->datos_historicos }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 140px; vertical-align: top;">
+                    <span class="titulos">33 REFERENCIAS BIBLIOGRAFICAS / ARCHIVISTAS</span><br />
+                    <span class="contenidos">{{ $patrimonio->referencias_bibliograficas }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 150px; vertical-align: top;">
+                    <span class="titulos">34 OBSERVACIONES</span><br />
+                    <span class="contenidos">{{ $patrimonio->observaciones }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 140px; vertical-align: top;">
+                    <table class="datos_sb">
+                        <tr>
+                            <td><span class="titulos">CATALOGO</span> </td>
+                            <td>{{ $patrimonio->catalogo }}</td>
+                            <td style="padding-left: 60px;"><span class="titulos">ELABORO</span> </td>
+                            <td>{{ $patrimonio->elaboro }}</td>
+                        </tr>
+                        <tr>
+                            <td><span class="titulos">FECHA </td>
+                            <td>{{ $patrimonio->fecha_catalogo }}</td>
+                            <td style="padding-left: 60px;"><span class="titulos">FECHA</span></td>
+                            <td>{{ $patrimonio->fecha_elaboro }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="padding-left: 60px;"><span class="titulos">REVISO</span> </td>
+                            <td>{{ $patrimonio->reviso }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="padding-left: 60px;"><span class="titulos">FECHA</span></td>
+                            <td>{{ $patrimonio->fecha_reviso }}</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
