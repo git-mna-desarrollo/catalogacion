@@ -95,3 +95,8 @@ Route::get('sitio/elimina/{id}', 'SitioController@elimina');
 Route::get('movimiento/listado/{patrimonioId}', 'MovimientosController@listado');
 Route::post('movimiento/guarda', 'MovimientosController@guarda');
 Route::get('movimiento/elimina/{id}', 'MovimientosController@elimina');
+
+// INMUEBLES
+Route::get('inmueble/listado', 'InmuebleController@listado');
+Route::post('inmueble/guarda', 'InmuebleController@guarda');
+Route::get('inmueble/elimina/{inmueble_id}', 'InmuebleController@elimina');

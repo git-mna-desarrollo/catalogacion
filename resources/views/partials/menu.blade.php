@@ -161,6 +161,15 @@
 								<span class="menu-text">Sitios</span>
 							</a>
 						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('inmueble/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Inmuebles</span>
+							</a>
+						</li>
 			
 					</ul>
 				</div>
