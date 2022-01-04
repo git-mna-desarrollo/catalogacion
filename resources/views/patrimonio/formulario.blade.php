@@ -413,7 +413,12 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Obtencion
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="obtencion" name="obtencion" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->obtencion:'' }}" />
+                                            {{-- <input type="text" class="form-control" id="obtencion" name="obtencion" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->obtencion:'' }}" /> --}}
+                                            <select name="obtencion" id="obtencion" class="form-control">
+                                                <option value="Tramsferencia" {{ ($datosPatrimonio != null)?(($datosPatrimonio->obtencion == 'Tramsferencia')? 'selected': ''):''  }} >Tramsferencia</option>
+                                                <option value="Compra" {{ ($datosPatrimonio != null)?(($datosPatrimonio->obtencion == 'Compra')? 'selected': ''):''  }} >Compra</option>
+                                                <option value="Donacion" {{ ($datosPatrimonio != null)?(($datosPatrimonio->obtencion == 'Donacion')? 'selected': ''):''  }} >Donacion</option>
+                                            </select>
                                         </div>
                                     </div>
                                 
