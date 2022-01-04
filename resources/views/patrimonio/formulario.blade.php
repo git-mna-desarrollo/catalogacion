@@ -92,14 +92,33 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PROVINCIA </label>
-                                                <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" />
+                                                <div id="bloque-provincias">
+                                                    <select name="provincia" id="provincia" class="form-control">
+                                                        @foreach ($provincias as $pro)
+                                                        <option value="{{ $pro->provincia }}">{{ $pro->provincia }}</option>                                                    
+                                                        @endforeach
+                                                    </select>
+                                                </div>     
+
+                                                {{-- <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" /> --}}
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DEPARTAMENTO </label>
-                                                <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" />
+                                                {{-- <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" /> --}}
+                                                <select name="departamento" id="departamento" onchange="muestra(this)" class="form-control">
+                                                    <option value="La Paz">La Paz</option>
+                                                    <option value="Oruro">Oruro</option>
+                                                    <option value="Potosi">Potosi</option>
+                                                    <option value="Cochabamba">Cochabamba</option>
+                                                    <option value="Chuquisaca">Chuquisaca</option>
+                                                    <option value="Tarija">Tarija</option>
+                                                    <option value="Pando">Pando</option>
+                                                    <option value="Beni">Beni</option>
+                                                    <option value="Santa Cruz">Santa Cruz</option>
+                                                </select>
                                         </div>
                                     </div>
 
@@ -110,14 +129,20 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">INMUEBLE </label>
-                                            <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" />
+                                            {{-- <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" /> --}}
+                                            <select name="inmueble" id="inmueble" class="form-control">
+                                                @foreach ($inmuebles as $key => $in)
+                                                    <option {{ ($key == 0)? 'selected="selected"': ''}} value="{{ $in->nombre }}">{{ $in->nombre }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CALLE </label>
-                                            <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" />
+                                            {{-- <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" /> --}}
+                                            <input type="text" readonly="readonly" class="form-control" id="calle" name="calle"/>
                                         </div>
                                     </div>
                                     
@@ -1054,6 +1079,26 @@
             $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");
             $("#customFile_"+numero).val('');
         }
+
+        function muestra(departamento){
+            // console.log(departamento.value);
+            var provincia = departamento.value;
+            $.ajax({
+                url: "{{ url('patrimonio/ajaxBuscaProvincia') }}",
+                data: {provincia: provincia},
+                type: 'POST',
+                success: function(data) {
+                    $("#bloque-provincias").html(data);
+                    // $("#listadoProductosAjax").html(data);
+                }
+            });  
+        }
+
+        $('#calle').val($("#inmueble option:selected").text());
+        
+        $(document).on('change', '#inmueble', function(event) {
+            $('#calle').val($("#inmueble option:selected").text());
+        });
 
     </script>
 @endsection

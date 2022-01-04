@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Sitio;
 use App\Estado;
 use App\Estilo;
 use App\Imagen;
+use App\Inmueble;
 use App\Documento;
 use App\Localidad;
 use App\Provincia;
@@ -19,7 +21,6 @@ use App\Imports\PatrimoniosImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use PDF;
 
 class PatrimonioController extends Controller
 {
@@ -51,8 +52,10 @@ class PatrimonioController extends Controller
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
+        $provincias = Provincia::where('departamento','La Paz')->get();
+        $inmuebles = Inmueble::all();
 
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios'));
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles'));
     }
 
     public function guarda(Request $request)
@@ -360,6 +363,15 @@ class PatrimonioController extends Controller
         return $pdf->stream('ficha.pdf');
     
         // return view('patrimonio.ficha')->with(compact('patrimonio'));
+    }
+
+    public function ajaxBuscaProvincia(Request $request){
+
+        $provincias = Provincia::where('departamento',$request->input('provincia'))
+                                ->get();
+
+        return view('patrimonio.ajaxBuscaProvincia')->with(compact('provincias'));
+
     }
 
 }

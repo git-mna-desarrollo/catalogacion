@@ -13,8 +13,8 @@ class Provincia extends Model
         'creador_id', 
         'modificador_id', 
         'eliminador_id', 
-        'nombre', 
-        'descripcion', 
+        'departamento', 
+        'provincia', 
         'estado',
         'deleted_at'
     ];
