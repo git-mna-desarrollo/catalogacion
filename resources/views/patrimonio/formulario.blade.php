@@ -80,12 +80,31 @@
 
                                 {{-- ubicacion --}}
                                 <div class="row">
-                                    
+
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">LOCALIDAD </label>
-                                                <input type="text" class="form-control" id="localidad" name="localidad" value="CIUDAD DE LA PAZ" />
-                                                <input type="hidden" name="patrimonio_id" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->id:'' }}">
+                                            <label for="exampleInputPassword1">DEPARTAMENTO </label>
+                                            {{-- <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" /> --}}
+                                            <select name="departamento" id="departamento" onchange="muestra(this)" class="form-control">
+                                                <option value="La Paz" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'La Paz')?
+                                                    'selected':''): '' }}>La Paz</option>
+                                                <option value="Oruro" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Oruro')?
+                                                    'selected':''): '' }}>Oruro</option>
+                                                <option value="Potosi" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Potosi')?
+                                                    'selected':''): '' }}>Potosi</option>
+                                                <option value="Cochabamba" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Cochabamba')?
+                                                    'selected':''): '' }}>Cochabamba</option>
+                                                <option value="Chuquisaca" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Chuquisaca')?
+                                                    'selected':''): '' }}>Chuquisaca</option>
+                                                <option value="Tarija" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Tarija')?
+                                                    'selected':''): '' }}>Tarija</option>
+                                                <option value="Pando" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Pando')?
+                                                    'selected':''): '' }}>Pando</option>
+                                                <option value="Beni" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Beni')?
+                                                    'selected':''): '' }}>Beni</option>
+                                                <option value="Santa Cruz" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Santa Cruz')?
+                                                    'selected':''): '' }}>Santa Cruz</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -93,11 +112,19 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PROVINCIA </label>
                                                 <div id="bloque-provincias">
-                                                    <select name="provincia" id="provincia" class="form-control">
-                                                        @foreach ($provincias as $pro)
-                                                        <option value="{{ $pro->provincia }}">{{ $pro->provincia }}</option>                                                    
-                                                        @endforeach
-                                                    </select>
+                                                    @if ($datosPatrimonio != null)
+                                                        <select name="provincia" id="provincia" class="form-control">
+                                                            @foreach ($provincias as $pro)
+                                                            <option value="{{ $pro->provincia }}" {{ ($datosPatrimonio->provincia==$pro->provincia)?'selected':'' }}>{{ $pro->provincia }}</option>
+                                                            @endforeach
+                                                        </select>                                                        
+                                                    @else
+                                                        <select name="provincia" id="provincia" class="form-control">
+                                                            @foreach ($provincias as $pro)
+                                                                <option value="{{ $pro->provincia }}">{{ $pro->provincia }}</option>                                                    
+                                                            @endforeach
+                                                        </select>
+                                                    @endif
                                                 </div>     
 
                                                 {{-- <input type="text" class="form-control" id="provincia" name="provincia" value="MURILLO" /> --}}
@@ -106,19 +133,9 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">DEPARTAMENTO </label>
-                                                {{-- <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" /> --}}
-                                                <select name="departamento" id="departamento" onchange="muestra(this)" class="form-control">
-                                                    <option value="La Paz" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'La Paz')? 'selected':''): '' }}>La Paz</option>
-                                                    <option value="Oruro" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Oruro')? 'selected':''): '' }}>Oruro</option>
-                                                    <option value="Potosi" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Potosi')? 'selected':''): '' }}>Potosi</option>
-                                                    <option value="Cochabamba" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Cochabamba')? 'selected':''): '' }}>Cochabamba</option>
-                                                    <option value="Chuquisaca" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Chuquisaca')? 'selected':''): '' }}>Chuquisaca</option>
-                                                    <option value="Tarija" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Tarija')? 'selected':''): '' }}>Tarija</option>
-                                                    <option value="Pando" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Pando')? 'selected':''): '' }}>Pando</option>
-                                                    <option value="Beni" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Beni')? 'selected':''): '' }}>Beni</option>
-                                                    <option value="Santa Cruz" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Santa Cruz')? 'selected':''): '' }}>Santa Cruz</option>
-                                                </select>
+                                            <label for="exampleInputPassword1">LOCALIDAD </label>
+                                            <input type="text" class="form-control" id="localidad" name="localidad" value="CIUDAD DE LA PAZ" />
+                                            <input type="hidden" name="patrimonio_id" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->id:'' }}">
                                         </div>
                                     </div>
 
@@ -1175,7 +1192,7 @@
             $("#customFile_"+numero).val('');
         }
 
-        var provincia = departamento.value;
+        // var provincia = departamento.value;
         $.ajax({
             url: "{{ url('patrimonio/ajaxBuscaProvincia') }}",
             data: {provincia: provincia},
@@ -1201,34 +1218,6 @@
                 }
             });  
         }
-
-        
-        $("#provincia option[value='"+"{{ $datosPatrimonio->provincia }}"+"']").attr("selected", true);
-
-        // console.log("{{ $datosPatrimonio->provincia }}");
-
-        // setTimeout(function(){
-        console.log($('#provincia').html());
-
-        //your code here
-        }, 1000);
-        $(document).ready(function(){
-        // your code
-        console.log($('#provincia').html());
-
-        cambiaSelect();
-
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-        console.log($('#provincia').html());
-
-        // your code here
-        }, false);
-
-        function cambiaSelect(){
-            console.log($('#provincia').html());
-        }
-
 
         $('#calle').val($("#inmueble option:selected").text());
         
