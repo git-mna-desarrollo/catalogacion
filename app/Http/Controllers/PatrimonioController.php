@@ -473,11 +473,6 @@ class PatrimonioController extends Controller
             $qPatrimonios->where('epoca', "$epoca");
         }
 
-        if(!$request->filled('codigo') && !$request->filled('nombre') && !$request->filled('autor_busqueda') && !$request->filled('especialidad_id') && !$request->filled('estilo_id') && !$request->filled('tecnicamaterial_id')){
-            $qPatrimonios->orderBy('id', 'desc');
-            $qPatrimonios->limit(200);
-        }
-
         $patrimonios = $qPatrimonios->get();
 
         // generacion del excel

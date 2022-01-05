@@ -150,8 +150,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <div style="height: 23px;"></div>
-                            <button type="button" id="btnBusqueda" class="btn btn-success font-weight-bolder btn-block" onclick="generaExcel();">GENERAR EXCEL</button>
-                            <button type="button" id="btnEspera" style="display:none;" class="btn btn-block btn-light-success spinner spinner-darker-success spinner-left mr-3" disabled>
+                            <button type="button" id="btnExcel" class="btn btn-success font-weight-bolder btn-block" onclick="generaExcel();">GENERAR EXCEL</button>
+                            <button type="button" id="btnEsperaExcel" style="display:none;" class="btn btn-block btn-light-success spinner spinner-darker-success spinner-left mr-3" disabled>
                                 ESTAMOS TRABAJANDO EN TU BUSQUEDA, PACIENCIA POR FAVOR. <i class="icon-xl far fa-smile-wink"></i>
                             </button>
                         </div>
@@ -223,10 +223,16 @@
 
     function generaExcel(){
 
-        // $("#btnBusqueda").hide();
-        // $("#btnEspera").show();
+        $("#btnExcel").hide();
+        $("#btnEsperaExcel").show();
         $("#formularioBusqueda").submit();
         $('.seleccionadores').val(null).trigger('change');
+
+        setTimeout(function () {
+            $("#btnExcel").show();
+            $("#btnEsperaExcel").hide();
+        }, 5000);
+
     }
 
     function nuevo()
