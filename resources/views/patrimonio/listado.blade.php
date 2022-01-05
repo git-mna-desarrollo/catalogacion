@@ -29,8 +29,8 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
-            <form action="#" id="formularioBusqueda">
-
+            <form action="{{ url('patrimonio/generaExcel') }}" id="formularioBusqueda" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-md-1">
                         <div class="form-group">
@@ -48,7 +48,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Nombre </label>
+                            <label for="exampleInputPassword1">Titulo </label>
                             <input type="text" class="form-control" id="nombre" name="nombre" placeholder="PAREJA VERDE" />
                         </div>
                     </div>
@@ -138,10 +138,19 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <div style="height: 23px;"></div>
-                            <button type="button" id="btnBusqueda" class="btn btn-success font-weight-bolder btn-block" onclick="buscaPatrimonio();">BUSCAR</button>
+                            <button type="button" id="btnBusqueda" class="btn btn-info font-weight-bolder btn-block" onclick="buscaPatrimonio();">BUSCAR</button>
+                            <button type="button" id="btnEspera" style="display:none;" class="btn btn-block btn-light-success spinner spinner-darker-success spinner-left mr-3" disabled>
+                                ESTAMOS TRABAJANDO EN TU BUSQUEDA, PACIENCIA POR FAVOR. <i class="icon-xl far fa-smile-wink"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div style="height: 23px;"></div>
+                            <button type="button" id="btnBusqueda" class="btn btn-success font-weight-bolder btn-block" onclick="generaExcel();">GENERAR EXCEL</button>
                             <button type="button" id="btnEspera" style="display:none;" class="btn btn-block btn-light-success spinner spinner-darker-success spinner-left mr-3" disabled>
                                 ESTAMOS TRABAJANDO EN TU BUSQUEDA, PACIENCIA POR FAVOR. <i class="icon-xl far fa-smile-wink"></i>
                             </button>
@@ -212,7 +221,13 @@
         });    
     }
 
-        
+    function generaExcel(){
+
+        // $("#btnBusqueda").hide();
+        // $("#btnEspera").show();
+        $("#formularioBusqueda").submit();
+        $('.seleccionadores').val(null).trigger('change');
+    }
 
     function nuevo()
     {

@@ -43,6 +43,7 @@ Route::post('patrimonio/ajaxElimina', 'PatrimonioController@ajaxElimina');
 Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresion');
 Route::post('patrimonio/ajaxBuscaProvincia', 'PatrimonioController@ajaxBuscaProvincia');
 Route::post('patrimonio/ajaxBuscaSubEspecialidad', 'PatrimonioController@ajaxBuscaSubEspecialidad');
+Route::post('patrimonio/generaExcel', 'PatrimonioController@generaExcel');
 
 // Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresion');
 

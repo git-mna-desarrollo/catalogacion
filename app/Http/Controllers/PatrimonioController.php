@@ -25,6 +25,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
+//para creacion de excel
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+
 class PatrimonioController extends Controller
 {
     // formulario de registro de patrimonios
@@ -421,6 +426,157 @@ class PatrimonioController extends Controller
                                             ->get();
 
         return view('patrimonio.ajaxBuscaSubEspecialidad')->with(compact('subespecialidades'));
+    }
+
+    public function generaExcel(Request $request)
+    {
+        // buscamos los patrimonios
+                $qPatrimonios = Patrimonio::query();    
+
+        if($request->filled('codigo')){
+            $codigo = $request->input('codigo');
+            $qPatrimonios->where('codigo', 'like', "%$codigo");
+        }
+
+        if($request->filled('codigo_administrativo')){
+            $codigo_administrativo = $request->input('codigo_administrativo');
+            $qPatrimonios->where('codigo_administrativo', 'like', "$codigo_administrativo");
+        }
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $qPatrimonios->where('nombre', 'like', "%$nombre%");
+        }
+
+        if($request->filled('autor_busqueda')){
+            $autor = $request->input('autor_busqueda');
+            $qPatrimonios->where('autor', 'like', "%$autor%");
+        }
+
+        if($request->filled('especialidad_id')){
+            $especialidad = $request->input('especialidad_id');
+            $qPatrimonios->where('especialidad_id', "$especialidad");
+        }
+
+        if($request->filled('estilo_id')){
+            $estilo = $request->input('estilo_id');
+            $qPatrimonios->where('estilo_id', "$estilo");
+        }
+
+        if($request->filled('tecnicamaterial_id')){
+            $tecnica = $request->input('tecnicamaterial_id');
+            $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
+        }
+
+        if($request->filled('epoca_busqueda')){
+            $epoca = $request->input('epoca_busqueda');
+            $qPatrimonios->where('epoca', "$epoca");
+        }
+
+        if(!$request->filled('codigo') && !$request->filled('nombre') && !$request->filled('autor_busqueda') && !$request->filled('especialidad_id') && !$request->filled('estilo_id') && !$request->filled('tecnicamaterial_id')){
+            $qPatrimonios->orderBy('id', 'desc');
+            $qPatrimonios->limit(200);
+        }
+
+        $patrimonios = $qPatrimonios->get();
+
+        // generacion del excel
+        $fileName = 'certifica_notas.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->setTitle("certifica_cal");
+        $sheet = $spreadsheet->getActiveSheet();
+
+        //colocamos los valores en el excel
+        $sheet->setCellValue('A1', 'LISTADO DE PATRIMONIOS');
+
+        $sheet->setCellValue('A2', 'CODIGO ADM');
+        $sheet->setCellValue('B2', 'CODIGO');
+        $sheet->setCellValue('C2', 'TITULO');
+        $sheet->setCellValue('D2', 'AUTOR');
+        $sheet->setCellValue('E2', 'EPOCA');
+        $sheet->setCellValue('F2', 'ESPECIALIDAD');
+        $sheet->setCellValue('G2', 'ESTILO');
+        $sheet->setCellValue('H2', 'TECNICA');
+
+        $contadorCeldas = 3;
+        foreach ($patrimonios as $key => $p) {
+
+            $sheet->setCellValue("A$contadorCeldas", $p->codigo_administrativo);
+            $sheet->setCellValue("B$contadorCeldas", $p->codigo);
+            $sheet->setCellValue("C$contadorCeldas", $p->nombre);
+            $sheet->setCellValue("D$contadorCeldas", $p->autor);
+            $sheet->setCellValue("E$contadorCeldas", $p->epoca);
+            $sheet->setCellValue("F$contadorCeldas", ($p->especialidad_id != null)?$p->especialidad->nombre:'');
+            $sheet->setCellValue("G$contadorCeldas", ($p->estilo_id != null)?$p->especialidad->nombre:'');
+            $sheet->setCellValue("H$contadorCeldas", ($p->tecnicamaterial_id != null)?$p->especialidad->nombre:'');
+
+            $contadorCeldas++;
+        }
+
+        //definimos los estilos
+
+        // fusionamos las celdas para el titulo
+        $sheet->mergeCells("A1:H1");
+
+        // estilo para el titulo principal
+        $fuenteNegritaTitulo = array(
+            'font'  => array(
+                'bold'  => true,
+                // 'color' => array('rgb' => 'FF0000'),
+                'size'  => 14,
+                'name'  => 'Verdana'
+            ),
+            'alignment' => array(
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            )
+        );
+
+        $spreadsheet->getActiveSheet()->getStyle("A1")->applyFromArray($fuenteNegritaTitulo);
+
+        // titulos encabezados en negrita
+        $fuenteNegrita = array(
+            'font'  => array(
+                'bold'  => true,
+                // 'color' => array('rgb' => 'FF0000'),
+                'size'  => 10,
+                'name'  => 'Verdana'
+            ));
+
+        $spreadsheet->getActiveSheet()->getStyle("A2:H2")->applyFromArray($fuenteNegrita);
+
+        // ancho de las columnas
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(25);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(40);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(40);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(25);
+        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(25);
+        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(30);
+        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(30);
+
+        // colocamos los bordes
+        $bordeCeldas = --$contadorCeldas;
+        $spreadsheet->getActiveSheet()->getStyle("A2:H$$bordeCeldas")->applyFromArray(
+            array(
+                'borders' => array(
+                    'allBorders' => array(
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => array('argb' => '000000')
+                    )
+                )
+            )
+        );
+
+        
+        // exportamos el excel
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
+        $writer->save('php://output');
+
+
+
+
     }
 
 }
