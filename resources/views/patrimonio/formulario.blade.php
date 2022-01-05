@@ -109,15 +109,15 @@
                                             <label for="exampleInputPassword1">DEPARTAMENTO </label>
                                                 {{-- <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" /> --}}
                                                 <select name="departamento" id="departamento" onchange="muestra(this)" class="form-control">
-                                                    <option value="La Paz">La Paz</option>
-                                                    <option value="Oruro">Oruro</option>
-                                                    <option value="Potosi">Potosi</option>
-                                                    <option value="Cochabamba">Cochabamba</option>
-                                                    <option value="Chuquisaca">Chuquisaca</option>
-                                                    <option value="Tarija">Tarija</option>
-                                                    <option value="Pando">Pando</option>
-                                                    <option value="Beni">Beni</option>
-                                                    <option value="Santa Cruz">Santa Cruz</option>
+                                                    <option value="La Paz" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'La Paz')? 'selected':''): '' }}>La Paz</option>
+                                                    <option value="Oruro" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Oruro')? 'selected':''): '' }}>Oruro</option>
+                                                    <option value="Potosi" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Potosi')? 'selected':''): '' }}>Potosi</option>
+                                                    <option value="Cochabamba" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Cochabamba')? 'selected':''): '' }}>Cochabamba</option>
+                                                    <option value="Chuquisaca" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Chuquisaca')? 'selected':''): '' }}>Chuquisaca</option>
+                                                    <option value="Tarija" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Tarija')? 'selected':''): '' }}>Tarija</option>
+                                                    <option value="Pando" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Pando')? 'selected':''): '' }}>Pando</option>
+                                                    <option value="Beni" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Beni')? 'selected':''): '' }}>Beni</option>
+                                                    <option value="Santa Cruz" {{ ($datosPatrimonio != null)? (($datosPatrimonio->departamento == 'Santa Cruz')? 'selected':''): '' }}>Santa Cruz</option>
                                                 </select>
                                         </div>
                                     </div>
@@ -1175,6 +1175,19 @@
             $("#customFile_"+numero).val('');
         }
 
+        var provincia = departamento.value;
+        $.ajax({
+            url: "{{ url('patrimonio/ajaxBuscaProvincia') }}",
+            data: {provincia: provincia},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data);
+                $("#bloque-provincias").html(data);
+                // $("#listadoProductosAjax").html(data);
+            }
+        });  
+
+
         function muestra(departamento){
             // console.log(departamento.value);
             var provincia = departamento.value;
@@ -1188,6 +1201,34 @@
                 }
             });  
         }
+
+        
+        $("#provincia option[value='"+"{{ $datosPatrimonio->provincia }}"+"']").attr("selected", true);
+
+        // console.log("{{ $datosPatrimonio->provincia }}");
+
+        // setTimeout(function(){
+        console.log($('#provincia').html());
+
+        //your code here
+        }, 1000);
+        $(document).ready(function(){
+        // your code
+        console.log($('#provincia').html());
+
+        cambiaSelect();
+
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+        console.log($('#provincia').html());
+
+        // your code here
+        }, false);
+
+        function cambiaSelect(){
+            console.log($('#provincia').html());
+        }
+
 
         $('#calle').val($("#inmueble option:selected").text());
         
