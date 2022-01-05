@@ -108,3 +108,13 @@ Route::get('inmueble/elimina/{inmueble_id}', 'InmuebleController@elimina');
 Route::get('subespecialidad/listado/{especialidad_id}', 'SubEspecialidadController@listado');
 Route::post('subespecialidad/guarda', 'SubEspecialidadController@guarda');
 Route::get('subespecialidad/elimina/{subespecialidad_id}', 'SubEspecialidadController@elimina');
+
+// TECNICAS
+Route::get('subespecialidad/listado/{especialidad_id}', 'SubEspecialidadController@listado');
+Route::post('subespecialidad/guarda', 'SubEspecialidadController@guarda');
+Route::get('subespecialidad/elimina/{subespecialidad_id}', 'SubEspecialidadController@elimina');
+
+// MATERIALES
+Route::get('subespecialidad/listado/{especialidad_id}', 'SubEspecialidadController@listado');
+Route::post('subespecialidad/guarda', 'SubEspecialidadController@guarda');
+Route::get('subespecialidad/elimina/{subespecialidad_id}', 'SubEspecialidadController@elimina');
