@@ -1207,8 +1207,8 @@
 
         // console.log("{{ $datosPatrimonio->provincia }}");
 
-        // setTimeout(function(){
-        console.log($('#provincia').html());
+        setTimeout(function(){
+            console.log($('#provincia').html());
 
         //your code here
         }, 1000);
