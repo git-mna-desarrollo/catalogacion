@@ -86,24 +86,24 @@
                                             <label for="exampleInputPassword1">DEPARTAMENTO </label>
                                             {{-- <input type="text" class="form-control" id="departamento" name="departamento" value="LA PAZ" /> --}}
                                             <select name="departamento" id="departamento" onchange="muestra(this)" class="form-control">
-                                                <option value="La Paz" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'La Paz')?
-                                                    'selected':''): '' }}>La Paz</option>
-                                                <option value="Oruro" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Oruro')?
-                                                    'selected':''): '' }}>Oruro</option>
-                                                <option value="Potosi" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Potosi')?
-                                                    'selected':''): '' }}>Potosi</option>
-                                                <option value="Cochabamba" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Cochabamba')?
-                                                    'selected':''): '' }}>Cochabamba</option>
-                                                <option value="Chuquisaca" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Chuquisaca')?
-                                                    'selected':''): '' }}>Chuquisaca</option>
-                                                <option value="Tarija" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Tarija')?
-                                                    'selected':''): '' }}>Tarija</option>
-                                                <option value="Pando" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Pando')?
-                                                    'selected':''): '' }}>Pando</option>
-                                                <option value="Beni" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Beni')?
-                                                    'selected':''): '' }}>Beni</option>
-                                                <option value="Santa Cruz" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'Santa Cruz')?
-                                                    'selected':''): '' }}>Santa Cruz</option>
+                                                <option value="LA PAZ" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'LA PAZ')?
+                                                    'selected':''): '' }}>LA PAZ</option>
+                                                <option value="ORURO" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'ORURO')?
+                                                    'selected':''): '' }}>ORURO</option>
+                                                <option value="POTOSI" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'POTOSI')?
+                                                    'selected':''): '' }}>POTOSI</option>
+                                                <option value="COCHABAMBA" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'COCHABAMBA')?
+                                                    'selected':''): '' }}>COCHABAMBA</option>
+                                                <option value="CHUQUISACA" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'CHUQUISACA')?
+                                                    'selected':''): '' }}>CHUQUISACA</option>
+                                                <option value="TARIJA" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'TARIJA')?
+                                                    'selected':''): '' }}>TARIJA</option>
+                                                <option value="PANDO" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'PANDO')?
+                                                    'selected':''): '' }}>PANDO</option>
+                                                <option value="BENI" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'BENI')?
+                                                    'selected':''): '' }}>BENI</option>
+                                                <option value="SANTA CRUZ" {{ ($datosPatrimonio !=null)? (($datosPatrimonio->departamento == 'SANTA CRUZ')?
+                                                    'selected':''): '' }}>SANTA CRUZ</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1099,7 +1099,7 @@
 
         function quitarImagen(numero)
         {
-            // $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");   
+            $("#thumbnil_"+numero).attr('src', "{{ asset('assets/blanco.jpg') }}");   
             Swal.fire({
                 title: "Desea eliminar la imagen",
                 text: "Ya no podras recuperarlo!",
@@ -1192,17 +1192,14 @@
             $("#customFile_"+numero).val('');
         }
 
-        // var provincia = departamento.value;
-        $.ajax({
-            url: "{{ url('patrimonio/ajaxBuscaProvincia') }}",
-            data: {provincia: provincia},
-            type: 'POST',
-            success: function(data) {
-                // console.log(data);
-                $("#bloque-provincias").html(data);
-                // $("#listadoProductosAjax").html(data);
-            }
-        });  
+        // $.ajax({
+        //     url: "{{ url('patrimonio/ajaxBuscaProvincia') }}",
+        //     data: {provincia: provincia},
+        //     type: 'POST',
+        //     success: function(data) {
+        //         $("#bloque-provincias").html(data);
+        //     }
+        // });  
 
 
         function muestra(departamento){

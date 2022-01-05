@@ -47,11 +47,16 @@ class PatrimonioController extends Controller
 
             $documentos = Documento::where('patrimonio_id', $datosPatrimonio->id)
                         ->get();
+
+            $provincias = Provincia::where('departamento', $datosPatrimonio->departamento)->get();
+            // dd($provincias);
+
         }else{
             // de lo contrario se envian datos como null
             $datosPatrimonio = null;
             $imagenes = null;
             $documentos = null;
+            $provincias = Provincia::where('departamento','LA PAZ')->get();
         }
 
         // mandamos los datos de los combos al formulario
@@ -60,7 +65,6 @@ class PatrimonioController extends Controller
         $ubicaciones = Ubicacion::all();
         $especialidades = Especialidad::all();
         $estilos = Estilo::all();
-        $provincias = Provincia::where('departamento','La Paz')->get();
         $inmuebles = Inmueble::all();
 
         $tecnicasSep = Tecnica::all();
