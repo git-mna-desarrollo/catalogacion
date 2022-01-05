@@ -42,6 +42,7 @@ Route::post('patrimonio/ajaxListado', 'PatrimonioController@ajaxListado');
 Route::post('patrimonio/ajaxElimina', 'PatrimonioController@ajaxElimina');
 Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresion');
 Route::post('patrimonio/ajaxBuscaProvincia', 'PatrimonioController@ajaxBuscaProvincia');
+Route::post('patrimonio/ajaxBuscaSubEspecialidad', 'PatrimonioController@ajaxBuscaSubEspecialidad');
 
 // Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresion');
 
@@ -64,6 +65,7 @@ Route::get('migracion/regularizacionAdminMna', 'MigracionController@regularizaci
 Route::get('especialidad/listado', 'EspecialidadController@listado');
 Route::post('especialidad/guarda', 'EspecialidadController@guarda');
 Route::get('especialidad/elimina/{id}', 'EspecialidadController@elimina');
+
 
 // IMAGENES
 Route::post('imagen/ajaxElimina', 'ImagenController@ajaxElimina');
@@ -100,3 +102,8 @@ Route::get('movimiento/elimina/{id}', 'MovimientosController@elimina');
 Route::get('inmueble/listado', 'InmuebleController@listado');
 Route::post('inmueble/guarda', 'InmuebleController@guarda');
 Route::get('inmueble/elimina/{inmueble_id}', 'InmuebleController@elimina');
+
+// SUB ESPECIALIADES
+Route::get('subespecialidad/listado/{especialidad_id}', 'SubEspecialidadController@listado');
+Route::post('subespecialidad/guarda', 'SubEspecialidadController@guarda');
+Route::get('subespecialidad/elimina/{subespecialidad_id}', 'SubEspecialidadController@elimina');

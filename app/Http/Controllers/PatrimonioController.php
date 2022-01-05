@@ -7,7 +7,9 @@ use App\Sitio;
 use App\Estado;
 use App\Estilo;
 use App\Imagen;
+use App\Tecnica;
 use App\Inmueble;
+use App\Material;
 use App\Documento;
 use App\Localidad;
 use App\Provincia;
@@ -15,6 +17,7 @@ use App\Ubicacion;
 use App\Patrimonio;
 use App\Departamento;
 use App\Especialidad;
+use App\SubEspecialidad;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
 use App\Imports\PatrimoniosImport;
@@ -55,11 +58,16 @@ class PatrimonioController extends Controller
         $provincias = Provincia::where('departamento','La Paz')->get();
         $inmuebles = Inmueble::all();
 
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles'));
+        $tecnicasSep = Tecnica::all();
+        $materiales = Material::all();
+
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales'));
     }
 
     public function guarda(Request $request)
     {
+
+        // dd($request->all());
 
         // preguntamos si el campo patrimonio existe
         if($request->filled('patrimonio_id')){
@@ -72,6 +80,7 @@ class PatrimonioController extends Controller
         // seteamos los datos para el formulario
         $patrimonio->creador_id                    = Auth::user()->id;
         $patrimonio->especialidad_id               = $request->input('especialidad_id');
+        $patrimonio->subespecialidad_id            = $request->input('subEspecialidad');
         $patrimonio->estilo_id                     = $request->input('estilo_id');
         $patrimonio->ubicacion_id                  = $request->input('ubicacion_id');
         $patrimonio->tecnicamaterial_id            = $request->input('tecnicamaterial_id');
@@ -86,7 +95,7 @@ class PatrimonioController extends Controller
         $patrimonio->diametro                      = $request->input('diametro');
         $patrimonio->circunferencia                = $request->input('circunferencia');
         $patrimonio->largo                         = $request->input('largo');
-        $patrimonio->profundidad                   = $request->input('profundidad');
+        $patrimonio->profundidad                   = $request->input('profundidad');    
         $patrimonio->peso                          = $request->input('peso');
         $patrimonio->escuela                       = $request->input('escuela');
         $patrimonio->epoca                         = $request->input('epoca');
@@ -112,6 +121,38 @@ class PatrimonioController extends Controller
         $patrimonio->fec_elaboro                   = $request->input('fec_elaboro');
         $patrimonio->reviso                        = $request->input('reviso');
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
+
+        $tecnicas = '';
+
+        if($request->input('tecnica_1') != null){
+            $tecnicas = $tecnicas.$request->input('tecnica_1');
+        }
+
+        if($request->input('tecnica_2') != null){
+            $tecnicas = $tecnicas."/".$request->input('tecnica_2');
+        }
+
+        if($request->input('tecnica_3') != null){
+            $tecnicas = $tecnicas."/".$request->input('tecnica_3');
+        }
+
+        $patrimonio->tecnicas = $tecnicas;
+
+        $materiales = '';
+
+        if($request->input('material_1') != null){
+            $materiales = $materiales.$request->input('material_1');
+        }
+
+        if($request->input('material_2') != null){
+            $materiales = $materiales."/".$request->input('material_2');
+        }
+
+        if($request->input('material_3') != null){
+            $materiales = $materiales."/".$request->input('material_3');
+        }
+
+        $patrimonio->materiales = $materiales;
 
         // para los logs
         /*if($patrimonio->isDirty()){
@@ -372,6 +413,14 @@ class PatrimonioController extends Controller
 
         return view('patrimonio.ajaxBuscaProvincia')->with(compact('provincias'));
 
+    }
+
+    public function ajaxBuscaSubEspecialidad(Request $request){
+
+        $subespecialidades =  SubEspecialidad::where('especialidad_id',$request->input('valorSlecionado'))
+                                            ->get();
+
+        return view('patrimonio.ajaxBuscaSubEspecialidad')->with(compact('subespecialidades'));
     }
 
 }

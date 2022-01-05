@@ -15,7 +15,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ADICIONAR SUB ESPECIALIDAD A LA ESPECIALIDAD (<span class="text-danger" id="nom_espec">hols</span>)</h5>
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ADICIONAR SUB ESPECIALIDAD A LA ESPECIALIDAD (<span class="text-danger">{{ $especialidad->nombre }}</span>)</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nombre
                                     <span class="text-danger">*</span></label>
-                                <input type="hidden" class="" id="subesp_id" name="subesp_id" />
+                                <input type="hidden" class="" id="subesp_id" name="subesp_id" value="{{ $especialidad->id }}" />
                                 <input type="text" class="form-control" id="subesp_nombre" name="subesp_nombre" required />
                             </div>
                         </div>
@@ -55,65 +55,17 @@
 {{-- fin  modal sub especialidad--}}
 
 
-{{-- inicio modal --}}
-
-<!-- Modal-->
-<div class="modal fade" id="modal-es" data-backdrop="static" tabindex="-1" role="dialog"
-    aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ESPECIALIDAD</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ url('especialidad/guarda') }}" method="POST" id="formulario-tipos">
-                    @csrf
-                    <div class="row">
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Nombre
-                                    <span class="text-danger">*</span></label>
-                                <input type="hidden" class="form-control" id="id" name="id" />
-                                <input type="text" class="form-control" id="nombre" name="nombre" required />
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Descripcion
-                                    <span class="text-danger">*</span></label>
-                                <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold"
-                    data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
-{{-- fin inicio modal --}}
-
 <!--begin::Card-->
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">
         <div class="card-title">
-            <h3 class="card-label">ESPECIALIDADES
+            <h3 class="card-label">SUB ESPECIALIDADES DE LA ESPECIALIDAD (<span class="text-danger">{{ $especialidad->nombre }}</span>)
             </h3>
         </div>
         <div class="card-toolbar">
             <!--begin::Button-->
             <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-                <i class="fa fa-plus-square"></i> NUEVA ESPECIALIDAD
+                <i class="fa fa-plus-square"></i> NUEVA SUB ESPECIALIDAD
             </a>
             <!--end::Button-->
         </div>
@@ -127,37 +79,39 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Descripcion</th>
+                        {{-- <th>Descripcion</th> --}}
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($especialidades as $e)
+                    @forelse ($subespecialidades as $subesp)
                     <tr>
-                        <td style="width: 5%">{{ $e->id }}</td>
-                        <td style="width: 30%">{{ $e->nombre }}</td>
-                        <td style="width: 40%">{{ $e->descripcion }}</td>
+                        <td style="width: 5%">{{ $subesp->id }}</td>
+                        <td style="width: 30%">{{ $subesp->nombre }}</td>
+                        {{-- <td style="width: 40%">{{ $subesp->descripcion }}</td> --}}
                         <td style="width: 10%">
-                            <button type="button" class="btn btn-sm btn-icon btn-warning"
-                                onclick="edita('{{ $e->id }}', '{{ $e->nombre }}', '{{ $e->descripcion }}')">
+                            <button type="button" class="btn btn-sm btn-icon btn-danger"
+                                onclick="elimina('{{ $subesp->id }}', '{{ $subesp->nombre }}')">
+                                <i class="flaticon2-cross"></i>
+                            </button>
+                            {{-- <button type="button" class="btn btn-sm btn-icon btn-warning"
+                                onclick="edita('{{ $subesp->id }}', '{{ $subesp->nombre }}', '{{ $subesp->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
                             <button type="button" class="btn btn-sm btn-icon btn-success"
-                                onclick="addSubEsp('{{ $e->id }}', '{{ $e->nombre }}')">
+                                onclick="addSubEsp('{{ $subesp->id }}', '{{ $subesp->nombre }}')">
                                 <i class="flaticon2-add"></i>
                             </button>
                             @php
-                                $patrimonios = App\Patrimonio::where('especialidad_id', $e->id)
+                                $patrimonios = App\Patrimonio::where('especialidad_id', $subesp->id)
                                                             ->first();
-
-                                // dd($patrimonios);
                             @endphp
                             @if ($patrimonios == null)
                                 <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                    onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
+                                    onclick="elimina('{{ $subesp->id }}', '{{ $subesp->nombre }}')">
                                     <i class="flaticon2-cross"></i>
                                 </button>
-                            @endif
+                            @endif --}}
                         </td>
                     </tr>
                     @empty
@@ -193,18 +147,7 @@
 			$("#nombre").val('');
 			$("#descripcion").val('');
 			// abre el modal
-    		$("#modal-es").modal('show');
-    	}
-
-		function edita(id, nombre, descripcion)
-    	{
-			// colocamos valores en los inputs
-			$("#id").val(id);
-			$("#nombre").val(nombre);
-			$("#descripcion").val(descripcion);
-
-			// mostramos el modal
-    		$("#modal-es").modal('show');
+    		$("#modal-subes").modal('show');
     	}
 
     	function crear()
@@ -238,7 +181,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('especialidad/elimina') }}/"+id;
+                    window.location.href = "{{ url('subespecialidad/elimina') }}/"+id;
 
                     Swal.fire(
                         "Borrado!",
@@ -255,13 +198,6 @@
                     )
                 }
             });
-        }
-
-        function addSubEsp(id, nombre){
-            $('#subesp_id').val(id);
-            $('#nom_espec').html(nombre);
-            $('#modal-subes').modal('show');
-
         }
 
 </script>

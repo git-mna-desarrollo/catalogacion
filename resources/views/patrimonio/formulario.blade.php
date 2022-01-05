@@ -262,7 +262,7 @@
                                 
                                 <div class="row">
                                 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DESIGNACION/NOMBRE
                                                 <span class="text-danger">*</span></label>
@@ -275,7 +275,7 @@
                                             <label for="exampleInputPassword1">ESPECIALIDAD
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control" id="especialidad_id" name="especialidad_id" style="width: 100%">
+                                            <select class="form-control" id="especialidad_id" name="especialidad_id" style="width: 100%" onchange="buacaSubEspecialidad(this)">
                                                 <option value="">SELECCIONE</option>
                                                 @forelse ($especialidades as $e)
                                                 @php
@@ -291,6 +291,18 @@
                                     
                                                 @endforelse
                                             </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">SUB ESPECIALIDAD
+                                                <span class="text-danger">*</span></label>
+                                                <div id="bloque-dependent-especialidad">
+                                                    <select name="subEspecialidad" id="subEspecialidad" class="form-control">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
                                         </div>
                                     </div>
 
@@ -369,6 +381,84 @@
                                         </div>
                                     </div>
                                 
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Tecnica 1
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="tecnica_1" id="tecnica_1" class="form-control">
+                                                @foreach ($tecnicasSep  as $te)
+                                                    <option value="{{ $te->nombre }}">{{ $te->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Tecnica 2
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="tecnica_2" id="tecnica_2" class="form-control">
+                                                <option value="">SELELCCIONE</option>
+                                                @foreach ($tecnicasSep  as $te)
+                                                    <option value="{{ $te->nombre }}">{{ $te->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Tecnica 3
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="tecnica_3" id="tecnica_3" class="form-control">
+                                                <option value="">SELELCCIONE</option>
+                                                @foreach ($tecnicasSep  as $te)
+                                                    <option value="{{ $te->nombre }}">{{ $te->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Material 1
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="material_1" id="material_1" class="form-control">
+                                                @foreach ($materiales as $mat)
+                                                    <option value="{{ $mat->nombre }}">{{ $mat->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Material 2
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="material_2" id="material_2" class="form-control">
+                                                <option value="">SELELCCIONE</option>
+                                                @foreach ($materiales as $mat)
+                                                    <option value="{{ $mat->nombre }}">{{ $mat->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Material 3
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="material_3" id="material_3" class="form-control">
+                                                <option value="">SELELCCIONE</option>
+                                                @foreach ($materiales as $mat)
+                                                    <option value="{{ $mat->nombre }}">{{ $mat->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                                 <div class="row">
@@ -1104,6 +1194,28 @@
         $(document).on('change', '#inmueble', function(event) {
             $('#calle').val($("#inmueble option:selected").text());
         });
+
+        function buacaSubEspecialidad(select){
+
+            var valorSlecionado  = select.value;
+            $.ajax({
+                url: "{{ url('patrimonio/ajaxBuscaSubEspecialidad') }}",
+                data: {valorSlecionado: valorSlecionado},
+                type: 'POST',
+                success: function(data) {
+                    $("#bloque-dependent-especialidad").html(data);
+                }
+            });  
+        }
+
+        function verifica(){
+            if ($("#pizza").is(":checked")) {
+                $('#pizza_kind').prop('disabled', false);
+            }
+            else {
+                $('#pizza_kind').prop('disabled', 'disabled');
+            }
+        }
 
     </script>
 @endsection
