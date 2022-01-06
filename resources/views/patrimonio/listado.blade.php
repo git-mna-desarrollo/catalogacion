@@ -231,7 +231,7 @@
         setTimeout(function () {
             $("#btnExcel").show();
             $("#btnEsperaExcel").hide();
-        }, 5000);
+        }, 8000);
 
     }
 

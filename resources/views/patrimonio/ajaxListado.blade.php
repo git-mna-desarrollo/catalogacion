@@ -2,6 +2,8 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Img</th>
+            <th>COD ADM</th>
             <th>Codigo</th>
             <th>Nombre</th>
             <th>Autor</th>
@@ -15,6 +17,18 @@
     <tbody>
         @forelse ($patrimonios as $p)
         <tr>
+            <td>{{ $p->id }}</td>
+            <td class="text-center">
+                @php
+                    $imagen = App\imagen::where('patrimonio_id', $p->id)
+                                        ->where('estado', 'Ficha')
+                                        ->first();
+
+                @endphp  
+                @if ($imagen)
+                    <img src="{{ asset("imagenes/$imagen->imagen") }}" height="100" />
+                @endif   
+            </td>
             <td>{{ $p->codigo_administrativo }}</td>
             <td>{{ $p->codigo }}</td>
             <td>{{ $p->nombre }}</td>
