@@ -20,7 +20,7 @@ class CreateModificacionesTable extends Migration
             $table->unsignedBigInteger('patrimonio_id')->nullable();
             $table->foreign('patrimonio_id')->references('id')->on('patrimonios');
             $table->string('campo')->nullable();
-            $table->string('dato_anteriror',1500)->nullable();
+            $table->string('dato_anterior',1500)->nullable();
             $table->string('accion')->nullable();
             $table->string('dato_modificado',1500)->nullable();
             $table->string('estado')->nullable();

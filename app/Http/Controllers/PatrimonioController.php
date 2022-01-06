@@ -17,15 +17,16 @@ use App\Ubicacion;
 use App\Patrimonio;
 use App\Departamento;
 use App\Especialidad;
+use App\Modificacion;
 use App\SubEspecialidad;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
 use App\Imports\PatrimoniosImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 
 //para creacion de excel
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -164,16 +165,17 @@ class PatrimonioController extends Controller
         $patrimonio->materiales = $materiales;
 
         // para los logs
-        /*if($patrimonio->isDirty()){
+        // preguntamos si existe algun cambio en los datos
+        if($patrimonio->isDirty()){
             $modificacion = new Modificacion();
+            $modificacion->patrimonio_id = $patrimonio->id;
         }
 
-        if($patrimonio->isDirty('localidad')){
-            
-            // dd("Si");
-        }else{
-            // dd("No");
-        }*/
+        // preguntamos si departamento cambio
+        if($patrimonio->isDirty('departamento')){
+            $modificacion->campo = 'DEPARTAMENTO';
+            dd($patrimonio->getOriginal('departamento'));
+        }
 
         // fin para los logs
         $patrimonio->save();
