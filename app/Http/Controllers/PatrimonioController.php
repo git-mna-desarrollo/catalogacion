@@ -171,12 +171,18 @@ class PatrimonioController extends Controller
         if($patrimonio->isDirty()){
             $modificacion = new Modificacion();
             $modificacion->patrimonio_id = $patrimonio->id;
+            $modificacion->user_id = Auth::user()->id;
         }
 
         // preguntamos si departamento cambio
         if($patrimonio->isDirty('departamento')){
             $modificacion->campo = 'DEPARTAMENTO';
-            dd($patrimonio->getOriginal('departamento'));
+            $modificacion->dato_anterior = $patrimonio->getOriginal('departamento');
+            $modificacion->dato_modificado = $request->input('departamento');
+        }
+
+        if($patrimonio->isDirty()){
+            $modificacion->save();
         }
 
         // fin para los logs
