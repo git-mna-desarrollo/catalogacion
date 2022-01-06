@@ -72,6 +72,13 @@
 				</div>
 			</li>
 
+			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+				<a href="{{ url('patrimonio/revisiones') }}" class="menu-link menu-toggle">
+					<span class="menu-icon"><i class="far fa-check-square"></i></span>
+					<span class="menu-text">REVISIONES</span>
+				</a>
+			</li>
+
 			@if (Auth::user()->perfil == 'Administrador')
 				
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">

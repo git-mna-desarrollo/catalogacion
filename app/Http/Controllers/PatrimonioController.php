@@ -627,10 +627,39 @@ class PatrimonioController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
         $writer->save('php://output');
+    }
 
+    public function revisiones(){
+            // extremos los datos para los combos de las busquedas
+        $tecnicas = Tecnicamaterial::all();
+        $ubicaciones = Ubicacion::all();
+        $especialidades = Especialidad::all();
+        $estilos = Estilo::all();
 
+        $epocas = Patrimonio::select("epoca")
+                            ->groupBy('epoca')
+                            ->get();
 
+        $autores = Patrimonio::select("autor")
+                    ->groupBy("autor")
+                    ->get();
 
+        $patrimonios = Patrimonio::orderBy('id', 'desc')
+                                ->limit(200)
+                                ->get();
+
+        $materiales =  Patrimonio::select('materiales')
+                                ->whereNotNull('materiales')
+                                ->groupBy('materiales')
+                                ->get();
+
+        $tecnicas =  Patrimonio::select('tecnicas')
+                                ->whereNotNull('tecnicas')
+                                ->groupBy('tecnicas')
+                                ->get();
+
+        return view('patrimonio.revisiones')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas'));
+       
     }
 
 }
