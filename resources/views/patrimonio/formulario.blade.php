@@ -784,39 +784,45 @@
                                             <label for="exampleInputPassword1"> CATALOGO
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" name="catalogo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->catalogo:'' }}">
+                                            <input type="text" class="form-control" name="catalogo"
+                                                value="{{ ($datosPatrimonio != null)?$datosPatrimonio->catalogo:'' }}">
                                         </div>
                                     </div>
-
+                                
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1"> FECHA CATALOGO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_catalogo:'' }}</b>
+                                            <label for="exampleInputPassword1"> FECHA CATALOGO <b>{{ ($datosPatrimonio !=
+                                                    null)?$datosPatrimonio->fecha_catalogo:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" class="form-control" name="fec_catalogo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_catalogo:'' }}" />
+                                            <input type="date" class="form-control" name="fec_catalogo"
+                                                value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_catalogo:'' }}" />
                                         </div>
                                     </div>
-
+                                
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1"> ELABORO
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" name="elaboro" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->elaboro:'' }}">
+                                            <input type="text" class="form-control" name="elaboro"
+                                                value="{{ ($datosPatrimonio != null)?$datosPatrimonio->elaboro:'' }}">
                                         </div>
                                     </div>
-                                    
+                                
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1"> FECHA ELABORO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_elaboro:'' }}</b>
+                                            <label for="exampleInputPassword1"> FECHA ELABORO <b>{{ ($datosPatrimonio !=
+                                                    null)?$datosPatrimonio->fecha_elaboro:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" class="form-control" name="fec_elaboro" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_elaboro:'' }}" />
+                                            <input type="date" class="form-control" name="fec_elaboro"
+                                                value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_elaboro:'' }}" />
                                         </div>
                                     </div>
                                 
                                 </div>
-
+                                
                                 <div class="row">
                                 
                                     <div class="col-md-3">
@@ -824,16 +830,19 @@
                                             <label for="exampleInputPassword1"> REVISO
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" name="reviso" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->reviso:'' }}">
+                                            <input type="text" class="form-control" name="reviso"
+                                                value="{{ ($datosPatrimonio != null)?$datosPatrimonio->reviso:'' }}">
                                         </div>
                                     </div>
                                 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1"> FECHA REVISO <b>{{ ($datosPatrimonio != null)?$datosPatrimonio->fecha_reviso:'' }}</b>
+                                            <label for="exampleInputPassword1"> FECHA REVISO <b>{{ ($datosPatrimonio !=
+                                                    null)?$datosPatrimonio->fecha_reviso:'' }}</b>
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" class="form-control" name="fec_reviso" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_reviso:'' }}" />
+                                            <input type="date" class="form-control" name="fec_reviso"
+                                                value="{{ ($datosPatrimonio != null)?$datosPatrimonio->fec_reviso:'' }}" />
                                         </div>
                                     </div>
                                 
@@ -1082,7 +1091,35 @@
                             </div>
 
                         </div>
-                    </div>            
+                    </div>
+                    
+                    <h4>&nbsp;</h4>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label></label>
+                            <div class="checkbox-inline">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="trabajo_terminado" />
+                                    <span></span>TRABAJO TERMINADO</label>
+                            </div>
+                            {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
+                        </div>
+                    </div>
+                    <h4>&nbsp;</h4>
+                    <h3 class="text-primary text-center">REVISIONES</h3>
+                    <h4>&nbsp;</h4>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4><span class="text-primary">CATALOGADOR: </span> Osvaldo Cruz</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <h4><span class="text-primary">REVISOR: </span> </h4>
+                        </div>
+                        <div class="col-md-4">
+                            <h4><span class="text-primary">APROBADOR: </span> </h4>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-6">
