@@ -58,6 +58,7 @@ class PatrimonioController extends Controller
             $datosPatrimonio = null;
             $imagenes = null;
             $documentos = null;
+            $subespecialidades = null;
             $provincias = Provincia::where('departamento','LA PAZ')->get();
         }
 
@@ -71,6 +72,7 @@ class PatrimonioController extends Controller
 
         $tecnicasSep = Tecnica::all();
         $materiales = Material::all();
+
 
         return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales', 'subespecialidades'));
     }

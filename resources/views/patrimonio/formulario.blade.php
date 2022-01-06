@@ -41,6 +41,13 @@
                 dd($tecnicasDateBase);
             @endphp --}}
             <!--begin::Form-->
+            {{-- @dd($tecnicas) --}}
+            {{-- @php
+                foreach ($tecnicas as $key =>$t){
+                    echo ($key+1)."-<>".$t->nombre."<br>";
+                }
+            @endphp --}}
+
             <form action="{{ url('patrimonio/guarda') }}" method="POST" id="formularioPersona" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
@@ -409,15 +416,15 @@
                                                 <span class="text-danger">*</span></label>
                                             <select class="form-control" id="tecnicamaterial_id" name="tecnicamaterial_id" style="width: 100%">
                                                 @forelse ($tecnicas as $t)
-                                                @php
-                                                    if($datosPatrimonio != null && $datosPatrimonio->tecnicamaterial_id==$t->id){
-                                                        $seleccionado = 'selected';
-                                                    }else{
-                                                        $seleccionado = '';
-                                                    }
-                                                @endphp
+                                                    @php
+                                                        if($datosPatrimonio != null && $datosPatrimonio->tecnicamaterial_id==$t->id){
+                                                            $seleccionado = 'selected';
+                                                        }else{
+                                                            $seleccionado = '';
+                                                        }
+                                                    @endphp
 
-                                                <option value="{{ $t->id }}" {{ $seleccionado }}>{{ $t->nombre }}</option>
+                                                    <option value="{{ $t->id }}" {{ $seleccionado }}>{{ $t->nombre }}</option>    
                                                 @empty
                                 
                                                 @endforelse
@@ -433,7 +440,9 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             @php
-                                                $tecnicasDateBase = explode('/',$datosPatrimonio->tecnicas);
+                                                if($datosPatrimonio !=  null){
+                                                    $tecnicasDateBase = explode('/',$datosPatrimonio->tecnicas);
+                                                }
                                             @endphp
                                             <select name="tecnica_1" id="tecnica_1" class="form-control">
                                                 @foreach ($tecnicasSep  as $te)
@@ -449,12 +458,14 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             @php
-                                                unset($tecnicasDateBase[0]);
+                                                if($datosPatrimonio !=  null){
+                                                    unset($tecnicasDateBase[0]);
+                                                }
                                             @endphp
                                             <select name="tecnica_2" id="tecnica_2" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($tecnicasSep  as $te)
-                                                    <option value="{{ $te->nombre }}" {{ (count($tecnicasDateBase) > 0)? (($datosPatrimonio!=null)? (($te->nombre == $tecnicasDateBase[1])? 'selected': ''):'') : ''}}>{{ $te->nombre }}</option>
+                                                    <option value="{{ $te->nombre }}" {{ ($datosPatrimonio !=  null)? ((count($tecnicasDateBase) > 0)? (($datosPatrimonio!=null)? (($te->nombre == $tecnicasDateBase[1])? 'selected': ''):'') : ''):''}}>{{ $te->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -465,12 +476,14 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             @php
-                                                unset($tecnicasDateBase[1]);
+                                                if($datosPatrimonio !=  null){
+                                                    unset($tecnicasDateBase[1]);
+                                                }
                                             @endphp
                                             <select name="tecnica_3" id="tecnica_3" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($tecnicasSep  as $te)
-                                                    <option value="{{ $te->nombre }}"  {{ (count($tecnicasDateBase) > 0)? (($datosPatrimonio!=null)? (($te->nombre == $tecnicasDateBase[2])? 'selected': ''):'') : ''}} >{{ $te->nombre }}</option>
+                                                    <option value="{{ $te->nombre }}"  {{($datosPatrimonio !=  null)? ((count($tecnicasDateBase) > 0)? (($datosPatrimonio!=null)? (($te->nombre == $tecnicasDateBase[2])? 'selected': ''):'') : '') : ''}} >{{ $te->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -481,7 +494,9 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             @php
-                                                $materialesDateBase = explode('/',$datosPatrimonio->materiales);
+                                                if($datosPatrimonio !=  null){
+                                                    $materialesDateBase = explode('/',$datosPatrimonio->materiales);
+                                                }
                                             @endphp
                                             <select name="material_1" id="material_1" class="form-control">
                                                 @foreach ($materiales as $mat)
@@ -496,12 +511,14 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             @php
+                                            if($datosPatrimonio !=  null){
                                                 unset($materialesDateBase[0]);
+                                            }
                                             @endphp
                                             <select name="material_2" id="material_2" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($materiales as $mat)
-                                                    <option value="{{ $mat->nombre }}" {{ (count($materialesDateBase) > 0)? (($datosPatrimonio!=null)? (($mat->nombre == $materialesDateBase[1])? 'selected': ''):'') : ''}}>{{ $mat->nombre }}</option>
+                                                    <option value="{{ $mat->nombre }}" {{($datosPatrimonio !=  null)? ((count($materialesDateBase) > 0)? (($datosPatrimonio!=null)? (($mat->nombre == $materialesDateBase[1])? 'selected': ''):'') : '') : ''}}>{{ $mat->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -512,12 +529,14 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             @php
+                                            if($datosPatrimonio !=  null){
                                                 unset($materialesDateBase[1]);
+                                            }
                                             @endphp
                                             <select name="material_3" id="material_3" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($materiales as $mat)
-                                                    <option value="{{ $mat->nombre }}" {{ (count($materialesDateBase) > 0)? (($datosPatrimonio!=null)? (($mat->nombre == $materialesDateBase[2])? 'selected': ''):'') : ''}}>{{ $mat->nombre }}</option>
+                                                    <option value="{{ $mat->nombre }}" {{ ($datosPatrimonio !=  null)? ((count($materialesDateBase) > 0)? (($datosPatrimonio!=null)? (($mat->nombre == $materialesDateBase[2])? 'selected': ''):'') : '') : ''}}>{{ $mat->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
