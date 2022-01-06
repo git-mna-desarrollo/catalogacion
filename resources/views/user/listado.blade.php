@@ -42,6 +42,7 @@
 						<th>Carnet</th>
 						<th>Email</th>
 						<th>Perfil</th>
+						<th>Tipo</th>
 						<th>Celulares</th>
 						<th>Actions</th>
 					</tr>
@@ -72,6 +73,7 @@
 					{data: 'ci', name: 'ci'},
 					{data: 'email', name: 'email'},
 					{data: 'perfil', name: 'perfil'},
+					{data: 'tipo', name: 'tipo'},
 					{data: 'celulares', name: 'celulares'},
 					{data: 'action'},
 				],

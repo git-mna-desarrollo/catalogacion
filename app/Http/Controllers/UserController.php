@@ -61,6 +61,7 @@ class UserController extends Controller
         }
 
         $persona->perfil = $request->input('perfil');
+        $persona->tipo   = $request->input('tipo');
         $persona->name   = $request->input('name');
         $persona->ci     = $request->input('ci');
         $persona->email  = $request->input('email');

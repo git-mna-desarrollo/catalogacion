@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleSelect1">Perfil <span class="text-danger">*</span></label>
                                 <select class="form-control" id="perfil" name="perfil" >
@@ -88,7 +88,21 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleSelect1">Tipo <span class="text-danger">*</span></label>
+                                <select class="form-control" id="tipo" name="tipo">
+                                    <option value="">Seleccione</option>
+                                    <option value="Catalogador" {{ ($datosUser !=null && $datosUser->tipo == 'Catalogador')?'selected':''
+                                        }}>Catalogador</option>
+                                    <option value="Revisor" {{ ($datosUser !=null && $datosUser->tipo == 'Revisor')?'selected':''
+                                        }}>Revisor</option>
+                                    <option value="Aprobador" {{ ($datosUser !=null && $datosUser->tipo == 'Aprobador')?'selected':''
+                                        }}>Aprobador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password
                                     <span class="text-danger">*</span></label>
