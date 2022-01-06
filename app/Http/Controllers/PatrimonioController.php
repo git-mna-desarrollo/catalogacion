@@ -17,15 +17,16 @@ use App\Ubicacion;
 use App\Patrimonio;
 use App\Departamento;
 use App\Especialidad;
+use App\Modificacion;
 use App\SubEspecialidad;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
 use App\Imports\PatrimoniosImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 
 //para creacion de excel
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -168,16 +169,24 @@ class PatrimonioController extends Controller
         $patrimonio->materiales = $materiales;
 
         // para los logs
-        /*if($patrimonio->isDirty()){
+        // preguntamos si existe algun cambio en los datos
+        if($patrimonio->isDirty()){
             $modificacion = new Modificacion();
+            $modificacion->patrimonio_id = $patrimonio->id;
+            $modificacion->user_id = Auth::user()->id;
         }
 
-        if($patrimonio->isDirty('localidad')){
-            
-            // dd("Si");
-        }else{
-            // dd("No");
-        }*/
+        // preguntamos si departamento cambio
+        if($patrimonio->isDirty('departamento')){
+            $modificacion->campo = 'DEPARTAMENTO';
+            $modificacion->dato_anterior = $patrimonio->getOriginal('departamento');
+            $modificacion->dato_modificado = $request->input('departamento');
+        }
+
+        // preguntamos si existe cambio para guardar los datos
+        if($patrimonio->isDirty()){
+            $modificacion->save();
+        }
 
         // fin para los logs
         $patrimonio->save();
@@ -488,7 +497,7 @@ class PatrimonioController extends Controller
         $patrimonios = $qPatrimonios->get();
 
         // generacion del excel
-        $fileName = 'certifica_notas.xlsx';
+        $fileName = 'patrimonios.xlsx';
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->setTitle("certifica_cal");
         $sheet = $spreadsheet->getActiveSheet();
