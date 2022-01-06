@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use PDF;
 use App\Sitio;
+use App\Cuenta;
 use App\Estado;
 use App\Estilo;
 use App\Imagen;
@@ -23,9 +24,9 @@ use App\Tecnicamaterial;
 use Illuminate\Http\Request;
 use App\Imports\PatrimoniosImport;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 //para creacion de excel
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -71,17 +72,19 @@ class PatrimonioController extends Controller
         $estilos = Estilo::all();
         $inmuebles = Inmueble::all();
 
+        $cuentas = Cuenta::all();
+
         $tecnicasSep = Tecnica::all();
         $materiales = Material::all();
 
 
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales', 'subespecialidades'));
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales', 'subespecialidades', 'cuentas'));
     }
 
     public function guarda(Request $request)
     {
 
-        //dd($request->all());
+        // dd($request->all());
 
         // preguntamos si el campo patrimonio existe
         if($request->filled('patrimonio_id')){
@@ -135,6 +138,7 @@ class PatrimonioController extends Controller
         $patrimonio->fec_elaboro                   = $request->input('fec_elaboro');
         $patrimonio->reviso                        = $request->input('reviso');
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
+        $patrimonio->cuenta_id                     = $request->input('cuenta_id');
 
         $tecnicas = '';
 

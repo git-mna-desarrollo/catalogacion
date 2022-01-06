@@ -977,7 +977,12 @@
 
                                     <div class="col-md-4">
                                         <label>CUENTA:</label>
-                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        {{-- <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" /> --}}
+                                        <select name="cuenta_id" id="cuenta_id" class="form-control">
+                                            @foreach ($cuentas as $cuen)
+                                                <option value="{{ $cuen->id }}"{{ ($datosPatrimonio != null)? (($datosPatrimonio->cuenta_id == $cuen->id)? 'selected': ''): '' }}>{{ $cuen->nombre }}</option>
+                                            @endforeach
+                                        </select>
                                         <div class="d-md-none mb-2"></div>
                                     </div>
 

@@ -123,4 +123,4 @@ Route::get('material/elimina/{material_id}', 'MaterialController@elimina');
 // CUENTAS
 Route::get('cuenta/listado', 'CuentaController@listado');
 Route::post('cuenta/guarda', 'CuentaController@guarda');
-Route::get('cuenta/elimina/{material_id}', 'CuentaController@elimina');
+Route::get('cuenta/elimina/{cuenta_id}', 'CuentaController@elimina');
