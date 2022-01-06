@@ -89,7 +89,7 @@
                                     <span class="nav-text">IMAGENES</span>
                                 </a>
                             </li>
-                            @if (Auth::user()->perfil == 'Administrativo')
+                            @if (Auth::user()->perfil == 'Administrativo' || Auth::user()->perfil == 'Administrador')
                                 
                             <li class="nav-item">
                                 <a class="nav-link" id="contact-tab-1" data-toggle="tab" href="#documentos" aria-controls="contact">
@@ -847,8 +847,23 @@
                                     @if ($imagenes != null)
                                         @foreach ($imagenes as $i)
                                             <div class="col-md-3">
-                                                <img src="{{ asset("imagenes/$i->imagen") }}" class="img-fluid">
-                                                <button type="button" class="btn btn-danger mr-2 btn-block" onclick="quitarImagen({{ $i->id }})">Quitar Imagen</button>
+
+                                                <div class="card card-custom card-fit gutter-b">
+                                                    <div class="card-header ribbon ribbon-top ribbon-ver">
+                                                        @if ($i->estado == 'Ficha')
+                                                        <div class="ribbon-target bg-warning" style="top: -2px; right: 20px;">
+                                                            <i class="fa fa-star text-white"></i>
+                                                        </div>
+                                                        @endif
+                                                        {{-- <h3 class="card-title">
+                                                            Vertical Ribbons
+                                                        </h3> --}}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <img src="{{ asset("imagenes/$i->imagen") }}" class="img-fluid">
+                                                        <button type="button" class="btn btn-danger mr-2 btn-block" onclick="quitarImagen({{ $i->id }})">Quitar Imagen</button>
+                                                    </div>
+                                                </div>
                                             </div>    
                                         @endforeach
                                     @endif
@@ -950,22 +965,19 @@
                                         <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
                                         <div class="d-md-none mb-2"></div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="col-md-4">
                                         <label>CUENTA:</label>
                                         <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
                                         <div class="d-md-none mb-2"></div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="col-md-4">
                                         <label>SUBCUENTA:</label>
                                         <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
                                         <div class="d-md-none mb-2"></div>
                                     </div>
+
                                 </div>
 
                                 <div class="row" id="cargaDocumentos">
