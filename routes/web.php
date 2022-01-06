@@ -110,9 +110,9 @@ Route::post('subespecialidad/guarda', 'SubEspecialidadController@guarda');
 Route::get('subespecialidad/elimina/{subespecialidad_id}', 'SubEspecialidadController@elimina');
 
 // TECNICAS
-Route::get('subespecialidad/listado/{especialidad_id}', 'SubEspecialidadController@listado');
-Route::post('subespecialidad/guarda', 'SubEspecialidadController@guarda');
-Route::get('subespecialidad/elimina/{subespecialidad_id}', 'SubEspecialidadController@elimina');
+Route::get('tecnica/listado', 'TecnicaController@listado');
+Route::post('tecnica/guarda', 'TecnicaController@guarda');
+Route::get('tecnica/elimina/{tecnica_id}', 'TecnicaController@elimina');
 
 // MATERIALES
 Route::get('subespecialidad/listado/{especialidad_id}', 'SubEspecialidadController@listado');
