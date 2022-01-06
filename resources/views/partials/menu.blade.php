@@ -188,6 +188,15 @@
 								<span class="menu-text">Materiales</span>
 							</a>
 						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('cuenta/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Cuentas</span>
+							</a>
+						</li>
 			
 					</ul>
 				</div>

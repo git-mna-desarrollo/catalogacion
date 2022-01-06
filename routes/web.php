@@ -118,3 +118,9 @@ Route::get('tecnica/elimina/{tecnica_id}', 'TecnicaController@elimina');
 Route::get('material/listado', 'MaterialController@listado');
 Route::post('material/guarda', 'MaterialController@guarda');
 Route::get('material/elimina/{material_id}', 'MaterialController@elimina');
+
+
+// CUENTAS
+Route::get('cuenta/listado', 'CuentaController@listado');
+Route::post('cuenta/guarda', 'CuentaController@guarda');
+Route::get('cuenta/elimina/{material_id}', 'CuentaController@elimina');
