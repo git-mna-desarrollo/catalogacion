@@ -15,30 +15,22 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE UBICACION</h5>
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE TECNICAS</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('sitio/guarda') }}" method="POST" id="formulario-tipos">
+                <form action="{{ url('tecnica/guarda') }}" method="POST" id="formulario-tipos">
                     @csrf
                     <div class="row">
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Sigla
+                                <label for="exampleInputPassword1">Nombre
                                     <span class="text-danger">*</span></label>
-                                <input type="hidden" class="form-control" id="id" name="id" />
-                                <input type="text" class="form-control" id="sigla" name="sigla" required />
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Descripcion
-                                    <span class="text-danger">*</span></label>
-                                <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
+                                <input type="hidden" class="text" id="tecnica_id" name="tecnica_id" value="0" />
+                                <input type="text" class="form-control" id="nombre" name="nombre" required />
                             </div>
                         </div>
                     </div>
@@ -59,52 +51,55 @@
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">
         <div class="card-title">
-            <h3 class="card-label">ESTILOS
+            <h3 class="card-label">TECNICAS
             </h3>
         </div>
         <div class="card-toolbar">
             <!--begin::Button-->
             <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-                <i class="fa fa-plus-square"></i> NUEVO ESTILO
+                <i class="fa fa-plus-square"></i> NUEVA TECNICA
             </a>
             <!--end::Button-->
         </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body"> 
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
             <table class="table table-bordered table-hover table-striped" id="tabla-raza">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Sigla</th>
-                        <th>Descripcion</th>
+                        <th>Nombre</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($sitios as $s)
+                    @forelse ($tecnicas as $te)
                     <tr>
-                        <td style="width: 5%">{{ $s->id }}</td>
-                        <td>{{ $s->sigla }}</td>
-                        <td>{{ $s->descripcion }}</td>
+                        <td style="width: 5%">{{ $te->id }}</td>
+                        <td>{{ $te->nombre }}</td>
                         <td style="width: 10%">
                             <button type="button" class="btn btn-sm btn-icon btn-warning"
-                                onclick="edita('{{ $s->id }}', '{{ $s->sigla }}', '{{ $s->descripcion }}')">
+                                onclick="edita('{{ $te->id }}', '{{ $te->nombre }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
-                            @php
-                                $movimientos = App\Movimiento::where('sitio_id', $s->id)
+                            <button type="button" class="btn btn-sm btn-icon btn-danger"
+                                onclick="elimina('{{ $te->id }}', '{{ $te->nombre }}')">
+                                <i class="flaticon2-trash"></i>
+                            </button>
+                            {{-- @php
+                                
+                                $movimientos = App\Movimiento::where('sitio_id', $te->id)
                                                             ->first();
                                 // dd($patrimonios);
                             @endphp
                             @if ($movimientos == null)
                                 <button type="button" class="btn btn-sm btn-icon btn-danger"
-                                    onclick="elimina('{{ $s->id }}', '{{ $s->descripcion }}')">
+                                    onclick="elimina('{{ $te->id }}', '{{ $te->descripcion }}')">
                                     <i class="flaticon2-cross"></i>
                                 </button>
-                            @endif
+                            @endif --}}
                         </td>
                     </tr>
                     @empty
@@ -136,19 +131,17 @@
     	function nuevo()
     	{
 			// pone los inputs vacios
-			$("#id").val('');
+			$("#tecnica_id").val('');
 			$("#nombre").val('');
-			$("#descripcion").val('');
 			// abre el modal
     		$("#modal-es").modal('show');
     	}
 
-		function edita(id, sigla, descripcion)
+		function edita(id,nombre)
     	{
 			// colocamos valores en los inputs
-			$("#id").val(id);
-			$("#sigla").val(sigla);
-			$("#descripcion").val(descripcion);
+			$("#tecnica_id").val(id);
+			$("#nombre").val(nombre);
 
 			// mostramos el modal
     		$("#modal-es").modal('show');
@@ -185,7 +178,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('sitio/elimina') }}/"+id;
+                    window.location.href = "{{ url('tecnica/elimina') }}/"+id;
 
                     Swal.fire(
                         "Borrado!",
