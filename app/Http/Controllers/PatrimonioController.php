@@ -331,7 +331,17 @@ class PatrimonioController extends Controller
                                 ->limit(200)
                                 ->get();
 
-        return view('patrimonio.listado')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas'));
+        $materiales =  Patrimonio::select('materiales')
+                                ->whereNotNull('materiales')
+                                ->groupBy('materiales')
+                                ->get();
+
+        $tecnicas =  Patrimonio::select('tecnicas')
+                                ->whereNotNull('tecnicas')
+                                ->groupBy('tecnicas')
+                                ->get();
+
+        return view('patrimonio.listado')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas'));
     }
 
     public function elimina(Request $request, $id)
@@ -395,10 +405,20 @@ class PatrimonioController extends Controller
             $qPatrimonios->where('estilo_id', "$estilo");
         }
 
-        if($request->filled('tecnicamaterial_id')){
-            $tecnica = $request->input('tecnicamaterial_id');
-            $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
+        if($request->filled('materiales')){
+            $materiales = $request->input('materiales');
+            $qPatrimonios->where('materiales', 'like',"%$materiales%");
         }
+
+        if($request->filled('tecnicas')){
+            $tecnicas = $request->input('tecnicas');
+            $qPatrimonios->where('tecnicas', 'like',"%$tecnicas%");
+        }
+
+        // if($request->filled('tecnicamaterial_id')){
+        //     $tecnica = $request->input('tecnicamaterial_id');
+        //     $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
+        // }
 
         if($request->filled('epoca_busqueda')){
             $epoca = $request->input('epoca_busqueda');

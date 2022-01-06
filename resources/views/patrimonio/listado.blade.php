@@ -89,7 +89,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleInputPassword1">ESPECIALIDAD
                                 <span class="text-danger">*</span>
@@ -105,7 +105,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleInputPassword1">ESTILO
                                 <span class="text-danger">*</span>
@@ -121,21 +121,30 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Tecnica y Material
+                    <div class="col-md-3">
+                        <div class="form-group" >
+                            <label for="exampleInputPassword1">Materiales
                                 <span class="text-danger">*</span></label>
-                            <select class="form-control seleccionadores" id="tecnicamaterial_id" name="tecnicamaterial_id" style="width: 100%">
+                            <select name="materiales" id="materiales" class="form-control seleccionadores">
                                 <option value="">Seleccione</option>
-                                @forelse ($tecnicas as $t)
-                                <option value="{{ $t->id }}">{{ $t->nombre }}</option>
-                                @empty
-                    
-                                @endforelse
+                                @foreach ($materiales as $mate)
+                                    <option value="{{ $mate->materiales }}">{{ $mate->materiales }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-
+                    <div class="col-md-3">
+                        <div class="form-group" >
+                            <label for="exampleInputPassword1">Tecnicas
+                                <span class="text-danger">*</span></label>
+                            <select name="tecnicas" id="tecnicas" class="form-control seleccionadores">
+                                <option value="">Seleccione</option>
+                                @foreach ($tecnicas as $tec)
+                                    <option value="{{ $tec->tecnicas }}">{{ $tec->tecnicas }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
