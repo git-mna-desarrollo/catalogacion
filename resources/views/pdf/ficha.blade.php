@@ -246,7 +246,8 @@
                             <td style="width: 355px; height: 550px; vertical-align: middle;">
                                 @php
                                     $imagen = App\Imagen::where('patrimonio_id', $patrimonio->id)
-                                    ->first();
+                                                ->where('estado', 'Ficha')
+                                                ->first();
                                 @endphp
                                 @if ($imagen)
                                     <img style="vertical-align: top;" width="100%" align="center" src="{{ asset("imagenes/$imagen->imagen") }}" /><br />

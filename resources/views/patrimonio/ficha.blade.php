@@ -164,7 +164,8 @@
                                     <td style="width: 50%;">
                                         @php
                                             $imagen = App\Imagen::where('patrimonio_id', $patrimonio->id)
-                                                    ->first();
+                                                                ->where('estado', 'Ficha')
+                                                                ->first();
 
                                             // dd($imagen);
                                         @endphp

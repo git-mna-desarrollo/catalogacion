@@ -805,6 +805,11 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_1" onchange="showMyImage(this, 1)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <label class="radio radio-lg">
+                                                <input type="radio" name="imagen_en_ficha" value="0" checked="checked" />
+                                                <span></span>
+                                                &nbsp; Imagen en ficha
+                                            </label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_1" class="img-fluid" style="margin-top: 10px;" />
@@ -819,6 +824,11 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_2" onchange="showMyImage(this, 2)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <label class="radio radio-lg">
+                                                <input type="radio" name="imagen_en_ficha" value="1" />
+                                                <span></span>
+                                                &nbsp; Imagen en ficha
+                                            </label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_2" class="img-fluid" style="margin-top: 10px;" />
@@ -832,6 +842,11 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_3" onchange="showMyImage(this, 3)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <label class="radio radio-lg">
+                                                <input type="radio" name="imagen_en_ficha" value="2" />
+                                                <span></span>
+                                                &nbsp; Imagen en ficha
+                                            </label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_3" class="img-fluid" style="margin-top: 10px;" />
@@ -845,6 +860,11 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_4" onchange="showMyImage(this, 4)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <label class="radio radio-lg">
+                                                <input type="radio" name="imagen_en_ficha" value="3" />
+                                                <span></span>
+                                                &nbsp; Imagen en ficha
+                                            </label>
                                         </div>
                                         {{-- <input type="file" accept="image/*" onchange="loadFile(event)"> --}}
                                         <img id="thumbnil_4" class="img-fluid" style="margin-top: 10px;" />

@@ -76,7 +76,7 @@ class PatrimonioController extends Controller
     public function guarda(Request $request)
     {
 
-        // dd($request->all());
+        //dd($request->all());
 
         // preguntamos si el campo patrimonio existe
         if($request->filled('patrimonio_id')){
@@ -254,12 +254,16 @@ class PatrimonioController extends Controller
         {
             foreach ($request->archivo as $key => $f) 
             {
+
                 $archivo = $f;
                 $direccion = 'imagenes/'; // upload path
                 $nombreArchivo = date('YmdHis').$key. "." . $archivo->getClientOriginalExtension();
                 $archivo->move($direccion, $nombreArchivo);
 
                 $imagenProducto              = new Imagen();
+                if($request->input('imagen_en_ficha') == $key){
+                    $imagenProducto->estado = 'Ficha';
+                }
                 $imagenProducto->creador_id  = Auth::user()->id;
                 $imagenProducto->patrimonio_id = $patrimonioId;
                 $imagenProducto->imagen      = $nombreArchivo;
