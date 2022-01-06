@@ -181,6 +181,7 @@ class PatrimonioController extends Controller
             $modificacion->dato_modificado = $request->input('departamento');
         }
 
+        // preguntamos si existe cambio para guardar los datos
         if($patrimonio->isDirty()){
             $modificacion->save();
         }
@@ -494,7 +495,7 @@ class PatrimonioController extends Controller
         $patrimonios = $qPatrimonios->get();
 
         // generacion del excel
-        $fileName = 'certifica_notas.xlsx';
+        $fileName = 'patrimonios.xlsx';
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->setTitle("certifica_cal");
         $sheet = $spreadsheet->getActiveSheet();
