@@ -508,10 +508,20 @@ class PatrimonioController extends Controller
             $qPatrimonios->where('estilo_id', "$estilo");
         }
 
-        if($request->filled('tecnicamaterial_id')){
-            $tecnica = $request->input('tecnicamaterial_id');
-            $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
+        if($request->filled('materiales')){
+            $materiales = $request->input('materiales');
+            $qPatrimonios->where('materiales', 'like',"%$materiales%");
         }
+
+        if($request->filled('tecnicas')){
+            $tecnicas = $request->input('tecnicas');
+            $qPatrimonios->where('tecnicas', 'like',"%$tecnicas%");
+        }
+
+        // if($request->filled('tecnicamaterial_id')){
+        //     $tecnica = $request->input('tecnicamaterial_id');
+        //     $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
+        // }
 
         if($request->filled('epoca_busqueda')){
             $epoca = $request->input('epoca_busqueda');
@@ -536,7 +546,8 @@ class PatrimonioController extends Controller
         $sheet->setCellValue('E2', 'EPOCA');
         $sheet->setCellValue('F2', 'ESPECIALIDAD');
         $sheet->setCellValue('G2', 'ESTILO');
-        $sheet->setCellValue('H2', 'TECNICA');
+        $sheet->setCellValue('H2', 'TECNICAS');
+        $sheet->setCellValue('I2', 'MATERIALES');
 
         $contadorCeldas = 3;
         foreach ($patrimonios as $key => $p) {
@@ -547,8 +558,10 @@ class PatrimonioController extends Controller
             $sheet->setCellValue("D$contadorCeldas", $p->autor);
             $sheet->setCellValue("E$contadorCeldas", $p->epoca);
             $sheet->setCellValue("F$contadorCeldas", ($p->especialidad_id != null)?$p->especialidad->nombre:'');
-            $sheet->setCellValue("G$contadorCeldas", ($p->estilo_id != null)?$p->especialidad->nombre:'');
-            $sheet->setCellValue("H$contadorCeldas", ($p->tecnicamaterial_id != null)?$p->especialidad->nombre:'');
+            $sheet->setCellValue("G$contadorCeldas", ($p->estilo_id != null)?$p->estilo->nombre:'');
+            $sheet->setCellValue("H$contadorCeldas", ($p->tecnicamaterial_id != null)?$p->tecnicas:'');
+            $sheet->setCellValue("I$contadorCeldas", ($p->tecnicamaterial_id != null)?$p->materiales:'');
+
 
             $contadorCeldas++;
         }
@@ -556,7 +569,7 @@ class PatrimonioController extends Controller
         //definimos los estilos
 
         // fusionamos las celdas para el titulo
-        $sheet->mergeCells("A1:H1");
+        $sheet->mergeCells("A1:I1");
 
         // estilo para el titulo principal
         $fuenteNegritaTitulo = array(
@@ -582,7 +595,7 @@ class PatrimonioController extends Controller
                 'name'  => 'Verdana'
             ));
 
-        $spreadsheet->getActiveSheet()->getStyle("A2:H2")->applyFromArray($fuenteNegrita);
+        $spreadsheet->getActiveSheet()->getStyle("A2:I2")->applyFromArray($fuenteNegrita);
 
         // ancho de las columnas
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(25);
@@ -593,10 +606,11 @@ class PatrimonioController extends Controller
         $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(25);
         $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(30);
         $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(30);
+        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(30);
 
         // colocamos los bordes
         $bordeCeldas = --$contadorCeldas;
-        $spreadsheet->getActiveSheet()->getStyle("A2:H$$bordeCeldas")->applyFromArray(
+        $spreadsheet->getActiveSheet()->getStyle("A2:I$$bordeCeldas")->applyFromArray(
             array(
                 'borders' => array(
                     'allBorders' => array(
