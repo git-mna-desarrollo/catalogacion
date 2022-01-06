@@ -19,6 +19,27 @@
                 <h3 class="card-title">NUEVO PATRIMONIO</h3>
                 
             </div>
+            {{-- @dd($datosPatrimonio->tecnicas) --}}
+            {{-- @php
+                $tecnicasDateBase = explode('/',$datosPatrimonio->tecnicas);
+                // dd(explode('/',$datosPatrimonio->tecnicas));
+                // dd(count($tecnicasDateBase));
+                if(count($tecnicasDateBase) > 0){
+                    echo $tecnicasDateBase[0]."<br>";
+                    unset($tecnicasDateBase[0]);
+                }
+
+                if(count($tecnicasDateBase) > 0){
+                    echo $tecnicasDateBase[1]."<br>";
+                    unset($tecnicasDateBase[1]);
+                }
+
+                if(count($tecnicasDateBase) > 0){
+                    echo $tecnicasDateBase[2]."<br>";
+                    unset($tecnicasDateBase[2]);
+                }
+                dd($tecnicasDateBase);
+            @endphp --}}
             <!--begin::Form-->
             <form action="{{ url('patrimonio/guarda') }}" method="POST" id="formularioPersona" enctype="multipart/form-data">
                 @csrf
@@ -317,7 +338,13 @@
                                                 <span class="text-danger">*</span></label>
                                                 <div id="bloque-dependent-especialidad">
                                                     <select name="subEspecialidad" id="subEspecialidad" class="form-control">
-                                                        <option value=""></option>
+                                                        @if ($datosPatrimonio != null)
+                                                            @foreach ($subespecialidades as $sube)
+                                                                <option value="{{ $sube->id }}" {{ ($sube->id == $datosPatrimonio->subespecialidad_id)?  'selected':'' }}>{{ $sube->nombre }}</option>
+                                                            @endforeach
+                                                        @else
+                                                            <option value="">SELECCIONE</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                         </div>
@@ -405,9 +432,13 @@
                                             <label for="exampleInputPassword1">Tecnica 1
                                                 <span class="text-danger">*</span>
                                             </label>
+                                            @php
+                                                $tecnicasDateBase = explode('/',$datosPatrimonio->tecnicas);
+                                            @endphp
                                             <select name="tecnica_1" id="tecnica_1" class="form-control">
                                                 @foreach ($tecnicasSep  as $te)
-                                                    <option value="{{ $te->nombre }}">{{ $te->nombre }}</option>
+                                                    {{-- <option value="{{ $te->nombre }}">{{ $te->nombre }}</option> --}}
+                                                    <option value="{{ $te->nombre }}" {{ ($datosPatrimonio!=null)? (($te->nombre == $tecnicasDateBase[0])? 'selected': ''):''}}>{{ $te->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -417,10 +448,13 @@
                                             <label for="exampleInputPassword1">Tecnica 2
                                                 <span class="text-danger">*</span>
                                             </label>
+                                            @php
+                                                unset($tecnicasDateBase[0]);
+                                            @endphp
                                             <select name="tecnica_2" id="tecnica_2" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($tecnicasSep  as $te)
-                                                    <option value="{{ $te->nombre }}">{{ $te->nombre }}</option>
+                                                    <option value="{{ $te->nombre }}" {{ (count($tecnicasDateBase) > 0)? (($datosPatrimonio!=null)? (($te->nombre == $tecnicasDateBase[1])? 'selected': ''):'') : ''}}>{{ $te->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -430,10 +464,13 @@
                                             <label for="exampleInputPassword1">Tecnica 3
                                                 <span class="text-danger">*</span>
                                             </label>
+                                            @php
+                                                unset($tecnicasDateBase[1]);
+                                            @endphp
                                             <select name="tecnica_3" id="tecnica_3" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($tecnicasSep  as $te)
-                                                    <option value="{{ $te->nombre }}">{{ $te->nombre }}</option>
+                                                    <option value="{{ $te->nombre }}"  {{ (count($tecnicasDateBase) > 0)? (($datosPatrimonio!=null)? (($te->nombre == $tecnicasDateBase[2])? 'selected': ''):'') : ''}} >{{ $te->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -443,9 +480,12 @@
                                             <label for="exampleInputPassword1">Material 1
                                                 <span class="text-danger">*</span>
                                             </label>
+                                            @php
+                                                $materialesDateBase = explode('/',$datosPatrimonio->materiales);
+                                            @endphp
                                             <select name="material_1" id="material_1" class="form-control">
                                                 @foreach ($materiales as $mat)
-                                                    <option value="{{ $mat->nombre }}">{{ $mat->nombre }}</option>
+                                                    <option value="{{ $mat->nombre }}" {{ ($datosPatrimonio!=null)? (($mat->nombre == $materialesDateBase[0])? 'selected': ''):''}}>{{ $mat->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -455,10 +495,13 @@
                                             <label for="exampleInputPassword1">Material 2
                                                 <span class="text-danger">*</span>
                                             </label>
+                                            @php
+                                                unset($materialesDateBase[0]);
+                                            @endphp
                                             <select name="material_2" id="material_2" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($materiales as $mat)
-                                                    <option value="{{ $mat->nombre }}">{{ $mat->nombre }}</option>
+                                                    <option value="{{ $mat->nombre }}" {{ (count($materialesDateBase) > 0)? (($datosPatrimonio!=null)? (($mat->nombre == $materialesDateBase[1])? 'selected': ''):'') : ''}}>{{ $mat->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -468,10 +511,13 @@
                                             <label for="exampleInputPassword1">Material 3
                                                 <span class="text-danger">*</span>
                                             </label>
+                                            @php
+                                                unset($materialesDateBase[1]);
+                                            @endphp
                                             <select name="material_3" id="material_3" class="form-control">
                                                 <option value="">SELELCCIONE</option>
                                                 @foreach ($materiales as $mat)
-                                                    <option value="{{ $mat->nombre }}">{{ $mat->nombre }}</option>
+                                                    <option value="{{ $mat->nombre }}" {{ (count($materialesDateBase) > 0)? (($datosPatrimonio!=null)? (($mat->nombre == $materialesDateBase[2])? 'selected': ''):'') : ''}}>{{ $mat->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -1241,6 +1287,16 @@
         $(document).on('change', '#inmueble', function(event) {
             $('#calle').val($("#inmueble option:selected").text());
         });
+
+        // var valorSlecionado  = document.getElementById('especialidad_id').value;
+        // $.ajax({
+        //     url: "{{ url('patrimonio/ajaxBuscaSubEspecialidad') }}",
+        //     data: {valorSlecionado: valorSlecionado},
+        //     type: 'POST',
+        //     success: function(data) {
+        //         $("#bloque-dependent-especialidad").html(data);
+        //     }
+        // });  
 
         function buacaSubEspecialidad(select){
 

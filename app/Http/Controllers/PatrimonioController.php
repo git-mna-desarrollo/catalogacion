@@ -50,6 +50,8 @@ class PatrimonioController extends Controller
                         ->get();
 
             $provincias = Provincia::where('departamento', $datosPatrimonio->departamento)->get();
+
+            $subespecialidades = SubEspecialidad::where('especialidad_id',$datosPatrimonio->especialidad_id)->get();
             // dd($provincias);
 
         }else{
@@ -71,7 +73,7 @@ class PatrimonioController extends Controller
         $tecnicasSep = Tecnica::all();
         $materiales = Material::all();
 
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales'));
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales', 'subespecialidades'));
     }
 
     public function guarda(Request $request)
