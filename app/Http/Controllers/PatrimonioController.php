@@ -140,6 +140,13 @@ class PatrimonioController extends Controller
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
         $patrimonio->cuenta_id                     = $request->input('cuenta_id');
 
+        // verificamos para ver si son revisiones
+        if($request->filled('trabajo_terminado')){
+            
+        }
+        // fin verificamos para ver si son revisiones
+
+
         $tecnicas = '';
 
         if($request->input('tecnica_1') != null){
