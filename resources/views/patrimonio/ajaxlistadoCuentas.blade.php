@@ -7,10 +7,8 @@
             <th>Codigo</th>
             <th>Nombre</th>
             <th>Autor</th>
-            <th>Epoca</th>
-            <th>Especialidad</th>
-            <th>Estilo</th>
-            <th>Tecnica/Material</th>
+            <th>Cuenta</th>
+            <th>Sub Cuenta</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -39,24 +37,16 @@
             <td>{{ $p->codigo }}</td>
             <td>{{ $p->nombre }}</td>
             <td>{{ $p->autor }}</td>
-            <td>{{ $p->epoca }}</td>
-            <td>
-                @if ($p->especialidad_id != null)
-                    {{ $p->especialidad->nombre }}
-                @endif
-            </td>
-            <td>
-                @if($p->estilo_id != null)
-                    {{ $p->estilo->nombre }}
-                @endif
-            </td>
-            <td>
-                @if ($p->tecnicamaterial_id != null)
-                    {{ $p->tecnicamaterial->nombre }}
-                @else
-                    
-                @endif
-            </td>
+            @php
+                $cuentaSelec = App\Cuenta::find($p->cuenta_id);
+                if($cuentaSelec){
+                    $cuenta = $cuentaSelec->nombre;
+                }else{
+                    $cuenta = '';
+                }
+            @endphp
+            <td>{{ $cuenta }}</td>
+            <td>{{ $p->sub_cuenta }}</td>
             <td>
                 <a
                     href="{{ url('patrimonio/formulario', [$p->id]) }}" 
