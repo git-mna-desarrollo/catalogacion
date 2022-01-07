@@ -26,7 +26,13 @@
 
                 @endphp  
                 @if ($imagen)
+                {{-- <button href="#">
                     <img src="{{ asset("imagenes/$imagen->imagen") }}" height="100" />
+                </button> --}}
+
+                <a type="button" onclick="detalle_foto('{{ $p->codigo_administrativo }}', '{{ $p->nombre }}', '{{ $p->autor }}', '{{ $p->epoca }}', '{{ ($p->especialidad_id != null)?  $p->especialidad->nombre: '' }}', '{{ ($p->estilo_id != null)?  $p->estilo->nombre: '' }}', '{{ $p->tecnicas }}', '{{ $p->materiales }}', '{{ $imagen->imagen }}')">
+                    <img src="{{ asset("imagenes/$imagen->imagen") }}" height="100" />
+                </a>
                 @endif   
             </td>
             <td>{{ $p->codigo_administrativo }}</td>
@@ -99,4 +105,23 @@
         },
         order: [[ 0, "desc" ]]
     });
+
+    function detalle_foto(codigo, nombre, autor, epoca, especialidad, estilo, tecnicas, materiales, imagen){
+
+        // $('.codigo-admin').text(codigo);
+        $('.codigo-admin').val(codigo);
+        $('#inf-nombre').val(nombre);
+        $('#inf-autor').val(autor);
+        $('#inf-epoca').val(epoca);
+        $('#inf-especialidad').val(especialidad);
+        $('#inf-estilo').val(estilo);
+        $('#inf-tecnicas').val(tecnicas);
+        $('#inf-materiales').val(materiales);
+
+        var url = '{{ asset("imagenes") }}/'+imagen;
+
+        $("#mi_imagen").attr("src",url);
+
+        $('#modal-informacion').modal('show');
+    }
 </script>

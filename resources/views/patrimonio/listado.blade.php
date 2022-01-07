@@ -10,6 +10,97 @@
 
 @section('content')
 
+{{-- INICIO DEL MODAL --}}
+
+<div class="modal fade" id="modal-informacion" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-center">MAS INFORMACION</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="container">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">COD-ADMIN:</label>
+                                <input type="text" class="form-control codigo-admin" id="codigo_administrativo" name="codigo_administrativo" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">COD-ADMIN:</label>
+                                <input type="text" class="form-control codigo-admin" id="codigo_administrativo" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">NOMBRE:</label>
+                                <input type="text" class="form-control codigo-admin" id="inf-nombre" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">AUTOR:</label>
+                                <input type="text" class="form-control codigo-admin" id="inf-autor" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">EPOCA:</label>
+                                <input type="text" class="form-control codigo-admin" id="inf-epoca" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">ESPECIALIDAD:</label>
+                                <input type="text" class="form-control codigo-admin" id="inf-especialidad" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">ESTILO:</label>
+                                <input type="text" class="form-control codigo-admin" id="inf-estilo" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">TECNICAS:</label>
+                                <input type="text" class="form-control codigo-admin" id="inf-tecnicas" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="form-group">
+                                <label for="exampleInputPassword1" class="text-info">MATERIALES:</label>
+                                <input type="text" class="form-control codigo-admin" id="inf-materiales" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <img id="mi_imagen"  src="" width="50%"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold"
+                    data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- END DEL MODAL --}}
+
 <!--begin::Card-->
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">
