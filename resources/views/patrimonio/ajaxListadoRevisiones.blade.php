@@ -1,7 +1,7 @@
 <table class="table table-bordered table-hover table-striped" id="tabla-insumos">
     <thead>
         <tr>
-            <th>ID CRT</th>
+            <th>ID</th>
             <th>Img</th>
             <th>COD ADM</th>
             <th>Codigo</th>
@@ -53,23 +53,13 @@
             </td>
             <td>
                 <a href="{{ url('patrimonio/formulario', [$p->id]) }}" type="button"
-                    class="btn btn-sm btn-icon btn-warning" title="Editar">
+                    class="btn btn-sm btn-icon btn-success" title="Revisar">
                     <i class="flaticon2-edit"></i>
                 </a>
 
                 <a href="{{ url('patrimonio/ficha')}}/{{ $p->id }}" class="btn btn-sm btn-icon btn-primary" title="Ver">
                     <i class="flaticon2-paper"></i>
                 </a>
-
-                <a href="{{ url('movimiento/listado/')}}/{{ $p->id }}" class="btn btn-sm btn-icon btn-info"
-                    title="Transferencias">
-                    <i class="fas fa-arrows-alt"></i>
-                </a>
-
-                <button type="button" class="btn btn-sm btn-icon btn-danger"
-                    onclick="elimina('{{ $p->id }}', '{{ $p->nombre }}')" title="Eliminar">
-                    <i class="flaticon2-cross"></i>
-                </button>
             </td>
         </tr>
         @empty

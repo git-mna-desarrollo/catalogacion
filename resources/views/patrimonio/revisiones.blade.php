@@ -30,46 +30,6 @@
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
 
-            <form action="{{ url('patrimonio/capturaCheck') }}" id="formularioBusqueda" method="POST">
-                @csrf
-                <div class="row">
-                <div class="col-md-3">
-                    <div class="checkbox-inline">
-                        <label class="checkbox">
-                            <input type="checkbox" name="codigo" />
-                            <span></span>CODIGO</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="checkbox-inline">
-                        <label class="checkbox">
-                            <input type="checkbox" name="codigo_administrativo" />
-                            <span></span>CODIGO ADMINISTRATIVO</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="checkbox-inline">
-                        <label class="checkbox">
-                            <input type="checkbox" name="nombre" />
-                            <span></span>NOMBRE</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="checkbox-inline">
-                        <label class="checkbox">
-                            <input type="checkbox" name="autor" />
-                            <span></span>AUTOR</label>
-                    </div>
-                </div>
-                </div>    
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary">guardar</button>
-                    </div>
-                </div>
-            </form>
-
-
             <form action="{{ url('patrimonio/generaExcel') }}" id="formularioBusqueda" method="POST">
                 @csrf
                 <div class="row">

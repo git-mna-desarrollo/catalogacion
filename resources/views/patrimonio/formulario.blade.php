@@ -1097,22 +1097,21 @@
 
                         </div>
                     </div>
-                    
-                    <h4>&nbsp;</h4>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label></label>
-                            <div class="checkbox-inline">
-                                <label class="checkbox">
-                                    <input type="checkbox" name="trabajo_terminado" />
-                                    <span></span>TRABAJO TERMINADO</label>
+                    @if (Auth::user()->tipo == 'Catalogador')
+                        <h4>&nbsp;</h4>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label></label>
+                                <div class="checkbox-inline">
+                                    <label class="checkbox checkbox-lg">
+                                        <input type="checkbox" name="trabajo_terminado" />
+                                        <span></span>TRABAJO TERMINADO</label>
+                                </div>
+                                {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
                             </div>
-                            {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
                         </div>
-                    </div>
-                    <h4>&nbsp;</h4>
-                    <h3 class="text-primary text-center">REVISIONES</h3>
-                    <h4>&nbsp;</h4>
+                        <h4>&nbsp;</h4>
+                    @endif
 
                     <div class="row">
                         <div class="col-md-4">
@@ -1125,6 +1124,8 @@
                             <h4><span class="text-primary">APROBADOR: </span> </h4>
                         </div>
                     </div>
+
+                    <h4>&nbsp;</h4>
 
                     <div class="row">
                         <div class="col-md-6">

@@ -23,8 +23,12 @@
 					@auth
 						
 					
-					<h4 class="font-weight-bold my-2">{{ Auth::user()->name }}</h4>
+					<h4 class="font-weight-bold my-2 text-success">{{ Auth::user()->name }}</h4>
 					<div class="text-light mb-2">{{ Auth::user()->perfil }}</div>
+					@if (Auth::user()->tipo == 'Catalogador' || Auth::user()->tipo == 'Revisor' || Auth::user()->tipo == 'Aprovador')
+						<div class="text-warning mb-1">{{ Auth::user()->tipo }}</div>
+					@endif
+					<br />
 					<a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="label label-light-danger label-inline font-weight-bold label-lg">Salir</a>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 													@csrf
