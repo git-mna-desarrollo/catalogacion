@@ -29,6 +29,7 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div class="table-responsive m-t-40">
+
             <form action="{{ url('patrimonio/generaExcel') }}" id="formularioBusqueda" method="POST">
                 @csrf
                 <div class="row">
@@ -133,7 +134,7 @@
 
         // cargamos lo datos del datatable
         $.ajax({
-            url: "{{ url('patrimonio/ajaxListado') }}",
+            url: "{{ url('patrimonio/ajaxListadoRevisiones') }}",
             // data: datosFormulario,
             type: 'POST',
             success: function(data) {
