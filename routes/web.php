@@ -34,6 +34,8 @@ Route::get('panel/inicio', 'PanelController@inicio');
 Route::get('patrimonio/formulario/{idPatrimonio}', 'PatrimonioController@formulario');
 Route::post('patrimonio/guarda', 'PatrimonioController@guarda');
 Route::get('patrimonio/listado', 'PatrimonioController@listado');
+Route::get('patrimonio/listadoCuentas', 'PatrimonioController@listadoCuentas');
+Route::post('patrimonio/ajaxListadoCuentas', 'PatrimonioController@ajaxListadoCuentas');
 Route::get('patrimonio/elimina/{id}', 'PatrimonioController@elimina');
 Route::get('patrimonio/migracion', 'PatrimonioController@migracion');
 Route::get('patrimonio/ficha/{patrimonioId}', 'PatrimonioController@ficha');
@@ -45,6 +47,8 @@ Route::post('patrimonio/ajaxBuscaProvincia', 'PatrimonioController@ajaxBuscaProv
 Route::post('patrimonio/ajaxBuscaSubEspecialidad', 'PatrimonioController@ajaxBuscaSubEspecialidad');
 Route::post('patrimonio/generaExcel', 'PatrimonioController@generaExcel');
 Route::get('patrimonio/revisiones', 'PatrimonioController@revisiones');
+Route::post('patrimonio/generaExcelCuentas', 'PatrimonioController@generaExcelCuentas');
+
 
 // Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresion');
 

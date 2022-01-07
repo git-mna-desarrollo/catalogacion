@@ -16,6 +16,7 @@ class Patrimonio extends Model
         'ubicacion_id', 
         'especialidad_id', 
         'estilo_id', 
+        'cuenta_id',
         'tecnicamaterial_id', 
         'direccion', 
         'nombre', 
@@ -76,5 +77,10 @@ class Patrimonio extends Model
     public function estilo()
     {
         return $this->belongsTo('App\Estilo', 'estilo_id');
+    }
+
+    public function cuenta()
+    {
+        return $this->belongsTo('App\Cuenta', 'cuenta_id');
     }
 }

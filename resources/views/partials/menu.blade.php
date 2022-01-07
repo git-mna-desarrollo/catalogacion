@@ -209,6 +209,29 @@
 				</div>
 			</li>
 
+			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+				<a href="javascript:;" class="menu-link menu-toggle">
+					<span class="menu-icon"><i class="fas fa-cog"></i></span>
+					<span class="menu-text">REPORTES</span>
+					<i class="menu-arrow"></i>
+				</a>
+				<div class="menu-submenu">
+					<i class="menu-arrow"></i>
+					<ul class="menu-subnav">
+			
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('patrimonio/listadoCuentas') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Reporte Cuentas</span>
+							</a>
+						</li>
+			
+					</ul>
+				</div>
+			</li>
+
 		</ul>
 		<!--end::Menu Nav-->
 	</div>

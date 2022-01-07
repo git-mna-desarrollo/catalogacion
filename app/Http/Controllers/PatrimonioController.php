@@ -139,6 +139,7 @@ class PatrimonioController extends Controller
         $patrimonio->reviso                        = $request->input('reviso');
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
         $patrimonio->cuenta_id                     = $request->input('cuenta_id');
+        $patrimonio->sub_cuenta                    = $request->input('sub_cuenta');        
 
         $tecnicas = '';
 
@@ -660,6 +661,217 @@ class PatrimonioController extends Controller
 
         return view('patrimonio.revisiones')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas'));
        
+    }
+
+    public function listadoCuentas(Request $request){
+     
+        // extremos los datos para los combos de las busquedas
+        $tecnicas = Tecnicamaterial::all();
+        $ubicaciones = Ubicacion::all();
+        $especialidades = Especialidad::all();
+        $estilos = Estilo::all();
+
+        $epocas = Patrimonio::select("epoca")
+                            ->groupBy('epoca')
+                            ->get();
+
+        $autores = Patrimonio::select("autor")
+                    ->groupBy("autor")
+                    ->get();
+
+        $patrimonios = Patrimonio::orderBy('id', 'desc')
+                                ->limit(200)
+                                ->get();
+
+        $materiales =  Patrimonio::select('materiales')
+                                ->whereNotNull('materiales')
+                                ->groupBy('materiales')
+                                ->get();
+
+        $tecnicas =  Patrimonio::select('tecnicas')
+                                ->whereNotNull('tecnicas')
+                                ->groupBy('tecnicas')
+                                ->get();
+
+        $cuentas = Patrimonio::whereNotNull('cuenta_id')
+                                ->distinct('cuenta_id')
+                                ->get('cuenta_id');
+
+        return view('patrimonio.listadoCuentas')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas', 'cuentas'));   
+    }
+
+    public function ajaxListadoCuentas(Request $request){
+        // dd($request->all());
+        $qPatrimonios = Patrimonio::query();    
+
+        if($request->filled('codigo')){
+            $codigo = $request->input('codigo');
+            $qPatrimonios->where('codigo', 'like', "%$codigo");
+        }
+
+        if($request->filled('codigo_administrativo')){
+            $codigo_administrativo = $request->input('codigo_administrativo');
+            $qPatrimonios->where('codigo_administrativo', 'like', "$codigo_administrativo");
+        }
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $qPatrimonios->where('nombre', 'like', "%$nombre%");
+        }
+
+        if($request->filled('autor_busqueda')){
+            $autor = $request->input('autor_busqueda');
+            $qPatrimonios->where('autor', 'like', "%$autor%");
+        }
+
+        if($request->filled('cuenta_busqueda')){
+            $cuenta = $request->input('cuenta_busqueda');
+            $qPatrimonios->where('cuenta_id', "$cuenta");
+        }
+
+        if($request->filled('subcuenta_busqueda')){
+            $subcuenta = $request->input('subcuenta_busqueda');
+            $qPatrimonios->where('sub_cuenta','like', "%$subcuenta%");
+        }
+
+        if(!$request->filled('codigo') && !$request->filled('nombre') && !$request->filled('autor_busqueda') && !$request->filled('cuenta_busqueda') && !$request->filled('subcuenta_busqueda')){
+            $qPatrimonios->orderBy('id', 'desc');
+            $qPatrimonios->limit(200);
+        }
+
+        $patrimonios = $qPatrimonios->get();
+
+        return view('patrimonio.ajaxListadoCuentas')->with(compact('patrimonios'));
+    }
+
+    public function generaExcelCuentas(Request $request){
+        // buscamos los patrimonios
+        $qPatrimonios = Patrimonio::query();    
+
+        if($request->filled('codigo')){
+            $codigo = $request->input('codigo');
+            $qPatrimonios->where('codigo', 'like', "%$codigo");
+        }
+
+        if($request->filled('codigo_administrativo')){
+            $codigo_administrativo = $request->input('codigo_administrativo');
+            $qPatrimonios->where('codigo_administrativo', 'like', "$codigo_administrativo");
+        }
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $qPatrimonios->where('nombre', 'like', "%$nombre%");
+        }
+
+        if($request->filled('autor_busqueda')){
+            $autor = $request->input('autor_busqueda');
+            $qPatrimonios->where('autor', 'like', "%$autor%");
+        }
+
+        if($request->filled('cuenta_busqueda')){
+            $cuenta = $request->input('cuenta_busqueda');
+            $qPatrimonios->where('cuenta_id', "$cuenta");
+        }
+
+        if($request->filled('subcuenta_busqueda')){
+            $subcuenta = $request->input('subcuenta_busqueda');
+            $qPatrimonios->where('sub_cuenta','like', "%$subcuenta%");
+        }
+
+        $patrimonios = $qPatrimonios->get();
+
+        // generacion del excel
+        $fileName = 'patrimoniosCuentas.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->setTitle("certifica_cal");
+        $sheet = $spreadsheet->getActiveSheet();
+
+        //colocamos los valores en el excel
+        $sheet->setCellValue('A1', 'LISTADO DE PATRIMONIOS D CUENTAS');
+
+        $sheet->setCellValue('A2', 'CODIGO ADM');
+        $sheet->setCellValue('B2', 'CODIGO');
+        $sheet->setCellValue('C2', 'TITULO');
+        $sheet->setCellValue('D2', 'AUTOR');
+        $sheet->setCellValue('E2', 'CUENTA');
+        $sheet->setCellValue('F2', 'SUB CUENTA');
+
+        $contadorCeldas = 3;
+        foreach ($patrimonios as $key => $p) {
+            $sheet->setCellValue("A$contadorCeldas", $p->codigo_administrativo);
+            $sheet->setCellValue("B$contadorCeldas", $p->codigo);
+            $sheet->setCellValue("C$contadorCeldas", $p->nombre);
+            $sheet->setCellValue("D$contadorCeldas", $p->autor);
+            if($p->cuenta_id != null){
+                $cuentaSelec = Cuenta::find($p->cuenta_id);
+                $cuenta = $cuentaSelec->nombre;
+            }else{
+                $cuenta = '';
+            }
+            $sheet->setCellValue("E$contadorCeldas", $cuenta);
+            $sheet->setCellValue("F$contadorCeldas", $p->sub_cuenta);
+
+            $contadorCeldas++;
+        }
+
+        //definimos los estilos
+
+        // fusionamos las celdas para el titulo
+        $sheet->mergeCells("A1:F1");
+
+        // estilo para el titulo principal
+        $fuenteNegritaTitulo = array(
+            'font'  => array(
+                'bold'  => true,
+                // 'color' => array('rgb' => 'FF0000'),
+                'size'  => 14,
+                'name'  => 'Verdana'
+            ),
+            'alignment' => array(
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            )
+        );
+
+        $spreadsheet->getActiveSheet()->getStyle("A1")->applyFromArray($fuenteNegritaTitulo);
+
+        // titulos encabezados en negrita
+        $fuenteNegrita = array(
+            'font'  => array(
+                'bold'  => true,
+                // 'color' => array('rgb' => 'FF0000'),
+                'size'  => 10,
+                'name'  => 'Verdana'
+            ));
+
+        $spreadsheet->getActiveSheet()->getStyle("A2:F2")->applyFromArray($fuenteNegrita);
+
+        // ancho de las columnas
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(25);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(40);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(40);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(25);
+        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(25);
+
+        // colocamos los bordes
+        $bordeCeldas = --$contadorCeldas;
+        $spreadsheet->getActiveSheet()->getStyle("A2:F$$bordeCeldas")->applyFromArray(
+            array(
+                'borders' => array(
+                    'allBorders' => array(
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => array('argb' => '000000')
+                    )
+                )
+            )
+        );
+
+        
+        // exportamos el excel
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
+        $writer->save('php://output');
     }
 
 }

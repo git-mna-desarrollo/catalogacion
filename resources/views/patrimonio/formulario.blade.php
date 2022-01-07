@@ -988,7 +988,7 @@
 
                                     <div class="col-md-4">
                                         <label>SUBCUENTA:</label>
-                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="nombre_documento[]" />
+                                        <input type="text" class="form-control" placeholder="Resolucion Ministerial" name="sub_cuenta" id="sub_cuenta" value="{{ ($datosPatrimonio != null)? $datosPatrimonio->sub_cuenta : ''}}"/>
                                         <div class="d-md-none mb-2"></div>
                                     </div>
 
