@@ -34,6 +34,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class PatrimonioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // formulario de registro de patrimonios
     public function formulario(Request $request, $idPatrimonio)
     {
