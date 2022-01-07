@@ -630,15 +630,6 @@ class PatrimonioController extends Controller
     }
 
     public function revisiones(){
-            // extremos los datos para los combos de las busquedas
-        $tecnicas = Tecnicamaterial::all();
-        $ubicaciones = Ubicacion::all();
-        $especialidades = Especialidad::all();
-        $estilos = Estilo::all();
-
-        $epocas = Patrimonio::select("epoca")
-                            ->groupBy('epoca')
-                            ->get();
 
         $autores = Patrimonio::select("autor")
                     ->groupBy("autor")
@@ -648,18 +639,82 @@ class PatrimonioController extends Controller
                                 ->limit(200)
                                 ->get();
 
-        $materiales =  Patrimonio::select('materiales')
-                                ->whereNotNull('materiales')
-                                ->groupBy('materiales')
-                                ->get();
-
-        $tecnicas =  Patrimonio::select('tecnicas')
-                                ->whereNotNull('tecnicas')
-                                ->groupBy('tecnicas')
-                                ->get();
-
-        return view('patrimonio.revisiones')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas'));
+        return view('patrimonio.revisiones')->with(compact('patrimonios', 'autores'));
        
+    }
+
+    public function ajaxListadoRevisiones(Request $request){
+                // dd($request->all());
+        $qPatrimonios = Patrimonio::query();    
+
+        if($request->filled('codigo')){
+            $codigo = $request->input('codigo');
+            $qPatrimonios->where('codigo', 'like', "%$codigo");
+        }
+
+        if($request->filled('codigo_administrativo')){
+            $codigo_administrativo = $request->input('codigo_administrativo');
+            $qPatrimonios->where('codigo_administrativo', 'like', "$codigo_administrativo");
+        }
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $qPatrimonios->where('nombre', 'like', "%$nombre%");
+        }
+
+        if($request->filled('autor_busqueda')){
+            $autor = $request->input('autor_busqueda');
+            $qPatrimonios->where('autor', 'like', "%$autor%");
+        }
+
+        if(!$request->filled('codigo') && !$request->filled('nombre') && !$request->filled('autor_busqueda') && !$request->filled('especialidad_id') && !$request->filled('estilo_id') && !$request->filled('tecnicamaterial_id')){
+            $qPatrimonios->orderBy('id', 'desc');
+            $qPatrimonios->limit(200);
+        }
+
+        if(Auth::user()->tipo == 'Catalogador'){
+            $qPatrimonios->where('estado', "%$autor%");
+        }
+
+        $patrimonios = $qPatrimonios->get();
+
+        // dd($patrimonios);
+
+        return view('patrimonio.ajaxListadoRevisiones')->with(compact('patrimonios'));
+
+    }
+
+    public function capturaCheck(Request $request)
+    {
+        // dd($request->all());
+        $campos = array();
+
+        if($request->filled('codigo')){
+            $campos[]='codigo';
+        }       
+
+        if($request->filled('codigo_administrativo')){
+            $campos[]='codigo_administrativo';
+        }       
+
+        if($request->filled('nombre')){
+            $campos[]='nombre';
+        }       
+
+        if($request->filled('autor')){
+            $campos[]='autor';
+        }     
+        
+        $contador = count($campos);
+        $contadorLetras = 65;
+
+        for($i=0; $i < $contador; $i++){
+            echo $campos[$i]."-".chr($contadorLetras)."<br />";
+            $contadorLetras++;
+        }
+
+        // dd(count($campos));
+
     }
 
 }
