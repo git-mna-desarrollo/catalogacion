@@ -168,7 +168,6 @@
                                 <option value="{{ $cuen->cuenta->id }}">{{ $cuen->cuenta->nombre }}</option>
                                 @endforeach
                             </select>
-                            {{-- <input type="text" class="form-control" id=""> --}}
                         </div>
                     </div>
                     <div class="col-md-2">
