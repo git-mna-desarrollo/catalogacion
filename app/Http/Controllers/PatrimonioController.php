@@ -11,6 +11,7 @@ use App\Imagen;
 use App\Tecnica;
 use App\Inmueble;
 use App\Material;
+use App\Revision;
 use App\Documento;
 use App\Localidad;
 use App\Provincia;
@@ -23,9 +24,9 @@ use App\SubEspecialidad;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
 use App\Imports\PatrimoniosImport;
-use Illuminate\Support\Facades\DB;
 
 //para creacion de excel
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -203,7 +204,41 @@ class PatrimonioController extends Controller
 
         $patrimonioId = $patrimonio->id;
 
-        
+        if($request->filled('trabajo_terminado')){
+            $revision = new Revision();
+
+            $revision->user_id = Auth::user()->id;
+            $revision->patrimonio_id = $patrimonioId;
+
+            // catalogador, revisor, aprobador
+            if(Auth::user()->tipo == 'Catalogador'){
+                $revision->estado = 'CATALOGACION';
+                $revision->terminado = 'Si';
+
+                $modPatrimonio = Patrimonio::find($patrimonioId);
+                $modPatrimonio->estado = 'REVISION';
+                $modPatrimonio->save();
+
+            }else if(Auth::user()->tipo == 'Revisor'){
+                $revision->estado = 'REVISION';
+                $revision->terminado = 'Si';
+                
+                $modPatrimonio = Patrimonio::find($patrimonioId);
+                $modPatrimonio->estado = 'APROBACION';
+                $modPatrimonio->save();
+
+            }else{
+                $revision->estado = 'APROBACION';
+                $revision->terminado = 'Si';
+
+                $modPatrimonio = Patrimonio::find($patrimonioId);
+                $modPatrimonio->estado = 'APROBADO';
+                $modPatrimonio->save();
+
+            }
+
+            $revision->save();
+        }
         
         // $patrimonio->isDirty('especialidad_id');
 
@@ -639,6 +674,18 @@ class PatrimonioController extends Controller
 
     public function revisiones(){
 
+        // regularizacion revisiones
+        /*$patrimonios = Patrimonio::all();
+
+        foreach ($patrimonios as $p){
+            $rev = new Revision();
+            $rev->creador_id = Auth::user()->id;
+            $rev->patrimonio_id = $p->id;
+            $rev->estado = "CATALOGACION";
+            $rev->terminado = "No";
+            $rev->save();
+        }*/
+
         $autores = Patrimonio::select("autor")
                     ->groupBy("autor")
                     ->get();
@@ -682,6 +729,10 @@ class PatrimonioController extends Controller
 
         if(Auth::user()->tipo == 'Catalogador'){
             $qPatrimonios->where('estado', "CATALOGACION");
+        }else if(Auth::user()->tipo == 'Revisor'){
+            $qPatrimonios->where('estado', "REVISION");
+        }else{
+            $qPatrimonios->where('estado', "APROBACION");
         }
 
         $patrimonios = $qPatrimonios->get();
@@ -935,623 +986,5 @@ class PatrimonioController extends Controller
         header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
         $writer->save('php://output');
     }
-
-    public function listadoDinamico(Request $request)
-    {
-        // extremos los datos para los combos de las busquedas
-        $tecnicas = Tecnicamaterial::all();
-        $ubicaciones = Ubicacion::all();
-        $especialidades = Especialidad::all();
-        $estilos = Estilo::all();
-
-        $epocas = Patrimonio::select("epoca")
-                            ->groupBy('epoca')
-                            ->get();
-
-        $autores = Patrimonio::select("autor")
-                    ->groupBy("autor")
-                    ->get();
-
-        $patrimonios = Patrimonio::orderBy('id', 'desc')
-                                ->limit(200)
-                                ->get();
-
-        $materiales =  Patrimonio::select('materiales')
-                                ->whereNotNull('materiales')
-                                ->groupBy('materiales')
-                                ->get();
-
-        $tecnicas =  Patrimonio::select('tecnicas')
-                                ->whereNotNull('tecnicas')
-                                ->groupBy('tecnicas')
-                                ->get();
-
-        return view('patrimonio.listadoDinamico')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas'));
-    }
-
-    public function ajaxListadoDinamico(Request $request)
-    {
-        // dd($request->all());
-
-        $qPatrimonios = Patrimonio::query();    
-
-        if($request->filled('codigo')){
-            $codigo = $request->input('codigo');
-            $qPatrimonios->where('codigo', 'like', "%$codigo");
-        }
-
-        if($request->filled('codigo_administrativo')){
-            $codigo_administrativo = $request->input('codigo_administrativo');
-            $qPatrimonios->where('codigo_administrativo', 'like', "$codigo_administrativo");
-        }
-
-        if($request->filled('nombre')){
-            $nombre = $request->input('nombre');
-            $qPatrimonios->where('nombre', 'like', "%$nombre%");
-        }
-
-        if($request->filled('autor_busqueda')){
-            $autor = $request->input('autor_busqueda');
-            $qPatrimonios->where('autor', 'like', "%$autor%");
-        }
-
-        if($request->filled('especialidad_id')){
-            $especialidad = $request->input('especialidad_id');
-            $qPatrimonios->where('especialidad_id', "$especialidad");
-        }
-
-        if($request->filled('estilo_id')){
-            $estilo = $request->input('estilo_id');
-            $qPatrimonios->where('estilo_id', "$estilo");
-        }
-
-        if($request->filled('materiales')){
-            $materiales = $request->input('materiales');
-            $qPatrimonios->where('materiales', 'like',"%$materiales%");
-        }
-
-        if($request->filled('tecnicas')){
-            $tecnicas = $request->input('tecnicas');
-            $qPatrimonios->where('tecnicas', 'like',"%$tecnicas%");
-        }
-
-        // if($request->filled('tecnicamaterial_id')){
-        //     $tecnica = $request->input('tecnicamaterial_id');
-        //     $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
-        // }
-
-        if($request->filled('epoca_busqueda')){
-            $epoca = $request->input('epoca_busqueda');
-            $qPatrimonios->where('epoca', "$epoca");
-        }
-
-        if(!$request->filled('codigo') && !$request->filled('nombre') && !$request->filled('autor_busqueda') && !$request->filled('especialidad_id') && !$request->filled('estilo_id') && !$request->filled('tecnicamaterial_id')){
-            $qPatrimonios->orderBy('id', 'desc');
-            $qPatrimonios->limit(200);
-        }
-
-        $patrimonios = $qPatrimonios->get();
-
-        $tablaDinamica = array();
-
-        if($request->filled('designacion_nombre_muestra')){
-            array_push($tablaDinamica, 'designacion nombre');
-        }
-
-        if($request->filled('especialidad_muestra')){
-            array_push($tablaDinamica, 'especialidad');
-        }
-
-        if($request->filled('estilo_muestra')){
-            array_push($tablaDinamica, 'estilo');
-        }
-
-        if($request->filled('escuela_muestra')){
-            array_push($tablaDinamica, 'escuela');
-        }
-
-        if($request->filled('epoca_muestra')){
-            array_push($tablaDinamica, 'epoca');
-        }
-
-        if($request->filled('autor_muestra')){
-            array_push($tablaDinamica, 'autor');
-        }
-
-        if($request->filled('tecnica_muestra')){
-            array_push($tablaDinamica, 'tecnica');
-        }
-
-        if($request->filled('material_muestra')){
-            array_push($tablaDinamica, 'material');
-        }
-
-        if($request->filled('codigo_muestra')){
-            array_push($tablaDinamica, 'codigo');
-        }
-
-        if($request->filled('obtencion_muestra')){
-            array_push($tablaDinamica, 'obtencion');
-        }
-
-        if($request->filled('fecha_adquisision_muestra')){
-            array_push($tablaDinamica, 'fecha adquisicion');
-        }
-
-        if($request->filled('marcas_muestra')){
-            array_push($tablaDinamica, 'marcas');
-        }
-
-        if($request->filled('descripcion_muestra')){
-            array_push($tablaDinamica, 'descripcion');
-        }
-
-        if($request->filled('especificacion_muestra')){
-            array_push($tablaDinamica, 'especificacion');
-        }
-
-        if($request->filled('intervencion_muestra')){
-            array_push($tablaDinamica, 'intervencion');
-        }
-
-        if($request->filled('caracteristicas_tecnicas_muestra')){
-            array_push($tablaDinamica, 'caracteristicas tecnicas');
-        }
-
-        if($request->filled('caracteristicas_iconograficas_muestra')){
-            array_push($tablaDinamica, 'caracteristicas iconograficas');
-        }
-
-        if($request->filled('historicos_muestra')){
-            array_push($tablaDinamica, 'historicos');
-        }
-
-        if($request->filled('bibliograficas_muestra')){
-            array_push($tablaDinamica, 'bibliograficas');
-        }
-
-        if($request->filled('observaciones_muestra')){
-            array_push($tablaDinamica, 'observaciones');
-        }
-
-        // dd($patrimonios);
-
-        return view('patrimonio.ajaxListadoDinamico')->with(compact('patrimonios', 'tablaDinamica'));
-    
-    }
-
-    public function generaExcelDinamico(Request $request){
-        // dd($request->all());
-        // buscamos los patrimonios
-        $qPatrimonios = Patrimonio::query();    
-
-        if($request->filled('codigo')){
-            $codigo = $request->input('codigo');
-            $qPatrimonios->where('codigo', 'like', "%$codigo");
-        }
-
-        if($request->filled('codigo_administrativo')){
-            $codigo_administrativo = $request->input('codigo_administrativo');
-            $qPatrimonios->where('codigo_administrativo', 'like', "$codigo_administrativo");
-        }
-
-        if($request->filled('nombre')){
-            $nombre = $request->input('nombre');
-            $qPatrimonios->where('nombre', 'like', "%$nombre%");
-        }
-
-        if($request->filled('autor_busqueda')){
-            $autor = $request->input('autor_busqueda');
-            $qPatrimonios->where('autor', 'like', "%$autor%");
-        }
-
-        if($request->filled('especialidad_id')){
-            $especialidad = $request->input('especialidad_id');
-            $qPatrimonios->where('especialidad_id', "$especialidad");
-        }
-
-        if($request->filled('estilo_id')){
-            $estilo = $request->input('estilo_id');
-            $qPatrimonios->where('estilo_id', "$estilo");
-        }
-
-        if($request->filled('materiales')){
-            $materiales = $request->input('materiales');
-            $qPatrimonios->where('materiales', 'like',"%$materiales%");
-        }
-
-        if($request->filled('tecnicas')){
-            $tecnicas = $request->input('tecnicas');
-            $qPatrimonios->where('tecnicas', 'like',"%$tecnicas%");
-        }
-
-        // if($request->filled('tecnicamaterial_id')){
-        //     $tecnica = $request->input('tecnicamaterial_id');
-        //     $qPatrimonios->where('tecnicamaterial_id', "$tecnica");
-        // }
-
-        if($request->filled('epoca_busqueda')){
-            $epoca = $request->input('epoca_busqueda');
-            $qPatrimonios->where('epoca', "$epoca");
-        }
-
-        $patrimonios = $qPatrimonios->get();
-
-
-        $tablaDinamica = array();
-
-        if($request->filled('designacion_nombre_muestra')){
-            array_push($tablaDinamica, 'designacion nombre');
-        }
-
-        if($request->filled('especialidad_muestra')){
-            array_push($tablaDinamica, 'especialidad');
-        }
-
-        if($request->filled('estilo_muestra')){
-            array_push($tablaDinamica, 'estilo');
-        }
-
-        if($request->filled('escuela_muestra')){
-            array_push($tablaDinamica, 'escuela');
-        }
-
-        if($request->filled('epoca_muestra')){
-            array_push($tablaDinamica, 'epoca');
-        }
-
-        if($request->filled('autor_muestra')){
-            array_push($tablaDinamica, 'autor');
-        }
-
-        if($request->filled('tecnica_muestra')){
-            array_push($tablaDinamica, 'tecnica');
-        }
-
-        if($request->filled('material_muestra')){
-            array_push($tablaDinamica, 'material');
-        }
-
-        if($request->filled('codigo_muestra')){
-            array_push($tablaDinamica, 'codigo');
-        }
-
-        if($request->filled('obtencion_muestra')){
-            array_push($tablaDinamica, 'obtencion');
-        }
-
-        if($request->filled('fecha_adquisision_muestra')){
-            array_push($tablaDinamica, 'fecha adquisicion');
-        }
-
-        if($request->filled('marcas_muestra')){
-            array_push($tablaDinamica, 'marcas');
-        }
-
-        if($request->filled('descripcion_muestra')){
-            array_push($tablaDinamica, 'descripcion');
-        }
-
-        if($request->filled('especificacion_muestra')){
-            array_push($tablaDinamica, 'especificacion');
-        }
-
-        if($request->filled('intervencion_muestra')){
-            array_push($tablaDinamica, 'intervencion');
-        }
-
-        if($request->filled('caracteristicas_tecnicas_muestra')){
-            array_push($tablaDinamica, 'caracteristicas tecnicas');
-        }
-
-        if($request->filled('caracteristicas_iconograficas_muestra')){
-            array_push($tablaDinamica, 'caracteristicas iconograficas');
-        }
-
-        if($request->filled('historicos_muestra')){
-            array_push($tablaDinamica, 'historicos');
-        }
-
-        if($request->filled('bibliograficas_muestra')){
-            array_push($tablaDinamica, 'bibliograficas');
-        }
-
-        if($request->filled('observaciones_muestra')){
-            array_push($tablaDinamica, 'observaciones');
-        }
-
-        // generacion del excel
-        $fileName = 'patrimonios.xlsx';
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->getActiveSheet()->setTitle("certifica_cal");
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->setCellValue('A1', 'LISTADO DE PATRIMONIOS');
-
-
-        if(!empty($tablaDinamica)){
-            $numeroletra = 65;
-
-            foreach ($tablaDinamica as $tabDim){
-                $sheet->setCellValue(chr($numeroletra).'2', strtoupper($tabDim));
-                $numeroletra++;
-            }
-
-            $contadorCeldas = 3;
-            $numeroletra = 65;
-            $contador = 0;   
-            $letra = chr($numeroletra);
-
-
-            foreach ($patrimonios as $key => $p){
-                
-                if(in_array("designacion nombre", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->nombre);
-                    $numeroletra++;
-                }
-
-                if(in_array("especialidad", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    if($p->especialidad_id != null){
-                        $sheet->setCellValue("$letra"."$contadorCeldas", $p->especialidad->nombre);
-                    }else{
-                        $sheet->setCellValue("$letra"."$contadorCeldas", '');
-                    }
-                    $numeroletra++;
-                }
-
-                if(in_array("estilo", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    if($p->estilo_id != null){
-                        $sheet->setCellValue("$letra"."$contadorCeldas", $p->estilo->nombre);
-                    }else{
-                        $sheet->setCellValue("$letra"."$contadorCeldas", '');
-                    }
-                    $numeroletra++;
-                }
-
-                if(in_array("escuela", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->escuela);
-                    $numeroletra++;
-                }
-
-                if(in_array("epoca", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->epoca);
-                    $numeroletra++;
-                }
-
-                if(in_array("autor", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->autor);
-                    $numeroletra++;
-                }
-
-                if(in_array("tecnica", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->tecnicas);
-                    $numeroletra++;
-                }
-
-                if(in_array("material", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->materiales);
-                    $numeroletra++;
-                }
-
-                if(in_array("codigo", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->codigo);
-                    $numeroletra++;
-                }
-
-                if(in_array("obtencion", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->obtencion);
-                    $numeroletra++;
-                }
-
-                if(in_array("fecha adquisicion", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->fecha_adquisicion);
-                    $numeroletra++;
-                }
-
-                if(in_array("marcas", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->marcas);
-                    $numeroletra++;
-                }
-
-                if(in_array("descripcion", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->descripcion);
-                    $numeroletra++;
-                }
-
-                if(in_array("especificacion", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->especificacion_conservacion);
-                    $numeroletra++;
-                }
-
-                if(in_array("intervenciones", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->intervenciones_realizadas);
-                    $numeroletra++;
-                }
-
-                if(in_array("caracteristicas tecnicas", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->caracteristicas_tecnicas);
-                    $numeroletra++;
-                }
-
-                if(in_array("caracteristicas iconograficas", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->caracteristicas_iconograficas);
-                    $numeroletra++;
-                }
-
-                if(in_array("historicos", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->historicos);
-                    $numeroletra++;
-                }
-
-                if(in_array("bibliograficas", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->bibliograficas);
-                    $numeroletra++;
-                }
-
-                if(in_array("observaciones", $tablaDinamica)){
-                    $letra = chr($numeroletra);
-                    $sheet->setCellValue("$letra"."$contadorCeldas", $p->observaciones);
-                    $numeroletra++;
-                }
-
-                $numeroletra = 65;
-                $contadorCeldas++;
-            }
-
-            //definimos los estilos
-
-            // fusionamos las celdas para el titulo
-            // dd(count($tablaDinamica));
-            $fun = 64 + count($tablaDinamica);
-            $sheet->mergeCells("A1:".chr($fun)."1");
-
-            // titulos encabezados en negrita
-            $fuenteNegrita = array(
-                'font'  => array(
-                    'bold'  => true,
-                    // 'color' => array('rgb' => 'FF0000'),
-                    'size'  => 10,
-                    'name'  => 'Verdana'
-                ));
-
-            $spreadsheet->getActiveSheet()->getStyle("A2:".chr($fun)."2")->applyFromArray($fuenteNegrita);
-
-            // ancho de las columnas
-            $letraIni = 65;
-
-            for($i = 0; $i < count($tablaDinamica) ; $i++ ){
-                $spreadsheet->getActiveSheet()->getColumnDimension(chr($letraIni))->setWidth(30);
-                $letraIni++;
-            }
-
-            // colocamos los bordes
-            $bordeCeldas = --$contadorCeldas;
-            $spreadsheet->getActiveSheet()->getStyle("A2:".chr($fun).$bordeCeldas)->applyFromArray(
-                array(
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000')
-                        )
-                    )
-                )
-            );
-
-        }else{
-            //colocamos los valores en el excel
-
-            $sheet->setCellValue('A2', 'CODIGO ADM');
-            $sheet->setCellValue('B2', 'CODIGO');
-            $sheet->setCellValue('C2', 'TITULO');
-            $sheet->setCellValue('D2', 'AUTOR');
-            $sheet->setCellValue('E2', 'EPOCA');
-            $sheet->setCellValue('F2', 'ESPECIALIDAD');
-            $sheet->setCellValue('G2', 'ESTILO');
-            $sheet->setCellValue('H2', 'TECNICAS');
-            $sheet->setCellValue('I2', 'MATERIALES');
-
-            $contadorCeldas = 3;
-            foreach ($patrimonios as $key => $p) {
-
-                $sheet->setCellValue("A$contadorCeldas", $p->codigo_administrativo);
-                $sheet->setCellValue("B$contadorCeldas", $p->codigo);
-                $sheet->setCellValue("C$contadorCeldas", $p->nombre);
-                $sheet->setCellValue("D$contadorCeldas", $p->autor);
-                $sheet->setCellValue("E$contadorCeldas", $p->epoca);
-                $sheet->setCellValue("F$contadorCeldas", ($p->especialidad_id != null)?$p->especialidad->nombre:'');
-                $sheet->setCellValue("G$contadorCeldas", ($p->estilo_id != null)?$p->estilo->nombre:'');
-                $sheet->setCellValue("H$contadorCeldas", ($p->tecnicamaterial_id != null)?$p->tecnicas:'');
-                $sheet->setCellValue("I$contadorCeldas", ($p->tecnicamaterial_id != null)?$p->materiales:'');
-
-
-                $contadorCeldas++;
-            }
-
-            //definimos los estilos
-
-            // fusionamos las celdas para el titulo
-            $sheet->mergeCells("A1:I1");
-            
-
-            // titulos encabezados en negrita
-            $fuenteNegrita = array(
-                'font'  => array(
-                    'bold'  => true,
-                    // 'color' => array('rgb' => 'FF0000'),
-                    'size'  => 10,
-                    'name'  => 'Verdana'
-                ));
-
-            $spreadsheet->getActiveSheet()->getStyle("A2:I2")->applyFromArray($fuenteNegrita);
-
-            // ancho de las columnas
-            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(25);
-            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
-            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(40);
-            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(40);
-            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(25);
-            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(25);
-            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(30);
-            $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(30);
-            $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(30);
-
-            // colocamos los bordes
-            $bordeCeldas = --$contadorCeldas;
-            $spreadsheet->getActiveSheet()->getStyle("A2:I$$bordeCeldas")->applyFromArray(
-                array(
-                    'borders' => array(
-                        'allBorders' => array(
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => array('argb' => '000000')
-                        )
-                    )
-                )
-            );
-        }
-
-        // estilo para el titulo principal
-        $fuenteNegritaTitulo = array(
-            'font'  => array(
-                'bold'  => true,
-                // 'color' => array('rgb' => 'FF0000'),
-                'size'  => 14,
-                'name'  => 'Verdana'
-            ),
-            'alignment' => array(
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-            )
-        );
-
-        $spreadsheet->getActiveSheet()->getStyle("A1")->applyFromArray($fuenteNegritaTitulo);
-
-        
-
-        
-        // exportamos el excel
-        $writer = new Xlsx($spreadsheet);
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
-        $writer->save('php://output');
-    }
-
 
 }
