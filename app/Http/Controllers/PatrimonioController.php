@@ -146,13 +146,6 @@ class PatrimonioController extends Controller
         $patrimonio->cuenta_id                     = $request->input('cuenta_id');
         $patrimonio->sub_cuenta                    = $request->input('sub_cuenta');        
 
-        // verificamos para ver si son revisiones
-        if($request->filled('trabajo_terminado')){
-            
-        }
-        // fin verificamos para ver si son revisiones
-
-
         $tecnicas = '';
 
         if($request->input('tecnica_1') != null){
@@ -209,6 +202,8 @@ class PatrimonioController extends Controller
         $patrimonio->save();
 
         $patrimonioId = $patrimonio->id;
+
+        
         
         // $patrimonio->isDirty('especialidad_id');
 
@@ -686,7 +681,7 @@ class PatrimonioController extends Controller
         }
 
         if(Auth::user()->tipo == 'Catalogador'){
-            $qPatrimonios->where('estado', "%$autor%");
+            $qPatrimonios->where('estado', "CATALOGACION");
         }
 
         $patrimonios = $qPatrimonios->get();
