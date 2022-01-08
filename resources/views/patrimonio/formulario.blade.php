@@ -894,6 +894,7 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_1" onchange="showMyImage(this, 1)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <h6>&nbsp;</h6>
                                             <label class="radio radio-lg">
                                                 <input type="radio" name="imagen_en_ficha" value="0" checked="checked" />
                                                 <span></span>
@@ -913,6 +914,7 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_2" onchange="showMyImage(this, 2)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <h6>&nbsp;</h6>
                                             <label class="radio radio-lg">
                                                 <input type="radio" name="imagen_en_ficha" value="1" />
                                                 <span></span>
@@ -931,6 +933,7 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_3" onchange="showMyImage(this, 3)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <h6>&nbsp;</h6>
                                             <label class="radio radio-lg">
                                                 <input type="radio" name="imagen_en_ficha" value="2" />
                                                 <span></span>
@@ -949,6 +952,7 @@
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="archivo[]" id="customFile_4" onchange="showMyImage(this, 4)" />
                                             <label class="custom-file-label" for="customFile">Elegir</label>
+                                            <h6>&nbsp;</h6>
                                             <label class="radio radio-lg">
                                                 <input type="radio" name="imagen_en_ficha" value="3" />
                                                 <span></span>
@@ -1110,8 +1114,9 @@
                                 {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
                             </div>
                         </div>
-                        <h4>&nbsp;</h4>
                     @endif
+
+                    <h4>&nbsp;</h4>
 
                     <div class="row">
                         <div class="col-md-4">

@@ -14,14 +14,8 @@ class Revision extends Model
         'modificador_id', 
         'eliminador_id', 
         'patrimonio_id', 
-        'alto', 
-        'ancho', 
-        'largo', 
-        'profundidad', 
-        'diametro', 
-        'peso', 
-        'circunferencia', 
         'estado',
+        'terminado',
         'deleted_at'
     ];
 
