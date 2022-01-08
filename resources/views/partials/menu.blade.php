@@ -231,6 +231,15 @@
 								<span class="menu-text">Reporte Cuentas</span>
 							</a>
 						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('patrimonio/listadoDinamico') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Reporte Dinamico</span>
+							</a>
+						</li>
 			
 					</ul>
 				</div>

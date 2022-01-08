@@ -35,7 +35,9 @@ Route::get('patrimonio/formulario/{idPatrimonio}', 'PatrimonioController@formula
 Route::post('patrimonio/guarda', 'PatrimonioController@guarda');
 Route::get('patrimonio/listado', 'PatrimonioController@listado');
 Route::get('patrimonio/listadoCuentas', 'PatrimonioController@listadoCuentas');
+Route::get('patrimonio/listadoDinamico', 'PatrimonioController@listadoDinamico');
 Route::post('patrimonio/ajaxListadoCuentas', 'PatrimonioController@ajaxListadoCuentas');
+Route::post('patrimonio/ajaxListadoDinamico', 'PatrimonioController@ajaxListadoDinamico');
 Route::get('patrimonio/elimina/{id}', 'PatrimonioController@elimina');
 Route::get('patrimonio/migracion', 'PatrimonioController@migracion');
 Route::get('patrimonio/ficha/{patrimonioId}', 'PatrimonioController@ficha');
@@ -46,8 +48,9 @@ Route::get('patrimonio/impresion/{patrimonioId}', 'PatrimonioController@impresio
 Route::post('patrimonio/ajaxBuscaProvincia', 'PatrimonioController@ajaxBuscaProvincia');
 Route::post('patrimonio/ajaxBuscaSubEspecialidad', 'PatrimonioController@ajaxBuscaSubEspecialidad');
 Route::post('patrimonio/generaExcel', 'PatrimonioController@generaExcel');
-Route::get('patrimonio/revisiones', 'PatrimonioController@revisiones');
 Route::post('patrimonio/generaExcelCuentas', 'PatrimonioController@generaExcelCuentas');
+Route::post('patrimonio/generaExcelDinamico', 'PatrimonioController@generaExcelDinamico');
+Route::get('patrimonio/revisiones', 'PatrimonioController@revisiones');
 
 Route::post('patrimonio/ajaxListadoRevisiones', 'PatrimonioController@ajaxListadoRevisiones');
 Route::post('patrimonio/capturaCheck', 'PatrimonioController@capturaCheck');
