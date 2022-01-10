@@ -731,7 +731,7 @@ class PatrimonioController extends Controller
         }else if(Auth::user()->tipo == 'Revisor'){
             $qPatrimonios->where('estado', "REVISION");
         }else{
-            $qPatrimonios->where('estado', "APROBACION");
+            $qPatrimonios->where('estado', "APROBADO");
         }
 
         $patrimonios = $qPatrimonios->get();

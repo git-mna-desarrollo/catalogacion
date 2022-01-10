@@ -1101,7 +1101,7 @@
 
                         </div>
                     </div>
-                    @if (Auth::user()->tipo == 'Catalogador')
+                    @if (Auth::user()->tipo == 'Catalogador' || Auth::user()->tipo == 'Revisor' || Auth::user()->tipo == 'Aprobador')
                         <h4>&nbsp;</h4>
                         <div class="col-md-12">
                             <div class="form-group">
