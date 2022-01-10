@@ -236,6 +236,8 @@ class PatrimonioController extends Controller
                 $modPatrimonio->estado = 'APROBADO';
                 $modPatrimonio->save();
 
+                // aqui poner el json de la ficha
+
             }
 
             $revision->save();
