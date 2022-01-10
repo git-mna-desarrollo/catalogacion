@@ -730,8 +730,10 @@ class PatrimonioController extends Controller
             $qPatrimonios->where('estado', "CATALOGACION");
         }else if(Auth::user()->tipo == 'Revisor'){
             $qPatrimonios->where('estado', "REVISION");
-        }else{
+        }else if(Auth::user()->tipo == 'Aprobador'){
             $qPatrimonios->where('estado', "APROBADO");
+        }else{
+            $qPatrimonios->whereNull('estado');
         }
 
         $patrimonios = $qPatrimonios->get();
