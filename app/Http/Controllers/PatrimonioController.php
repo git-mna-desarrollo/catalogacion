@@ -9,6 +9,7 @@ use App\Estado;
 use App\Estilo;
 use App\Imagen;
 use App\Tecnica;
+use App\Version;
 use App\Inmueble;
 use App\Material;
 use App\Revision;
@@ -23,9 +24,9 @@ use App\Modificacion;
 use App\SubEspecialidad;
 use App\Tecnicamaterial;
 use Illuminate\Http\Request;
-use App\Imports\PatrimoniosImport;
 
 //para creacion de excel
+use App\Imports\PatrimoniosImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -77,7 +78,10 @@ class PatrimonioController extends Controller
             $documentos = null;
             $subespecialidades = null;
             $provincias = Provincia::where('departamento','LA PAZ')->get();
-            $revisiones = null;
+
+            $revisionesCatalogador = null;
+            $revisionesRevicion = null;
+            $revisionesAprobacion = null;
         }
 
         // mandamos los datos de los combos al formulario
@@ -247,6 +251,20 @@ class PatrimonioController extends Controller
                 $modPatrimonio->save();
 
                 // aqui poner el json de la ficha
+
+                $version = new Version();
+
+                $version->creador_id            = Auth::user()->id;
+                $version->patrimonio_id         = $patrimonioId;
+                // dd(json_encode($modPatrimonio));
+                // $version->patrimonio            = json_encode();
+                $version->patrimonio            = json_encode($modPatrimonio);
+
+                $version->save();
+                // $version->toSql();
+
+                // dd($version);
+                // dd($version);
 
             }
 
