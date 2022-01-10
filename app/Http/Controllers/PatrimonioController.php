@@ -99,6 +99,7 @@ class PatrimonioController extends Controller
         }else{
             // si no existe creamos uno nuevo
             $patrimonio = new Patrimonio();
+            $patrimonio->estado = 'CATALOGACION';
         }
         // seteamos los datos para el formulario
         $patrimonio->creador_id                    = Auth::user()->id;
@@ -207,7 +208,7 @@ class PatrimonioController extends Controller
         if($request->filled('trabajo_terminado')){
             $revision = new Revision();
 
-            $revision->user_id = Auth::user()->id;
+            $revision->creador_id = Auth::user()->id;
             $revision->patrimonio_id = $patrimonioId;
 
             // catalogador, revisor, aprobador
@@ -242,7 +243,7 @@ class PatrimonioController extends Controller
         
         // $patrimonio->isDirty('especialidad_id');
 
-        // preguntamos el chaeck de monumento_nacional
+        // preguntamos el check de monumento_nacional
         if($request->has('monumento_nacional')){
             $monumento_nacional = 'Si';    
         }else{
@@ -294,8 +295,6 @@ class PatrimonioController extends Controller
             // si no existe creamos uno nuevo
             $estados = new Estado();
         }
-
-        // dd($estados);
 
         // seteamos los datos para guardar
         $estados->patrimonio_id             = $patrimonioId;
