@@ -19,34 +19,6 @@
                 <h3 class="card-title">NUEVO PATRIMONIO</h3>
                 
             </div>
-            {{-- @dd($datosPatrimonio->tecnicas) --}}
-            {{-- @php
-                $tecnicasDateBase = explode('/',$datosPatrimonio->tecnicas);
-                // dd(explode('/',$datosPatrimonio->tecnicas));
-                // dd(count($tecnicasDateBase));
-                if(count($tecnicasDateBase) > 0){
-                    echo $tecnicasDateBase[0]."<br>";
-                    unset($tecnicasDateBase[0]);
-                }
-
-                if(count($tecnicasDateBase) > 0){
-                    echo $tecnicasDateBase[1]."<br>";
-                    unset($tecnicasDateBase[1]);
-                }
-
-                if(count($tecnicasDateBase) > 0){
-                    echo $tecnicasDateBase[2]."<br>";
-                    unset($tecnicasDateBase[2]);
-                }
-                dd($tecnicasDateBase);
-            @endphp --}}
-            <!--begin::Form-->
-            {{-- @dd($tecnicas) --}}
-            {{-- @php
-                foreach ($tecnicas as $key =>$t){
-                    echo ($key+1)."-<>".$t->nombre."<br>";
-                }
-            @endphp --}}
 
             <form action="{{ url('patrimonio/guarda') }}" method="POST" id="formularioPersona" enctype="multipart/form-data">
                 @csrf
@@ -1120,13 +1092,13 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <h4><span class="text-primary">CATALOGADOR: </span> Osvaldo Cruz</h4>
+                            <h4><span class="text-primary">CATALOGADOR: </span> {{ ($revisionesCatalogador != null)? $revisionesCatalogador->creador->name: ''}}</h4>
                         </div>
                         <div class="col-md-4">
-                            <h4><span class="text-primary">REVISOR: </span> </h4>
+                            <h4><span class="text-primary">REVISOR: </span> {{ ($revisionesRevicion != null)? $revisionesRevicion->creador->name: ''}}</h4>
                         </div>
                         <div class="col-md-4">
-                            <h4><span class="text-primary">APROBADOR: </span> </h4>
+                            <h4><span class="text-primary">APROBADOR: </span> {{ ($revisionesAprobacion != null)? $revisionesAprobacion->creador->name: ''}}</h4>
                         </div>
                     </div>
 

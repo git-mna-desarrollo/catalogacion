@@ -60,6 +60,15 @@ class PatrimonioController extends Controller
 
             $subespecialidades = SubEspecialidad::where('especialidad_id',$datosPatrimonio->especialidad_id)->get();
             // dd($provincias);
+            $revisionesCatalogador = Revision::where('patrimonio_id',$idPatrimonio)
+                                                ->where('estado','CATALOGACION')
+                                                ->first();
+            $revisionesRevicion = Revision::where('patrimonio_id',$idPatrimonio)
+                                                ->where('estado','REVISION')
+                                                ->first();
+            $revisionesAprobacion = Revision::where('patrimonio_id',$idPatrimonio)
+                                                ->where('estado','APROBACION')
+                                                ->first();
 
         }else{
             // de lo contrario se envian datos como null
@@ -68,6 +77,7 @@ class PatrimonioController extends Controller
             $documentos = null;
             $subespecialidades = null;
             $provincias = Provincia::where('departamento','LA PAZ')->get();
+            $revisiones = null;
         }
 
         // mandamos los datos de los combos al formulario
@@ -84,8 +94,7 @@ class PatrimonioController extends Controller
         $materiales = Material::all();
 
 
-        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales', 'subespecialidades', 'cuentas'));
-    }
+        return view('patrimonio.formulario')->with(compact('datosPatrimonio', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'imagenes', 'documentos', 'sitios', 'provincias', 'inmuebles', 'tecnicasSep', 'materiales', 'subespecialidades', 'cuentas', 'revisionesCatalogador', 'revisionesRevicion', 'revisionesAprobacion'));    }
 
     public function guarda(Request $request)
     {
@@ -733,12 +742,13 @@ class PatrimonioController extends Controller
         }else if(Auth::user()->tipo == 'Revisor'){
             $qPatrimonios->where('estado', "REVISION");
         }else if(Auth::user()->tipo == 'Aprobador'){
-            $qPatrimonios->where('estado', "APROBADO");
+            $qPatrimonios->where('estado', "APROBACION");
         }else{
             $qPatrimonios->whereNull('estado');
         }
 
         $patrimonios = $qPatrimonios->get();
+        // $patrimonios = $qPatrimonios->toSQl();
 
         // dd($patrimonios);
 
