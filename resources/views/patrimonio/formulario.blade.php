@@ -251,7 +251,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">ALTO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="alto" name="alto" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->alto:'' }}" />
+                                            <input type="number" step="any" class="form-control" id="alto" name="alto" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->alto:'' }}" />
                                         </div>
                                     </div>
 
@@ -259,7 +259,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">ANCHO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="ancho" name="ancho" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->ancho:'' }}" />
+                                            <input type="number" step="any" class="form-control" id="ancho" name="ancho" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->ancho:'' }}" />
                                         </div>
                                     </div>
 
@@ -267,7 +267,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">DIAMETRO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="diametro" name="diametro" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->diametro:'' }}" />
+                                            <input type="number" step="any" class="form-control" id="diametro" name="diametro" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->diametro:'' }}" />
                                         </div>
                                     </div>
 
@@ -275,7 +275,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CIRCUNFERENCIA
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="circunferencia" name="circunferencia" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->circunferencia:'' }}" />
+                                            <input type="number" step="any" class="form-control" id="circunferencia" name="circunferencia" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->circunferencia:'' }}" />
                                         </div>
                                     </div>
 
@@ -283,7 +283,7 @@
                                         <div class="form-group">                                
                                             <label for="exampleInputPassword1">LARGO
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="largo" name="largo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->largo:'' }}" />
+                                            <input type="number" step="any" class="form-control" id="largo" name="largo" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->largo:'' }}" />
                                         </div>
                                     </div>
 
@@ -291,7 +291,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PROFUNDIDAD
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->profundidad:'' }}" />
+                                            <input type="number" step="any" class="form-control" id="profundidad" name="profundidad" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->profundidad:'' }}" />
                                         </div>
                                     </div>
 
@@ -299,7 +299,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">PESO 
                                                 <span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="peso" name="peso" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->peso:'' }}" />
+                                            <input type="number" step="any" class="form-control" id="peso" name="peso" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->peso:'' }}" />
                                         </div>
                                     </div>
                                     
