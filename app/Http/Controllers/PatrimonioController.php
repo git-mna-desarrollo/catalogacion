@@ -154,6 +154,7 @@ class PatrimonioController extends Controller
         $patrimonio->fec_elaboro                   = $request->input('fec_elaboro');
         $patrimonio->reviso                        = $request->input('reviso');
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
+        $patrimonio->valor                         = $request->input('valor');
         $patrimonio->cuenta_id                     = $request->input('cuenta_id');
         $patrimonio->sub_cuenta                    = $request->input('sub_cuenta');        
 

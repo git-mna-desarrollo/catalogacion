@@ -30,6 +30,7 @@ class Patrimonio extends Model
         'obtencion', 
         'fecha_adquisicion', 
         'marcas', 
+        'valor', 
         'dimenciones', 
         'descripcion', 
         'archivo_fotografico', 
