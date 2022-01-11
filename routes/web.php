@@ -51,6 +51,8 @@ Route::post('patrimonio/generaExcel', 'PatrimonioController@generaExcel');
 Route::post('patrimonio/generaExcelCuentas', 'PatrimonioController@generaExcelCuentas');
 Route::post('patrimonio/generaExcelDinamico', 'PatrimonioController@generaExcelDinamico');
 Route::get('patrimonio/revisiones', 'PatrimonioController@revisiones');
+Route::get('patrimonio/listaLog/{patrimonio_id}', 'PatrimonioController@listaLog');
+
 
 Route::post('patrimonio/ajaxListadoRevisiones', 'PatrimonioController@ajaxListadoRevisiones');
 Route::post('patrimonio/capturaCheck', 'PatrimonioController@capturaCheck');

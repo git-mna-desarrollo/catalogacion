@@ -81,6 +81,14 @@
                     <i class="fas fa-arrows-alt"></i>
                 </a>
 
+                <a 
+                    href="{{ url('patrimonio/listaLog/')}}/{{ $p->id }}" 
+                    class="btn btn-sm btn-icon btn-dark" 
+                    title="Transferencias"
+                    >
+                    <i class="fas fa-list-ol"></i>
+                </a>
+
                 <button type="button" class="btn btn-sm btn-icon btn-danger"
                     onclick="elimina('{{ $p->id }}', '{{ $p->nombre }}')"
                     title="Eliminar">
