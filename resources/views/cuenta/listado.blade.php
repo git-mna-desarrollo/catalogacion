@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nombre
                                     <span class="text-danger">*</span></label>
-                                <input type="text" class="text" id="cuenta_id" name="cuenta_id" value="0" />
+                                <input type="hidden" class="text" id="cuenta_id" name="cuenta_id" value="0" />
                                 <input type="text" class="form-control" id="nombre" name="nombre" required />
                             </div>
                         </div>

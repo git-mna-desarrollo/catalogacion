@@ -110,49 +110,49 @@
                                 $campoModificado = '';
                                 switch ($modi->campo) {
                                     case 'UBICACION':
-                                        $ubicacion = App\Ubicacion::find($modi->dato_anterior);
+                                        $ubicacion = App\Ubicacion::find($modi->dato_modificado);
                                         if($ubicacion){
                                             $campoModificado = $ubicacion->nombre;
                                         }
                                         break;
 
                                     case 'RESPONSABLE':
-                                        $respnsable = App\Users::find($modi->dato_anterior);
+                                        $respnsable = App\Users::find($modi->dato_modificado);
                                         if($respnsable){
                                             $campoModificado = $respnsable->name;
                                         }
                                         break;
 
                                     case 'ESPECIALIDAD':
-                                        $especialidad = App\Especialidad::find($modi->dato_anterior);
+                                        $especialidad = App\Especialidad::find($modi->dato_modificado);
                                         if($especialidad){
                                             $campoModificado = $especialidad->nombre;
                                         }
                                         break;
 
                                     case 'SUB ESPECIALIDAD':
-                                        $subespecialidad = App\SubEspecialidad::find($modi->dato_anterior);
+                                        $subespecialidad = App\SubEspecialidad::find($modi->dato_modificado);
                                         if($subespecialidad){
                                             $campoModificado = $subespecialidad->nombre;
                                         }
                                         break;
 
                                     case 'ESTILO':
-                                        $estilo = App\Estilo::find($modi->dato_anterior);
+                                        $estilo = App\Estilo::find($modi->dato_modificado);
                                         if($estilo){
                                             $campoModificado = $estilo->nombre;
                                         }
                                         break;
 
                                     case 'TECNICA MATERIAL':
-                                        $tecnicaMaterial = App\Tecnicamaterial::find($modi->dato_anterior);
+                                        $tecnicaMaterial = App\Tecnicamaterial::find($modi->dato_modificado);
                                         if($tecnicaMaterial){
                                             $campoModificado = $tecnicaMaterial->nombre;
                                         }
                                         break;
 
                                     case 'CUENTA':
-                                        $cuenta = App\Cuenta::find($modi->dato_anterior);
+                                        $cuenta = App\Cuenta::find($modi->dato_modificado);
                                         if($cuenta){
                                             $campoModificado = $cuenta->nombre;
                                         }
