@@ -194,28 +194,400 @@ class PatrimonioController extends Controller
 
         $patrimonio->materiales = $materiales;
 
-        // para los logs
-        // preguntamos si existe algun cambio en los datos
-        if($patrimonio->isDirty()){
-            $modificacion = new Modificacion();
-            $modificacion->patrimonio_id = $patrimonio->id;
-            $modificacion->user_id = Auth::user()->id;
+        // para las modificaciones
+        // $this->addModificaiones($patrimonio, 'departamento', 'DEPARTAMENTO', $request->input('departamento'));
+
+
+        // // para los logs
+        // // preguntamos si existe algun cambio en los datos
+        // if($patrimonio->isDirty()){
+        //     $modificacion = new Modificacion();
+        //     $modificacion->patrimonio_id = $patrimonio->id;
+        //     $modificacion->user_id = Auth::user()->id;
+        // }
+
+        if($patrimonio->isDirty('ubicacion_id')){
+            $this->addModificaiones($patrimonio, 'ubicacion_id', 'UBICACION', $request->input('ubicacion_id'));
         }
 
-        // preguntamos si departamento cambio
-        if($patrimonio->isDirty('departamento')){
-            $modificacion->campo = 'DEPARTAMENTO';
-            $modificacion->dato_anterior = $patrimonio->getOriginal('departamento');
-            $modificacion->dato_modificado = $request->input('departamento');
+        if($patrimonio->isDirty('responsable_id')){
+            $this->addModificaiones($patrimonio, 'responsable_id', 'RESPONSABLE', $request->input('responsable_id'));
         }
 
-        // preguntamos si existe cambio para guardar los datos
-        if($patrimonio->isDirty()){
-            $modificacion->save();
+        if($patrimonio->isDirty('especialidad_id')){
+            $this->addModificaiones($patrimonio, 'especialidad_id', 'ESPECIALIDAD', $request->input('especialidad_id'));
         }
+
+        if($patrimonio->isDirty('subespecialidad_id')){
+            $this->addModificaiones($patrimonio, 'subespecialidad_id', 'SUB ESPECIALIDAD', $request->input('subEspecialidad'));
+        }
+
+        // if($patrimonio->isDirty('estilo_id')){
+        //     $modificacion->campo = 'ESTILO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('estilo_id');
+        //     $modificacion->dato_modificado = $request->input('estilo_id');
+        // }
+
+        // if($patrimonio->isDirty('tecnicamaterial_id')){
+        //     $modificacion->campo = 'TECNICA MATERIAL';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('tecnicamaterial_id');
+        //     $modificacion->dato_modificado = $request->input('tecnicamaterial_id');
+        // }
+
+        // if($patrimonio->isDirty('cuenta_id')){
+        //     $modificacion->campo = 'CUENTA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('cuenta_id');
+        //     $modificacion->dato_modificado = $request->input('cuenta_id');
+        // }
+
+        // if($patrimonio->isDirty('tecnicas')){
+        //     $modificacion->campo = 'TECNICAS';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('tecnicas');
+        //     $modificacion->dato_modificado = $request->input('tecnicas');
+        // }
+
+        // if($patrimonio->isDirty('materiales')){
+        //     $modificacion->campo = 'MATERIALES';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('materiales');
+        //     $modificacion->dato_modificado = $request->input('materiales');
+        // }
+
+
+        // if($patrimonio->isDirty('localidad')){
+        //     $modificacion->campo = 'LOCALIDAD';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('localidad');
+        //     $modificacion->dato_modificado = $request->input('localidad');
+        // }
+
+        // if($patrimonio->isDirty('provincia')){
+        //     $modificacion->campo = 'PROVINCIA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('provincia');
+        //     $modificacion->dato_modificado = $request->input('provincia');
+        // }
+
+        // // preguntamos si departamento cambio
+        // if($patrimonio->isDirty('departamento')){
+        //     $modificacion->campo = 'DEPARTAMENTO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('departamento');
+        //     $modificacion->dato_modificado = $request->input('departamento');
+        // }
+
+        // if($patrimonio->isDirty('inmueble')){
+        //     $modificacion->campo = 'INMUEBLE';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('inmueble');
+        //     $modificacion->dato_modificado = $request->input('inmueble');
+        // }
+
+        // if($patrimonio->isDirty('calle')){
+        //     $modificacion->campo = 'DEPARTAMENTO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('calle');
+        //     $modificacion->dato_modificado = $request->input('calle');
+        // }
+
+        // if($patrimonio->isDirty('nombre')){
+        //     $modificacion->campo = 'NOMBRE';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('nombre');
+        //     $modificacion->dato_modificado = $request->input('nombre');
+        // }
+
+        // if($patrimonio->isDirty('escuela')){
+        //     $modificacion->campo = 'ESCUELA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('escuela');
+        //     $modificacion->dato_modificado = $request->input('escuela');
+        // }
+
+
+        // if($patrimonio->isDirty('epoca')){
+        //     $modificacion->campo = 'EPOCA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('epoca');
+        //     $modificacion->dato_modificado = $request->input('epoca');
+        // }
+
+        // if($patrimonio->isDirty('autor')){
+        //     $modificacion->campo = 'AUTOR';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('autor');
+        //     $modificacion->dato_modificado = $request->input('autor');
+        // }
+
+        // if($patrimonio->isDirty('inventario')){
+        //     $modificacion->campo = 'INVENTARIO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('inventario');
+        //     $modificacion->dato_modificado = $request->input('inventario');
+        // }
+
+        // if($patrimonio->isDirty('inventario_anterior')){
+        //     $modificacion->campo = 'INVENTARIO ANTERIROR';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('inventario_anterior');
+        //     $modificacion->dato_modificado = $request->input('inventario_anterior');
+        // }
+
+        // if($patrimonio->isDirty('codigo')){
+        //     $modificacion->campo = 'CODIGO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('codigo');
+        //     $modificacion->dato_modificado = $request->input('codigo');
+        // }
+
+
+        // if($patrimonio->isDirty('codio_balance')){
+        //     $modificacion->campo = 'CODIGO BALANCE';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('codio_balance');
+        //     $modificacion->dato_modificado = $request->input('codio_balance');
+        // }
+
+        // if($patrimonio->isDirty('origen')){
+        //     $modificacion->campo = 'ORIGEN';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('origen');
+        //     $modificacion->dato_modificado = $request->input('origen');
+        // }
+
+        // if($patrimonio->isDirty('obetencion')){
+        //     $modificacion->campo = 'OBTENCION';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('obetencion');
+        //     $modificacion->dato_modificado = $request->input('obetencion');
+        // }
+
+        // if($patrimonio->isDirty('fecha_adquisicion_texto')){
+        //     $modificacion->campo = 'FECHA ADQUISICION TEXTO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fecha_adquisicion_texto');
+        //     $modificacion->dato_modificado = $request->input('fecha_adquisicion_texto');
+        // }
+
+        // if($patrimonio->isDirty('fecha_adquisicion')){
+        //     $modificacion->campo = 'FECHA ADQUISICION';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fecha_adquisicion');
+        //     $modificacion->dato_modificado = $request->input('fecha_adquisicion');
+        // }
+
+        // if($patrimonio->isDirty('marcas')){
+        //     $modificacion->campo = 'MARCAS';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('marcas');
+        //     $modificacion->dato_modificado = $request->input('marcas');
+        // }
+
+
+        // if($patrimonio->isDirty('alto')){
+        //     $modificacion->campo = 'ALTO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('alto');
+        //     $modificacion->dato_modificado = $request->input('alto');
+        // }
+
+        // if($patrimonio->isDirty('ancho')){
+        //     $modificacion->campo = 'ANCHO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('ancho');
+        //     $modificacion->dato_modificado = $request->input('ancho');
+        // }
+
+        // if($patrimonio->isDirty('diametro')){
+        //     $modificacion->campo = 'DIAMETRO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('diametro');
+        //     $modificacion->dato_modificado = $request->input('diametro');
+        // }
+
+        // if($patrimonio->isDirty('circunferencia')){
+        //     $modificacion->campo = 'CIRCUNFERENCIA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('circunferencia');
+        //     $modificacion->dato_modificado = $request->input('circunferencia');
+        // }
+
+        // if($patrimonio->isDirty('largo')){
+        //     $modificacion->campo = 'LARGO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('largo');
+        //     $modificacion->dato_modificado = $request->input('largo');
+        // }
+
+        // if($patrimonio->isDirty('profundidad')){
+        //     $modificacion->campo = 'PROFUNDIDAD';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('profundidad');
+        //     $modificacion->dato_modificado = $request->input('profundidad');
+        // }
+
+        // if($patrimonio->isDirty('peso')){
+        //     $modificacion->campo = 'PESO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('peso');
+        //     $modificacion->dato_modificado = $request->input('peso');
+        // }
+
+        // if($patrimonio->isDirty('descripcion')){
+        //     $modificacion->campo = 'DESCRIPCION';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('descripcion');
+        //     $modificacion->dato_modificado = $request->input('descripcion');
+        // }
+
+        // if($patrimonio->isDirty('rollo')){
+        //     $modificacion->campo = 'ROLLO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('rollo');
+        //     $modificacion->dato_modificado = $request->input('rollo');
+        // }
+
+        // if($patrimonio->isDirty('fotografo')){
+        //     $modificacion->campo = 'FOTOGRAFO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fotografo');
+        //     $modificacion->dato_modificado = $request->input('fotografo');
+        // }
+
+        // if($patrimonio->isDirty('fecha_fotografia')){
+        //     $modificacion->campo = 'fecha_fotografia';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fecha_fotografia');
+        //     $modificacion->dato_modificado = $request->input('fecha_fotografia');
+        // }
+
+        // if($patrimonio->isDirty('toma')){
+        //     $modificacion->campo = 'TOMA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('toma');
+        //     $modificacion->dato_modificado = $request->input('toma');
+        // }
+
+        // if($patrimonio->isDirty('especificacion_conservacion')){
+        //     $modificacion->campo = 'ESPECIFICACION CONSERVACION';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('especificacion_conservacion');
+        //     $modificacion->dato_modificado = $request->input('especificacion_conservacion');
+        // }
+
+        // if($patrimonio->isDirty('intervenciones_realizadas')){
+        //     $modificacion->campo = 'INTERVENCION REALIZADA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('intervenciones_realizadas');
+        //     $modificacion->dato_modificado = $request->input('intervenciones_realizadas');
+        // }
+
+        // if($patrimonio->isDirty('caracteristicas_tecnicas')){
+        //     $modificacion->campo = 'CARACTERISTICAS TECNICAS';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('caracteristicas_tecnicas');
+        //     $modificacion->dato_modificado = $request->input('caracteristicas_tecnicas');
+        // }
+
+        // if($patrimonio->isDirty('caracteristicas_iconograficas')){
+        //     $modificacion->campo = 'CARACTERISTICAS ICONOGRAFICAS';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('caracteristicas_iconograficas');
+        //     $modificacion->dato_modificado = $request->input('caracteristicas_iconograficas');
+        // }
+        // if($patrimonio->isDirty('datos_historicos')){
+        //     $modificacion->campo = 'DATOS HISTORICOS';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('datos_historicos');
+        //     $modificacion->dato_modificado = $request->input('datos_historicos');
+        // }
+
+        // if($patrimonio->isDirty('referencias_bibliograficas')){
+        //     $modificacion->campo = 'REFERENCIAS BIBLIOGRAFICAS';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('referencias_bibliograficas');
+        //     $modificacion->dato_modificado = $request->input('referencias_bibliograficas');
+        // }
+
+        // if($patrimonio->isDirty('observaciones')){
+        //     $modificacion->campo = 'OBSERVACIONES';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('observaciones');
+        //     $modificacion->dato_modificado = $request->input('observaciones');
+        // }
+
+        // if($patrimonio->isDirty('catalogo')){
+        //     $modificacion->campo = 'CATALOGO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('catalogo');
+        //     $modificacion->dato_modificado = $request->input('catalogo');
+        // }
+
+        // if($patrimonio->isDirty('fec_catalogo')){
+        //     $modificacion->campo = 'FEC CATALOGO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fec_catalogo');
+        //     $modificacion->dato_modificado = $request->input('fec_catalogo');
+        // }
+
+        // if($patrimonio->isDirty('fecha_catalogo')){
+        //     $modificacion->campo = 'FECHA CATALOGO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fecha_catalogo');
+        //     $modificacion->dato_modificado = $request->input('fecha_catalogo');
+        // }
+
+        // if($patrimonio->isDirty('elaboro')){
+        //     $modificacion->campo = 'ELABORO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('elaboro');
+        //     $modificacion->dato_modificado = $request->input('elaboro');
+        // }
+
+        // if($patrimonio->isDirty('fec_elaboro')){
+        //     $modificacion->campo = 'FEC ELABORO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fec_elaboro');
+        //     $modificacion->dato_modificado = $request->input('fec_elaboro');
+        // }
+
+        // if($patrimonio->isDirty('fecha_elaboro')){
+        //     $modificacion->campo = 'FECHA ELABORO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fecha_elaboro');
+        //     $modificacion->dato_modificado = $request->input('fecha_elaboro');
+        // }
+
+        // if($patrimonio->isDirty('reviso')){
+        //     $modificacion->campo = 'REVISO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('reviso');
+        //     $modificacion->dato_modificado = $request->input('reviso');
+        // }
+
+        // if($patrimonio->isDirty('fec_reviso')){
+        //     $modificacion->campo = 'FEC RFVISO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fec_reviso');
+        //     $modificacion->dato_modificado = $request->input('fec_reviso');
+        // }
+
+        // if($patrimonio->isDirty('fecha_reviso')){
+        //     $modificacion->campo = 'FECHA REVISO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fecha_reviso');
+        //     $modificacion->dato_modificado = $request->input('fecha_reviso');
+        // }
+
+        // if($patrimonio->isDirty('estado')){
+        //     $modificacion->campo = 'ESTADO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('estado');
+        //     $modificacion->dato_modificado = $request->input('estado');
+        // }
+
+        // if($patrimonio->isDirty('sub_cuenta')){
+        //     $modificacion->campo = 'SUB CUENTA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('sub_cuenta');
+        //     $modificacion->dato_modificado = $request->input('sub_cuenta');
+        // }
+
+        // if($patrimonio->isDirty('cuenta')){
+        //     $modificacion->campo = 'CUENTA';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('cuenta');
+        //     $modificacion->dato_modificado = $request->input('cuenta');
+        // }
+
+        // if($patrimonio->isDirty('valor')){
+        //     $modificacion->campo = 'VALOR';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('valor');
+        //     $modificacion->dato_modificado = $request->input('valor');
+        // }
+
+        // if($patrimonio->isDirty('fecha_ingreso_adm')){
+        //     $modificacion->campo = 'FECHA INGRESO ADM';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('fecha_ingreso_adm');
+        //     $modificacion->dato_modificado = $request->input('fecha_ingreso_adm');
+        // }
+
+        // if($patrimonio->isDirty('forma_aquisicion')){
+        //     $modificacion->campo = 'FORMA ADQUISICION';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('forma_aquisicion');
+        //     $modificacion->dato_modificado = $request->input('forma_aquisicion');
+        // }
+
+        // if($patrimonio->isDirty('prefijo_administrativo')){
+        //     $modificacion->campo = 'PREFIJO ADMINISTRATIVO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('prefijo_administrativo');
+        //     $modificacion->dato_modificado = $request->input('prefijo_administrativo');
+        // }
+
+        // if($patrimonio->isDirty('codigo_administrativo')){
+        //     $modificacion->campo = 'CODIGO ADMINISTRATIVO';
+        //     $modificacion->dato_anterior = $patrimonio->getOriginal('codigo_administrativo');
+        //     $modificacion->dato_modificado = $request->input('codigo_administrativo');
+        // }
+
+        // // preguntamos si existe cambio para guardar los datos
+        // if($patrimonio->isDirty()){
+        //     $modificacion->save();
+        // }
 
         // fin para los logs
         $patrimonio->save();
+
 
         $patrimonioId = $patrimonio->id;
 
@@ -1635,6 +2007,26 @@ class PatrimonioController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
         $writer->save('php://output');
+    }
+
+    protected function addModificaiones($modelo ,$campo_verificar, $campo_modificado, $dato_modificado){
+        if($modelo->isDirty()){
+
+            $modificacion = new Modificacion();
+            $modificacion->patrimonio_id = $modelo->id;
+            $modificacion->user_id = Auth::user()->id;
+
+            if($modelo->isDirty($campo_verificar)){
+                $modificacion->campo = $campo_modificado;
+                $modificacion->dato_anterior = $modelo->getOriginal($campo_verificar);
+                $modificacion->dato_modificado = $dato_modificado;
+            }
+
+            if($modelo->isDirty()){
+                $modificacion->save();
+            }
+        }
+
     }
 
 }

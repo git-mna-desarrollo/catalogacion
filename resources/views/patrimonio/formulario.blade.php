@@ -193,7 +193,7 @@
                                             <label for="exampleInputPassword1">SITIO
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select class="form-control seleccionadores" id="sitio_id" name="ubicacion_id" style="width: 100%">
+                                            <select class="form-control seleccionadores" id="sitio_id" name="sitio_id" style="width: 100%">
                                                 @forelse ($sitios as $s)
                                                 @php
                                                     if($datosPatrimonio != null && $datosPatrimonio->ubicacion_id==$s->id){
