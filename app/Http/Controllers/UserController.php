@@ -89,4 +89,13 @@ class UserController extends Controller
         $categorias = Categoria::all();
         return view('user.edita')->with(compact('datosUsuario', 'categorias'));                   
     }
+
+    public function validaEmail(Request $request){
+
+        // dd($request->all());
+        $verificaEmail = User::where('email', $request->email)
+                            ->count();
+
+        return response()->json(['vEmail'=>$verificaEmail]);
+    }
 }

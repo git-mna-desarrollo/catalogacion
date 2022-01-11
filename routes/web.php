@@ -66,6 +66,8 @@ Route::post('user/guarda', 'UserController@guarda');
 Route::get('user/ajax_listado', 'UserController@ajax_listado');
 Route::get('user/edita/{id}', 'UserController@edita');
 Route::get('user/elimina/{id}', 'UserController@elimina');
+Route::post('user/validaEmail', 'UserController@validaEmail');
+
 
 // MIGRACION
 Route::get('migracion/patrimonios', 'MigracionController@patrimonios');

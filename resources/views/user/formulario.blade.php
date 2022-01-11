@@ -43,7 +43,8 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Email
                                 <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ ($datosUser != null)?$datosUser->email:'' }}" />
+                                <input type="email" class="form-control" id="email" name="email" value="{{ ($datosUser != null)?$datosUser->email:'' }}" onfocusout="validaEmail()" />
+                                <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -156,6 +157,25 @@
         function edita(idUser)
         {
             window.location.href = "{{ url('user/formulario') }}/"+idUser;
+        }
+
+        function validaEmail()
+        {
+            let email = $("#email").val();
+
+            $.ajax({
+                url: "{{ url('user/validaEmail') }}",
+                data: {email: email},
+                type: 'POST',
+                success: function(data) {
+                    // console.log(data.vEmail);     
+                    if(data.vEmail > 0){
+                        $("#msg-error-email").show();
+                    }else{
+                        $("#msg-error-email").hide();
+                    }
+                }
+            });
         }
 
     </script>
