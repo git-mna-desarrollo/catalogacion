@@ -1328,6 +1328,9 @@
         function muestra(departamento){
             // console.log(departamento.value);
             var provincia = departamento.value;
+
+            document.getElementById('localidad').value = 'CIUDAD DE '+provincia;
+
             $.ajax({
                 url: "{{ url('patrimonio/ajaxBuscaProvincia') }}",
                 data: {provincia: provincia},
