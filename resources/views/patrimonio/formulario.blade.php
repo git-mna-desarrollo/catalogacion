@@ -196,7 +196,7 @@
                                             </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">SITIO
                                                 <span class="text-danger">*</span>
@@ -216,7 +216,7 @@
                                                 @endforelse
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 {{-- fin ubicacion --}}

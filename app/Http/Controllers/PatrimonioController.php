@@ -102,7 +102,6 @@ class PatrimonioController extends Controller
 
     public function guarda(Request $request)
     {
-
         // dd($request->all());
 
         // preguntamos si el campo patrimonio existe
