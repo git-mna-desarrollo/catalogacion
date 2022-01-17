@@ -147,11 +147,19 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">INMUEBLE </label>
                                             {{-- <input type="text" class="form-control" id="inmueble" name="inmueble" value="MUSEO NACIONAL DE ARTE" /> --}}
-                                            <select name="inmueble" id="inmueble" class="form-control">
-                                                @foreach ($inmuebles as $key => $in)
-                                                    <option {{ ($key == 0)? 'selected="selected"': ''}} value="{{ $in->nombre }}">{{ $in->nombre }}</option>
-                                                @endforeach
-                                            </select>
+                                            @if ($datosPatrimonio != null)
+                                                <select name="inmueble" id="inmueble" class="form-control">
+                                                    @foreach ($inmuebles as $key => $in)
+                                                        <option {{ ($in->nombre == $datosPatrimonio->inmueble)? 'selected="selected"': ''}} value="{{ $in->nombre }}" data-direccion="{{ $in->descripcion }}">{{ $in->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            @else
+                                                <select name="inmueble" id="inmueble" class="form-control">
+                                                    @foreach ($inmuebles as $key => $in)
+                                                        <option value="{{ $in->nombre }}" data-direccion="{{ $in->descripcion }}">{{ $in->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -159,7 +167,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">CALLE </label>
                                             {{-- <input type="text" class="form-control" id="calle" name="calle" value="CALLE COMERCIO ESQ. SOCABAYA" /> --}}
-                                            <input type="text" readonly="readonly" class="form-control" id="calle" name="calle"/>
+                                            <input type="text" readonly="readonly" class="form-control" id="calle" name="calle" value="{{ ($datosPatrimonio != null)?$datosPatrimonio->calle:'' }}"/>
                                         </div>
                                     </div>
                                     
@@ -1342,10 +1350,9 @@
             });  
         }
 
-        $('#calle').val($("#inmueble option:selected").text());
-        
         $(document).on('change', '#inmueble', function(event) {
-            $('#calle').val($("#inmueble option:selected").text());
+            var direccion = $('#inmueble option:selected').data('direccion');
+            $('#calle').val(direccion);
         });
 
         // var valorSlecionado  = document.getElementById('especialidad_id').value;
