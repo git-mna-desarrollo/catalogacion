@@ -37,7 +37,13 @@ class TecnicaController extends Controller
 
     }
 
-    public function elimina(Request $request){
+    public function elimina(Request $request, $tecnica_id)
+    {
+        $modTecnica = Tecnica::where('id', $tecnica_id)
+                            ->update(['eliminador_id'=>Auth::id()]);
+
+        $tecnica = Tecnica::destroy($tecnica_id);
+        return redirect("tecnica/listado");
 
     }
 }
