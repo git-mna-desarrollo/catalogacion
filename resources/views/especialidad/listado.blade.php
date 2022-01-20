@@ -142,6 +142,10 @@
                                 onclick="edita('{{ $e->id }}', '{{ $e->nombre }}', '{{ $e->descripcion }}')">
                                 <i class="flaticon2-edit"></i>
                             </button>
+                            <a href="{{ url('')}}" class="btn btn-sm btn-icon btn-primary"
+                                onclick="addSubEsp('{{ $e->id }}', '{{ $e->nombre }}')">
+                                <i class="flaticon2-add"></i>
+                            </a>
                             <button type="button" class="btn btn-sm btn-icon btn-success"
                                 onclick="addSubEsp('{{ $e->id }}', '{{ $e->nombre }}')">
                                 <i class="flaticon2-add"></i>

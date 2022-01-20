@@ -27,7 +27,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Patrimonio</th>
+                        <th>Usuario</th>
                         <th>Campo</th>
                         <th>Dato Anterior</th>
                         <th>Dato Modificado</th>
@@ -38,7 +38,7 @@
                     @forelse ($modificaciones as $modi)
                     <tr>
                         <td style="width: 5%">{{ $modi->id }}</td>
-                        <td>{{ $modi->patrimonio->nombre }}</td>
+                        <td>{{ $modi->user->name }}</td>
                         <td>{{ $modi->campo }}</td>
                         <td>
                         @php
@@ -189,7 +189,7 @@
 <script type="text/javascript">
     $(function () {
 			$('#tabla-raza').DataTable({
-				order: [[ 1, "asc" ]],
+				order: [[ 0, "desc" ]],
 				language: {
 					url: '{{ asset('datatableEs.json') }}'
 				},
