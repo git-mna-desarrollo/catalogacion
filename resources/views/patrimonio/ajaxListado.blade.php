@@ -20,7 +20,7 @@
             <td>{{ $p->id }}</td>
             <td class="text-center">
                 @php
-                    $imagen = App\imagen::where('patrimonio_id', $p->id)
+                    $imagen = App\Imagen::where('patrimonio_id', $p->id)
                                         ->where('estado', 'Ficha')
                                         ->first();
 
