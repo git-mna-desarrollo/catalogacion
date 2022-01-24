@@ -23,7 +23,7 @@
                     $imagen = App\Imagen::where('patrimonio_id', $p->id)
                                         ->where('estado', 'Ficha')
                                         ->first();
-
+                    dd($imagen);
                 @endphp  
                 @if ($imagen)
                 {{-- <button href="#">
