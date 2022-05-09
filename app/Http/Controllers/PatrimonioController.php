@@ -107,7 +107,7 @@ class PatrimonioController extends Controller
         // preguntamos si el campo patrimonio existe
         if($request->filled('patrimonio_id')){
             // si existe habilitamos la edicion
-            $patrimonio = Patrimonio::find($request->input('patrimonio_id')); 
+            $patrimonio = Patrimonio::find($request->input('patrimonio_id'));
         }else{
             // si no existe creamos uno nuevo
             $patrimonio = new Patrimonio();
@@ -131,7 +131,7 @@ class PatrimonioController extends Controller
         $patrimonio->diametro                      = $request->input('diametro');
         $patrimonio->circunferencia                = $request->input('circunferencia');
         $patrimonio->largo                         = $request->input('largo');
-        $patrimonio->profundidad                   = $request->input('profundidad');    
+        $patrimonio->profundidad                   = $request->input('profundidad');
         $patrimonio->peso                          = $request->input('peso');
         $patrimonio->escuela                       = $request->input('escuela');
         $patrimonio->epoca                         = $request->input('epoca');
@@ -159,7 +159,7 @@ class PatrimonioController extends Controller
         $patrimonio->fec_reviso                    = $request->input('fec_reviso');
         $patrimonio->valor                         = $request->input('valor');
         $patrimonio->cuenta_id                     = $request->input('cuenta_id');
-        $patrimonio->sub_cuenta                    = $request->input('sub_cuenta');        
+        $patrimonio->sub_cuenta                    = $request->input('sub_cuenta');
 
         $tecnicas = '';
 
@@ -489,7 +489,7 @@ class PatrimonioController extends Controller
             }else if(Auth::user()->tipo == 'Revisor'){
                 $revision->estado = 'REVISION';
                 $revision->terminado = 'Si';
-                
+
                 $modPatrimonio = Patrimonio::find($patrimonioId);
                 $modPatrimonio->estado = 'APROBACION';
                 $modPatrimonio->save();
@@ -522,51 +522,51 @@ class PatrimonioController extends Controller
 
             $revision->save();
         }
-        
+
         // $patrimonio->isDirty('especialidad_id');
 
         // preguntamos el check de monumento_nacional
         if($request->has('monumento_nacional')){
-            $monumento_nacional = 'Si';    
+            $monumento_nacional = 'Si';
         }else{
-            $monumento_nacional = 'No';    
+            $monumento_nacional = 'No';
         }
         // preguntamos el chaeck de la resolucion_municipal
         if($request->has('resolucion_municipal')){
-            $resolucion_municipal = 'Si';    
+            $resolucion_municipal = 'Si';
         }else{
-            $resolucion_municipal = 'No';    
+            $resolucion_municipal = 'No';
         }
         // preguntamos el chaeck de resolucion_administrativa
         if($request->has('resolucion_administrativa')){
-            $resolucion_administrativa = 'Si';    
+            $resolucion_administrativa = 'Si';
         }else{
-            $resolucion_administrativa = 'No';    
+            $resolucion_administrativa = 'No';
         }
         // preguntamos el chaeck de individual
         if($request->has('individual')){
-            $individual = 'Si';    
+            $individual = 'Si';
         }else{
-            $individual = 'No';    
+            $individual = 'No';
         }
         // preguntamos el chaeck de conjunto
         if($request->has('conjunto')){
-            $conjunto = 'Si';    
+            $conjunto = 'Si';
         }else{
-            $conjunto = 'No';    
+            $conjunto = 'No';
         }
         // preguntamos el chaeck de ninguna
         if($request->has('ninguna')){
-            $ninguna = 'Si';    
+            $ninguna = 'Si';
         }else{
-            $ninguna = 'No';    
+            $ninguna = 'No';
         }
         // preguntamos existe el patrimonio
         // para guardar los estados
         if($request->filled('patrimonio_id')){
             // si existe editamos
             $estados = Estado::where('patrimonio_id', $request->input('patrimonio_id'))
-                                ->first(); 
+                                ->first();
             if($estados != null){
                 $estados = Estado::where('patrimonio_id', $request->input('patrimonio_id'))
                                 ->first();
@@ -591,9 +591,9 @@ class PatrimonioController extends Controller
         $estados->save();
 
         // guardado de las imagenes
-        if ($request->has('archivo')) 
+        if ($request->has('archivo'))
         {
-            foreach ($request->archivo as $key => $f) 
+            foreach ($request->archivo as $key => $f)
             {
 
                 $archivo = $f;
@@ -614,9 +614,9 @@ class PatrimonioController extends Controller
         // fin guardado de las imagenes
 
         // guardado de los documentos
-        if ($request->has('documento')) 
+        if ($request->has('documento'))
         {
-            foreach ($request->documento as $key => $f) 
+            foreach ($request->documento as $key => $f)
             {
                 $archivo = $f;
                 $direccion = 'documentos/'; // upload path
@@ -633,7 +633,7 @@ class PatrimonioController extends Controller
         }
         // fin guardado de las documentos
         return redirect("patrimonio/listado");
-    }   
+    }
 
     public function listado()
     {
@@ -689,7 +689,7 @@ class PatrimonioController extends Controller
     public function ajaxBuscaPatrimonio(Request $request)
     {
         $patrimonios = Patrimonio::where('codigo', $request->input('codigo'))
-                                    ->get();    
+                                    ->get();
 
         return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
     }
@@ -697,7 +697,7 @@ class PatrimonioController extends Controller
     public function ajaxListado(Request $request)
     {
         // dd($request->all());
-        $qPatrimonios = Patrimonio::query();    
+        $qPatrimonios = Patrimonio::query();
 
         if($request->filled('codigo')){
             $codigo = $request->input('codigo');
@@ -759,7 +759,7 @@ class PatrimonioController extends Controller
         // dd($patrimonios);
 
         return view('patrimonio.ajaxListado')->with(compact('patrimonios'));
-    
+
     }
 
     public function impresion(Request $request, $patrimonioId)
@@ -776,7 +776,7 @@ class PatrimonioController extends Controller
 
         // download PDF file with download method
         return $pdf->stream('ficha.pdf');
-    
+
         // return view('patrimonio.ficha')->with(compact('patrimonio'));
     }
 
@@ -800,7 +800,7 @@ class PatrimonioController extends Controller
     public function generaExcel(Request $request)
     {
         // buscamos los patrimonios
-                $qPatrimonios = Patrimonio::query();    
+                $qPatrimonios = Patrimonio::query();
 
         if($request->filled('codigo')){
             $codigo = $request->input('codigo');
@@ -945,7 +945,7 @@ class PatrimonioController extends Controller
             )
         );
 
-        
+
         // exportamos el excel
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -976,12 +976,12 @@ class PatrimonioController extends Controller
                                 ->get();
 
         return view('patrimonio.revisiones')->with(compact('patrimonios', 'autores'));
-       
+
     }
 
     public function ajaxListadoRevisiones(Request $request){
                 // dd($request->all());
-        $qPatrimonios = Patrimonio::query();    
+        $qPatrimonios = Patrimonio::query();
 
         if($request->filled('codigo')){
             $codigo = $request->input('codigo');
@@ -1034,20 +1034,20 @@ class PatrimonioController extends Controller
 
         if($request->filled('codigo')){
             $campos[]='codigo';
-        }       
+        }
 
         if($request->filled('codigo_administrativo')){
             $campos[]='codigo_administrativo';
-        }       
+        }
 
         if($request->filled('nombre')){
             $campos[]='nombre';
-        }       
+        }
 
         if($request->filled('autor')){
             $campos[]='autor';
-        }     
-        
+        }
+
         $contador = count($campos);
         $contadorLetras = 65;
 
@@ -1061,7 +1061,7 @@ class PatrimonioController extends Controller
     }
 
     public function listadoCuentas(Request $request){
-     
+
         // extremos los datos para los combos de las busquedas
         $tecnicas = Tecnicamaterial::all();
         $ubicaciones = Ubicacion::all();
@@ -1094,12 +1094,12 @@ class PatrimonioController extends Controller
                                 ->distinct('cuenta_id')
                                 ->get('cuenta_id');
 
-        return view('patrimonio.listadoCuentas')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas', 'cuentas'));   
+        return view('patrimonio.listadoCuentas')->with(compact('patrimonios', 'tecnicas', 'ubicaciones', 'especialidades', 'estilos', 'autores', 'epocas', 'materiales', 'tecnicas', 'cuentas'));
     }
 
     public function ajaxListadoCuentas(Request $request){
         // dd($request->all());
-        $qPatrimonios = Patrimonio::query();    
+        $qPatrimonios = Patrimonio::query();
 
         if($request->filled('codigo')){
             $codigo = $request->input('codigo');
@@ -1143,7 +1143,7 @@ class PatrimonioController extends Controller
 
     public function generaExcelCuentas(Request $request){
         // buscamos los patrimonios
-        $qPatrimonios = Patrimonio::query();    
+        $qPatrimonios = Patrimonio::query();
 
         if($request->filled('codigo')){
             $codigo = $request->input('codigo');
@@ -1263,7 +1263,7 @@ class PatrimonioController extends Controller
             )
         );
 
-        
+
         // exportamos el excel
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -1309,7 +1309,7 @@ class PatrimonioController extends Controller
     {
         // dd($request->all());
 
-        $qPatrimonios = Patrimonio::query();    
+        $qPatrimonios = Patrimonio::query();
 
         if($request->filled('codigo')){
             $codigo = $request->input('codigo');
@@ -1459,7 +1459,7 @@ class PatrimonioController extends Controller
     public function generaExcelDinamico(Request $request){
         // dd($request->all());
         // buscamos los patrimonios
-        $qPatrimonios = Patrimonio::query();    
+        $qPatrimonios = Patrimonio::query();
 
         if($request->filled('codigo')){
             $codigo = $request->input('codigo');
@@ -1615,7 +1615,7 @@ class PatrimonioController extends Controller
 
             $contadorCeldas = 3;
             $numeroletra = 65;
-            $contador = 0;   
+            $contador = 0;
             $letra = chr($numeroletra);
 
 
@@ -1915,8 +1915,12 @@ class PatrimonioController extends Controller
                                         ->get();
 
         $patrimonio = Patrimonio::find($patrimonio_id);
-        
+
         return view('patrimonio.listadoLog')->with(compact('modificaciones', 'patrimonio'));
     }
 
+    public function regularizaImagenes(Request $request)
+    {
+        
+    }
 }
